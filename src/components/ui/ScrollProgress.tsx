@@ -26,11 +26,11 @@ export function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] z-[100] origin-left"
+      className="fixed top-0 left-0 right-0 h-[3px] z-[100] origin-left"
       style={{
         scaleX,
         background: 'linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple))',
-        boxShadow: '0 0 8px var(--neon-cyan), 0 0 16px var(--neon-magenta)',
+        boxShadow: '0 0 10px var(--neon-cyan), 0 0 20px var(--neon-magenta), 0 0 30px var(--neon-purple)',
       }}
     />
   )

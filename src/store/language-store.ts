@@ -10,6 +10,7 @@ const id = {
     location: "Banyuwangi, Indonesia",
     ctaContact: "Hubungi Saya",
     downloadCV: "Download CV",
+    available: "Tersedia untuk Bekerja",
   },
   about: {
     title: "Tentang Saya",
@@ -40,6 +41,12 @@ const id = {
       motivasi: "Motivasi Diri & Tim",
     },
   },
+  stats: {
+    experience: { value: "3+", label: "Tahun Pengalaman" },
+    hardSkills: { value: "5", label: "Hard Skills" },
+    softSkills: { value: "11", label: "Soft Skills" },
+    clients: { value: "100+", label: "Pelanggan Dilayani" },
+  },
   experience: { title: "Pengalaman Kerja", present: "Sekarang" },
   contact: {
     title: "Hubungi Saya",
@@ -48,6 +55,10 @@ const id = {
     email: "Email",
     subject: "Subjek",
     message: "Pesan",
+    namePlaceholder: "Nama Anda",
+    emailPlaceholder: "email@contoh.com",
+    subjectPlaceholder: "Subjek pesan",
+    messagePlaceholder: "Ceritakan tentang kebutuhan Anda...",
     send: "Kirim Pesan",
     sending: "Mengirim...",
     success: "Pesan berhasil dikirim! Saya akan segera merespons.",
@@ -77,6 +88,7 @@ const en = {
     location: "Banyuwangi, Indonesia",
     ctaContact: "Contact Me",
     downloadCV: "Download CV",
+    available: "Available for Work",
   },
   about: {
     title: "About Me",
@@ -107,6 +119,12 @@ const en = {
       motivasi: "Self & Team Motivation",
     },
   },
+  stats: {
+    experience: { value: "3+", label: "Years Experience" },
+    hardSkills: { value: "5", label: "Hard Skills" },
+    softSkills: { value: "11", label: "Soft Skills" },
+    clients: { value: "100+", label: "Clients Served" },
+  },
   experience: { title: "Work Experience", present: "Present" },
   contact: {
     title: "Get In Touch",
@@ -115,6 +133,10 @@ const en = {
     email: "Email",
     subject: "Subject",
     message: "Message",
+    namePlaceholder: "Your Name",
+    emailPlaceholder: "name@example.com",
+    subjectPlaceholder: "Subject of your message",
+    messagePlaceholder: "Tell me about your needs...",
     send: "Send Message",
     sending: "Sending...",
     success: "Message sent successfully! I'll get back to you soon.",

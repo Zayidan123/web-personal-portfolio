@@ -24,7 +24,7 @@ export function NeonButton({
   disabled = false,
   download = false,
 }: NeonButtonProps) {
-  const baseClasses = 'relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-display text-sm tracking-wider uppercase transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--dark-base)] disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseClasses = 'ripple-effect relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-display text-sm tracking-wider uppercase transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--dark-base)] disabled:opacity-50 disabled:cursor-not-allowed'
 
   const variantClasses = {
     primary: cn(

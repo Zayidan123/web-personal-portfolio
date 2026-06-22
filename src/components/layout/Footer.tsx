@@ -16,7 +16,7 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer ref={ref} className="relative mt-auto border-t border-[var(--glass-border)] bg-[var(--dark-surface)]">
+    <footer ref={ref} className="relative mt-auto border-t border-[var(--glass-border)]" style={{ background: 'linear-gradient(to bottom, var(--dark-base), var(--dark-surface))' }}>
       {/* Decorative top line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--neon-cyan)]/40 to-transparent" />
 
@@ -34,6 +34,13 @@ export function Footer() {
             </span>
             <p className="text-xs text-[var(--text-secondary)] flex items-center gap-1">
               {t('footer.tagline')}
+              <span className="relative flex items-center gap-1 ml-1">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <span className="text-green-400 text-[10px]">Online</span>
+              </span>
             </p>
           </div>
 

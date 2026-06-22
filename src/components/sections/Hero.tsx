@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown, Download, MapPin } from 'lucide-react'
+import { Download, MapPin } from 'lucide-react'
 import { ParticleBackground } from '@/components/ui/ParticleBackground'
 import { NeonButton } from '@/components/ui/NeonButton'
 import { useLanguageStore } from '@/store/language-store'
@@ -161,7 +161,7 @@ export function Hero() {
           className={`font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 ${!glitchDone ? 'glitch-text' : ''}`}
           data-text={t('hero.name')}
         >
-          <span className="text-[var(--neon-cyan)] text-glow-cyan drop-shadow-[0_0_30px_var(--neon-cyan)]">{t('hero.name')}</span>
+          <span className="hero-name-shimmer">{t('hero.name')}</span>
         </motion.h1>
 
         {/* Role Badge */}
@@ -169,11 +169,27 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-5"
+          className="mb-4"
         >
           <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full glass text-xs sm:text-sm font-mono-custom tracking-wider border border-[var(--neon-magenta)]/30 shadow-[var(--glow-magenta)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--neon-magenta)] animate-pulse" />
             <span className="text-[var(--neon-magenta)]">{t('hero.role')}</span>
+          </span>
+        </motion.div>
+
+        {/* Available for Work Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mb-5"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-mono-custom tracking-wider border border-green-500/30 shadow-[0_0_15px_rgba(0,255,136,0.2)]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+            </span>
+            <span className="text-green-400">{t('hero.available')}</span>
           </span>
         </motion.div>
 
@@ -188,7 +204,7 @@ export function Hero() {
           <motion.span
             animate={{ opacity: typingDone ? [1, 0] : 1 }}
             transition={{ duration: 0.6, repeat: typingDone ? Infinity : 0, repeatType: 'reverse' }}
-            className="inline-block w-[2px] h-[1em] bg-[var(--neon-cyan)] ml-0.5 align-middle"
+            className="inline-block w-[2px] h-[1em] bg-[var(--neon-cyan)] ml-0.5 align-middle typing-cursor-glow"
           />
         </motion.p>
 
@@ -236,15 +252,18 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="text-[10px] font-mono-custom text-[var(--neon-cyan)] tracking-[0.3em] uppercase"
         >
-          Scroll
+          SCROLL
         </motion.span>
-        <div className="w-[1px] h-8 bg-gradient-to-b from-[var(--neon-cyan)]/60 to-transparent" />
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDown className="h-5 w-5 text-[var(--neon-cyan)] drop-shadow-[0_0_8px_var(--neon-cyan)]" />
-        </motion.div>
+        <div className="flex flex-col gap-1">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              animate={{ opacity: [0.1, 0.8, 0.1], scaleX: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.3, ease: 'easeInOut' }}
+              className="w-4 h-[2px] bg-[var(--neon-cyan)] rounded-full"
+            />
+          ))}
+        </div>
       </motion.div>
     </section>
   )

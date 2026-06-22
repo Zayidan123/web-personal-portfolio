@@ -45,11 +45,11 @@ const borderMap = {
 }
 
 const hardSkills = [
-  { icon: Monitor, key: 'about.skills.computer' },
-  { icon: Video, key: 'about.skills.video' },
-  { icon: Palette, key: 'about.skills.design' },
-  { icon: Sparkles, key: 'about.skills.ai' },
-  { icon: TrendingUp, key: 'about.skills.financial' },
+  { icon: Monitor, key: 'about.skills.computer', proficiency: 85 },
+  { icon: Video, key: 'about.skills.video', proficiency: 75 },
+  { icon: Palette, key: 'about.skills.design', proficiency: 80 },
+  { icon: Sparkles, key: 'about.skills.ai', proficiency: 70 },
+  { icon: TrendingUp, key: 'about.skills.financial', proficiency: 65 },
 ]
 
 const softSkills = [
@@ -84,7 +84,7 @@ export function About() {
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
             {t('about.title')}
           </h2>
-          <div className="h-0.5 w-16 bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)] rounded-full" />
+          <div className="section-title-line" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -102,12 +102,14 @@ export function About() {
               <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[var(--neon-magenta)]" />
               <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-[var(--neon-magenta)]" />
 
-              <div className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border border-[var(--glass-border)] shadow-[var(--glow-cyan)]">
-                <img
-                  src="/zayidan-photo.png"
-                  alt="Zayidan Muttaqin - Sales, Leadership, Communication"
-                  className="w-full h-full object-cover"
-                />
+              <div className="avatar-gradient-border">
+                <div className="avatar-inner w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
+                  <img
+                    src="/zayidan-photo.png"
+                    alt="Zayidan Muttaqin - Sales, Leadership, Communication"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
 
               <div className="absolute inset-0 rounded-2xl border-2 border-[var(--neon-cyan)]/20 pointer-events-none animate-pulse" />
@@ -120,7 +122,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="w-full max-w-sm"
             >
-              <div className="p-5 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-[var(--glow-cyan)]">
+              <div className="p-5 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-[var(--glow-cyan)] glass-noise">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--neon-purple)]/30 bg-[var(--neon-purple)]/10">
                     <GraduationCap className="h-5 w-5 text-[var(--neon-purple)]" />
@@ -169,7 +171,7 @@ export function About() {
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.5 + idx * 0.15 }}
                   >
-                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} glass-hover-glow`}>
+                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} glass-card-advanced`}>
                       <Icon className={`h-6 w-6 ${iconColorMap[skill.color]} mb-2`} />
                       <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)] mb-1">
                         {t(skill.titleKey)}
@@ -211,7 +213,20 @@ export function About() {
                       className="flex items-center gap-3 p-3 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-cyan)]/30 transition-all duration-300 min-h-[44px]"
                     >
                       <Icon className="h-4 w-4 text-[var(--neon-cyan)] shrink-0" />
-                      <span className="text-xs sm:text-sm text-[var(--text-primary)] leading-snug min-w-0">{t(skill.key)}</span>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-xs sm:text-sm text-[var(--text-primary)] leading-snug block">{t(skill.key)}</span>
+                        <div className="mt-1.5 w-full h-1 rounded-full overflow-hidden skill-bar-track" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={skillsInView ? { width: `${skill.proficiency}%` } : { width: 0 }}
+                            transition={{ duration: 1, delay: 0.4 + idx * 0.1, ease: 'easeOut' }}
+                            className="h-full rounded-full"
+                            style={{
+                              background: 'linear-gradient(90deg, var(--neon-cyan), transparent)',
+                            }}
+                          />
+                        </div>
+                      </div>
                     </motion.div>
                   )
                 })}

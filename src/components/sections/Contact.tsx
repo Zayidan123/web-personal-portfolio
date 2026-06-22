@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useWalletStore, shortenAddress } from '@/store/wallet-store'
+import { useToastStore } from '@/store/toast-store'
 import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown } from 'lucide-react'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -12,6 +13,7 @@ type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 export function Contact() {
   const { t } = useLanguageStore()
   const { address } = useWalletStore()
+  const { addToast } = useToastStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [formStatus, setFormStatus] = useState<FormStatus>('idle')
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
@@ -31,16 +33,20 @@ export function Contact() {
         if (res.ok) {
           setFormStatus('success')
           setFormData({ name: '', email: '', subject: '', message: '' })
+          addToast(t('contact.success'), 'success')
         } else {
           setFormStatus('error')
+          addToast(t('contact.error'), 'error')
         }
       } catch {
         setFormStatus('error')
+        addToast(t('contact.error'), 'error')
       }
     } else {
       await new Promise(resolve => setTimeout(resolve, 1500))
       setFormStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
+      addToast(t('contact.success'), 'success')
     }
   }
 
@@ -76,7 +82,7 @@ export function Contact() {
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
             {t('contact.title')}
           </h2>
-          <div className="h-0.5 w-16 bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)] rounded-full" />
+          <div className="section-title-line" />
           <p className="mt-4 text-sm sm:text-base text-[var(--text-secondary)] max-w-xl">
             {t('contact.subtitle')}
           </p>
@@ -99,7 +105,7 @@ export function Contact() {
                   download={'download' in item && item.download ? true : undefined}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="flex items-start gap-4 p-4 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-lg hover:scale-[1.02] group"
+                  className="flex items-start gap-4 p-4 rounded-xl glass border border-[var(--glass-border)] glass-card-advanced transition-all duration-300 group"
                   style={{ '--hover-glow': item.color } as React.CSSProperties}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${item.color}33`
@@ -132,7 +138,7 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <div className="relative p-6 sm:p-8 rounded-xl glass border border-[var(--glass-border)]">
+            <div className="relative p-6 sm:p-8 rounded-xl glass border border-[var(--glass-border)] glass-noise">
               {/* HUD Brackets */}
               <div className="absolute -top-px -left-px w-5 h-5 border-t-2 border-l-2 border-[var(--neon-cyan)]" />
               <div className="absolute -top-px -right-px w-5 h-5 border-t-2 border-r-2 border-[var(--neon-magenta)]" />
@@ -168,7 +174,7 @@ export function Contact() {
                         value={formData.name}
                         onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         className="w-full px-4 py-2.5 rounded-lg bg-transparent border border-[var(--glass-border)] text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)]/40 transition-all duration-300 focus:outline-none focus:border-[var(--neon-cyan)] focus:shadow-[var(--glow-cyan)]"
-                        placeholder="John Doe"
+                        placeholder={t('contact.namePlaceholder')}
                       />
                     </div>
                     {/* Email */}
@@ -182,7 +188,7 @@ export function Contact() {
                         value={formData.email}
                         onChange={e => setFormData(prev => ({ ...prev, email: e.target.value }))}
                         className="w-full px-4 py-2.5 rounded-lg bg-transparent border border-[var(--glass-border)] text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)]/40 transition-all duration-300 focus:outline-none focus:border-[var(--neon-cyan)] focus:shadow-[var(--glow-cyan)]"
-                        placeholder="john@example.com"
+                        placeholder={t('contact.emailPlaceholder')}
                       />
                     </div>
                   </div>
@@ -198,7 +204,7 @@ export function Contact() {
                       value={formData.subject}
                       onChange={e => setFormData(prev => ({ ...prev, subject: e.target.value }))}
                       className="w-full px-4 py-2.5 rounded-lg bg-transparent border border-[var(--glass-border)] text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)]/40 transition-all duration-300 focus:outline-none focus:border-[var(--neon-cyan)] focus:shadow-[var(--glow-cyan)]"
-                      placeholder="Project Inquiry"
+                      placeholder={t('contact.subjectPlaceholder')}
                     />
                   </div>
 
@@ -213,7 +219,7 @@ export function Contact() {
                       value={formData.message}
                       onChange={e => setFormData(prev => ({ ...prev, message: e.target.value }))}
                       className="w-full px-4 py-2.5 rounded-lg bg-transparent border border-[var(--glass-border)] text-sm text-[var(--text-primary)] placeholder-[var(--text-secondary)]/40 transition-all duration-300 focus:outline-none focus:border-[var(--neon-cyan)] focus:shadow-[var(--glow-cyan)] resize-none"
-                      placeholder="Tell me about your project..."
+                      placeholder={t('contact.messagePlaceholder')}
                     />
                   </div>
 
@@ -229,7 +235,7 @@ export function Contact() {
                   <button
                     type="submit"
                     disabled={formStatus === 'loading'}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-display text-sm tracking-wider uppercase border border-[var(--neon-cyan)] text-[var(--neon-cyan)] transition-all duration-300 hover:shadow-[var(--glow-cyan)] hover:bg-[var(--neon-cyan)] hover:text-[var(--dark-base)] disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full sm:w-auto ripple-effect inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg font-display text-sm tracking-wider uppercase border border-[var(--neon-cyan)] text-[var(--neon-cyan)] transition-all duration-300 hover:shadow-[var(--glow-cyan)] hover:bg-[var(--neon-cyan)] hover:text-[var(--dark-base)] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {formStatus === 'loading' ? (
                       <>

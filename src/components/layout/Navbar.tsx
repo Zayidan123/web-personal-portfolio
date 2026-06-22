@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Heart } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { WalletConnectButton } from '@/components/ui/WalletConnectButton'
@@ -125,7 +125,7 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/60 z-40 md:hidden"
+              className="fixed inset-0 bg-black/60 z-[55] md:hidden"
               onClick={() => setMobileOpen(false)}
             />
             <motion.div
@@ -133,28 +133,65 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-72 z-50 glass-strong md:hidden flex flex-col p-6 pt-20"
+              className="fixed top-0 right-0 bottom-0 w-72 z-[60] md:hidden flex flex-col"
+              style={{ borderLeft: '2px solid transparent' }}
             >
-              <div className="flex flex-col gap-4">
-                {navItems.map(item => (
-                  <a
-                    key={item.key}
-                    href={item.href}
-                    onClick={(e) => { e.preventDefault(); handleNavClick(item.href) }}
-                    className={cn(
-                      'text-lg font-display tracking-wider py-2 transition-colors duration-300 border-b border-[var(--glass-border)]',
-                      activeSection === item.key
-                        ? 'text-[var(--neon-cyan)]'
-                        : 'text-[var(--text-secondary)] hover:text-[var(--neon-cyan)]'
-                    )}
-                  >
-                    {t(`nav.${item.key}`)}
-                  </a>
-                ))}
-              </div>
-              <div className="mt-6 flex flex-col gap-4">
-                <LanguageToggle />
-                <WalletConnectButton />
+              {/* Decorative top accent line */}
+              <div className="h-1 bg-gradient-to-r from-[var(--neon-cyan)] via-[var(--neon-magenta)] to-[var(--neon-purple)] shrink-0" />
+
+              {/* Pulsing border-left accent */}
+              <div className="absolute top-1 left-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--neon-cyan)] via-[var(--neon-magenta)] to-transparent animate-pulse" />
+
+              {/* Drawer content wrapper */}
+              <div className="flex-1 flex flex-col glass-strong overflow-hidden">
+                {/* Logo */}
+                <div className="px-6 pt-6 pb-4">
+                  <span className="font-display text-lg font-bold tracking-wider text-[var(--neon-cyan)] text-glow-cyan">
+                    ZAYIDAN
+                  </span>
+                </div>
+
+                {/* Nav Links */}
+                <div className="flex flex-col gap-1 px-3 flex-1">
+                  {navItems.map(item => (
+                    <a
+                      key={item.key}
+                      href={item.href}
+                      onClick={(e) => { e.preventDefault(); handleNavClick(item.href) }}
+                      className={cn(
+                        'relative flex items-center pl-4 pr-4 py-3 text-base font-display tracking-wider rounded-lg transition-all duration-300',
+                        activeSection === item.key
+                          ? 'text-[var(--neon-cyan)] bg-[var(--neon-cyan)]/8'
+                          : 'text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:bg-gradient-to-r hover:from-[var(--neon-cyan)]/5 hover:to-transparent'
+                      )}
+                    >
+                      {/* Active left neon bar indicator */}
+                      {activeSection === item.key && (
+                        <motion.div
+                          layoutId="mobileActiveNav"
+                          className="absolute left-0 top-2 bottom-2 w-[3px] rounded-full bg-[var(--neon-cyan)] shadow-[0_0_8px_var(--neon-cyan)]"
+                          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                      {t(`nav.${item.key}`)}
+                    </a>
+                  ))}
+                </div>
+
+                {/* Controls */}
+                <div className="px-6 py-4 flex flex-col gap-4 border-t border-[var(--glass-border)]">
+                  <LanguageToggle />
+                  <WalletConnectButton />
+                </div>
+
+                {/* Decorative bottom */}
+                <div className="px-6 py-3 border-t border-[var(--glass-border)] text-center">
+                  <p className="text-[10px] text-[var(--text-secondary)] flex items-center justify-center gap-1">
+                    <span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">
+                      Built with <Heart className="h-2.5 w-2.5 fill-current" />
+                    </span>
+                  </p>
+                </div>
               </div>
             </motion.div>
           </>

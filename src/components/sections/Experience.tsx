@@ -24,7 +24,7 @@ export function Experience() {
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
             {t('experience.title')}
           </h2>
-          <div className="h-0.5 w-16 bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)] rounded-full" />
+          <div className="section-title-line" />
         </motion.div>
 
         {/* Timeline */}
@@ -60,7 +60,7 @@ export function Experience() {
 
                   {/* Card */}
                   <div className={`flex-1 sm:w-[calc(50%-2rem)] ${isLeft ? 'sm:pr-8' : 'sm:pl-8'}`}>
-                    <div className="relative p-5 sm:p-6 rounded-xl glass border border-[var(--glass-border)] glass-hover-glow group">
+                    <div className="relative p-5 sm:p-6 rounded-xl glass border border-[var(--glass-border)] glass-card-advanced group">
                       {/* HUD Brackets */}
                       <div className="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-[var(--neon-cyan)] opacity-60 group-hover:opacity-100 transition-opacity" />
                       <div className="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-[var(--neon-magenta)] opacity-60 group-hover:opacity-100 transition-opacity" />
