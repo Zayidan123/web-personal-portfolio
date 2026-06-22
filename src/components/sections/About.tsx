@@ -169,7 +169,7 @@ export function About() {
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.5 + idx * 0.15 }}
                   >
-                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} transition-all duration-300 hover:scale-105 hover:${glowMap[skill.color]}`}>
+                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} glass-hover-glow`}>
                       <Icon className={`h-6 w-6 ${iconColorMap[skill.color]} mb-2`} />
                       <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)] mb-1">
                         {t(skill.titleKey)}

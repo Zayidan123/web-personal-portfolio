@@ -49,14 +49,18 @@ export function Experience() {
                   }`}
                 >
                   {/* Timeline Node */}
-                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)] z-10 mt-6" />
+                  <div className="absolute left-4 sm:left-1/2 -translate-x-1/2 z-10 mt-6">
+                    <div className="w-3 h-3 rounded-full bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)] relative">
+                      <div className="absolute inset-0 rounded-full bg-[var(--neon-cyan)] animate-ping opacity-30" />
+                    </div>
+                  </div>
 
                   {/* Spacer for mobile */}
                   <div className="w-10 shrink-0 sm:hidden" />
 
                   {/* Card */}
                   <div className={`flex-1 sm:w-[calc(50%-2rem)] ${isLeft ? 'sm:pr-8' : 'sm:pl-8'}`}>
-                    <div className="relative p-5 sm:p-6 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-[var(--glow-cyan)] hover:scale-[1.01] group">
+                    <div className="relative p-5 sm:p-6 rounded-xl glass border border-[var(--glass-border)] glass-hover-glow group">
                       {/* HUD Brackets */}
                       <div className="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-[var(--neon-cyan)] opacity-60 group-hover:opacity-100 transition-opacity" />
                       <div className="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-[var(--neon-magenta)] opacity-60 group-hover:opacity-100 transition-opacity" />

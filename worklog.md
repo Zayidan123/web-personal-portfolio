@@ -213,3 +213,72 @@ Current Project Status:
 - All content bilingual: Hero, About, Experience, Contact, Footer, Skills
 - Dead code cleaned up (Projects component and data removed)
 - No runtime errors, no visual bugs detected
+
+---
+Task ID: 5
+Agent: Main Agent (cron QA + styling + features)
+Task: Comprehensive QA review, styling improvements, and new feature development
+
+Work Log:
+- Full QA pass via agent-browser:
+  - Desktop: all nav, theme toggle (dark↔light), language toggle (ID↔EN), wallet connect, CV download links
+  - Mobile (iPhone 14): hamburger drawer with nav + language + wallet, all sections scrollable
+  - No runtime errors, no console errors, lint clean (0 errors, 1 pre-existing warning)
+- VLM visual review identified improvement areas:
+  - Typography hierarchy in hero needed refinement
+  - Neon glow effects could be more prominent
+  - Scroll indicator was basic
+  - Footer lacked visual presence
+  - Card hover effects needed polish
+
+Styling Improvements:
+- Hero section:
+  - Enhanced name glow with drop-shadow-[0_0_30px] for stronger neon effect
+  - Improved spacing: mb-5→8 between elements for better visual rhythm
+  - Role badge: added pulsing dot indicator and glow shadow
+  - Location badge: added MapPin icon with neon cyan color
+  - Scroll indicator: added pulse text animation, gradient line, and chevron drop-shadow
+  - Greeting tracking: widened to 0.25em for more cyberpunk feel
+- Footer:
+  - Added gradient decorative top line
+  - Enhanced social links: larger (w-10 h-10), scale-110 hover, distinct cyan/magenta glow
+  - Added framer-motion scroll reveal animation
+  - "Back to top" button: glass border, hover glow, whileHover whileTap motion
+  - Copyright: added "Built with ❤" in magenta
+- Experience cards:
+  - Applied glass-hover-glow class with translateY(-2px) and multi-layer shadow
+  - Timeline nodes: added animate-ping ring for subtle pulse effect
+- About skill cards:
+  - Applied glass-hover-glow class for consistent hover behavior
+- CSS additions:
+  - .glass-hover-glow: enhanced hover with layered box-shadow and lift effect
+  - .neon-underline: hover gradient underline decoration
+  - .text-magenta-enhanced: darker magenta for light mode readability
+  - Separate light/dark hover shadows in .glass-hover-glow
+
+New Features:
+- ScrollProgress component: gradient (cyan→magenta→purple) progress bar at top of page, spring physics
+- FloatingBackToTop component: appears after 500px scroll, spring animation, glass border, neon glow
+- Hero typing animation: tagline types character by character (25ms), blinking cursor, resets on language change
+
+Stage Summary:
+- 0 bugs found in QA
+- 3 new UI components created
+- 5 styling improvements applied
+- 1 new animation (typing effect)
+- VLM review feedback addressed: typography, glow, contrast, spacing
+- Lint clean (0 errors, 1 pre-existing warning)
+- All new features verified working
+
+Current Project Status Assessment:
+- PRODUCTION-READY: All features working, no errors, polished design
+- Sections: Hero (typing, particles, HUD) → About (photo, bio, education, 5 hard + 11 soft skills) → Experience (3 bilingual entries, animated timeline) → Contact (form, info cards, CV download)
+- Features: Dark/Light theme, ID/EN bilingual, wallet connect, particles, scroll progress, floating back-to-top, typing animation, CV download, responsive design
+- No runtime errors, no known bugs
+
+Unresolved / Future Improvements:
+- Wallet connect is mock (needs real wagmi/viem integration)
+- Formspree needs NEXT_PUBLIC_FORMSPREE_ID env var
+- Google Fonts could use next/font/google for self-hosting
+- Could add more sections (Projects, Testimonials, Certifications) when content available
+- Could add page transition animations between sections

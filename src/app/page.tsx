@@ -8,6 +8,8 @@ import { About } from '@/components/sections/About'
 import { Experience } from '@/components/sections/Experience'
 import { Contact } from '@/components/sections/Contact'
 import { LightModeBackground } from '@/components/ui/LightModeBackground'
+import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { FloatingBackToTop } from '@/components/ui/FloatingBackToTop'
 import { useLanguageStore } from '@/store/language-store'
 
 export function PortfolioPage() {
@@ -22,6 +24,7 @@ export function PortfolioPage() {
 
   return (
     <div className="relative flex flex-col min-h-screen">
+      <ScrollProgress />
       <LightModeBackground />
       <Navbar />
       <main className="flex-1 relative z-[1]">
@@ -31,6 +34,7 @@ export function PortfolioPage() {
         <Contact />
       </main>
       <Footer />
+      <FloatingBackToTop />
     </div>
   )
 }

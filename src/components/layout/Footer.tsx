@@ -1,10 +1,13 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
-import { ArrowUp, Github, Linkedin } from 'lucide-react'
+import { ArrowUp, Github, Linkedin, Heart } from 'lucide-react'
 
 export function Footer() {
   const { t } = useLanguageStore()
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -13,26 +16,34 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="relative mt-auto border-t border-[var(--glass-border)] bg-[var(--dark-surface)]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+    <footer ref={ref} className="relative mt-auto border-t border-[var(--glass-border)] bg-[var(--dark-surface)]">
+      {/* Decorative top line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--neon-cyan)]/40 to-transparent" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row items-center justify-between gap-6"
+        >
           {/* Left: Logo & Tagline */}
-          <div className="flex flex-col items-center md:items-start gap-1">
-            <span className="font-display text-sm font-bold tracking-wider text-[var(--neon-cyan)]">
+          <div className="flex flex-col items-center md:items-start gap-1.5">
+            <span className="font-display text-sm font-bold tracking-wider text-[var(--neon-cyan)] text-glow-cyan">
               ZAYIDAN
             </span>
-            <p className="text-xs text-[var(--text-secondary)]">
+            <p className="text-xs text-[var(--text-secondary)] flex items-center gap-1">
               {t('footer.tagline')}
             </p>
           </div>
 
-          {/* Center: Social */}
-          <div className="flex items-center gap-4">
+          {/* Center: Social Links */}
+          <div className="flex items-center gap-3">
             <a
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:shadow-[var(--glow-cyan)] transition-all duration-300"
+              className="group w-10 h-10 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 hover:shadow-[var(--glow-cyan)] transition-all duration-300 hover:scale-110"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-4 w-4" />
@@ -41,7 +52,7 @@ export function Footer() {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:shadow-[var(--glow-cyan)] transition-all duration-300"
+              className="group w-10 h-10 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-magenta)] hover:border-[var(--neon-magenta)]/30 hover:shadow-[var(--glow-magenta)] transition-all duration-300 hover:scale-110"
               aria-label="GitHub"
             >
               <Github className="h-4 w-4" />
@@ -49,22 +60,35 @@ export function Footer() {
           </div>
 
           {/* Right: Back to top */}
-          <button
+          <motion.button
             onClick={scrollToTop}
-            className="flex items-center gap-2 text-xs text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] transition-colors duration-300"
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg glass border border-[var(--glass-border)] text-xs font-mono-custom text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 hover:shadow-[var(--glow-cyan)] transition-all duration-300"
             aria-label={t('footer.backToTop')}
           >
             <span>{t('footer.backToTop')}</span>
             <ArrowUp className="h-3.5 w-3.5" />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Copyright */}
-        <div className="mt-6 pt-4 border-t border-[var(--glass-border)] text-center">
-          <p className="text-xs text-[var(--text-secondary)]">
-            &copy; {year} Zayidan Muttaqin. {t('footer.rights')}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-6 pt-4 border-t border-[var(--glass-border)] text-center"
+        >
+          <p className="text-xs text-[var(--text-secondary)] flex items-center justify-center gap-1">
+            &copy; {year} Zayidan Muttaqin.
+            <span className="mx-1">·</span>
+            {t('footer.rights')}
+            <span className="mx-1">·</span>
+            <span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">
+              Built with <Heart className="h-3 w-3 fill-current" />
+            </span>
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   )
