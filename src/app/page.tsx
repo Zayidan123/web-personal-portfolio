@@ -6,14 +6,13 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Experience } from '@/components/sections/Experience'
-import { Projects } from '@/components/sections/Projects'
 import { Contact } from '@/components/sections/Contact'
+import { LightModeBackground } from '@/components/ui/LightModeBackground'
 import { useLanguageStore } from '@/store/language-store'
 
 export function PortfolioPage() {
   const { setLang } = useLanguageStore()
 
-  // Initialize language from localStorage
   useEffect(() => {
     const savedLang = localStorage.getItem('lang') as 'id' | 'en' | null
     if (savedLang) {
@@ -23,12 +22,12 @@ export function PortfolioPage() {
 
   return (
     <div className="relative flex flex-col min-h-screen">
+      <LightModeBackground />
       <Navbar />
-      <main className="flex-1">
+      <main className="flex-1 relative z-[1]">
         <Hero />
         <About />
         <Experience />
-        <Projects />
         <Contact />
       </main>
       <Footer />

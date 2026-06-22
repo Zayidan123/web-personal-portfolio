@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useWalletStore, shortenAddress } from '@/store/wallet-store'
-import { Mail, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
+import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin } from 'lucide-react'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -20,7 +20,6 @@ export function Contact() {
     e.preventDefault()
     setFormStatus('loading')
 
-    // Simulate form submission (Formspree integration)
     const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID
     if (formspreeId) {
       try {
@@ -39,7 +38,6 @@ export function Contact() {
         setFormStatus('error')
       }
     } else {
-      // Simulate success for demo
       await new Promise(resolve => setTimeout(resolve, 1500))
       setFormStatus('success')
       setFormData({ name: '', email: '', subject: '', message: '' })
@@ -47,9 +45,11 @@ export function Contact() {
   }
 
   const contactInfo = [
-    { icon: Mail, label: t('contact.emailLabel'), value: 'alex@example.com', href: 'mailto:alex@example.com', color: 'var(--neon-cyan)' },
-    { icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/alex', href: 'https://linkedin.com', color: 'var(--neon-cyan)' },
-    { icon: Github, label: t('contact.github'), value: 'github.com/alex', href: 'https://github.com', color: 'var(--neon-cyan)' },
+    { icon: Mail, label: t('contact.emailLabel'), value: 'zayidan34@gmail.com', href: 'mailto:zayidan34@gmail.com', color: 'var(--neon-cyan)' },
+    { icon: Phone, label: t('contact.phoneLabel'), value: '+62 812-5264-3578', href: 'tel:+6281252643578', color: 'var(--neon-magenta)' },
+    { icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)' },
+    { icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://linkedin.com', color: 'var(--neon-cyan)' },
+    { icon: Github, label: t('contact.github'), value: 'github.com/zayidan-muttaqin', href: 'https://github.com', color: 'var(--neon-cyan)' },
   ]
 
   if (address) {
@@ -87,7 +87,7 @@ export function Contact() {
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-4"
           >
             {contactInfo.map((item) => {
               const Icon = item.icon

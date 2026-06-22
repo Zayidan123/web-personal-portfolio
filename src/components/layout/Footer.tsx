@@ -19,11 +19,10 @@ export function Footer() {
           {/* Left: Logo & Tagline */}
           <div className="flex flex-col items-center md:items-start gap-1">
             <span className="font-display text-sm font-bold tracking-wider text-[var(--neon-cyan)]">
-              {/* TODO: ganti dengan data nyata */}
-              ALEX
+              ZAYIDAN
             </span>
             <p className="text-xs text-[var(--text-secondary)]">
-              Designer · Analyst · Customer Service
+              {t('footer.tagline')}
             </p>
           </div>
 
@@ -63,7 +62,7 @@ export function Footer() {
         {/* Copyright */}
         <div className="mt-6 pt-4 border-t border-[var(--glass-border)] text-center">
           <p className="text-xs text-[var(--text-secondary)]">
-            &copy; {year} {/* TODO: ganti dengan data nyata */} Alex. {t('footer.rights')}
+            &copy; {year} Zayidan Muttaqin. {t('footer.rights')}
           </p>
         </div>
       </div>

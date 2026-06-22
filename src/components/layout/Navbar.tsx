@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils'
 const navItems = [
   { key: 'about', href: '#about' },
   { key: 'experience', href: '#experience' },
-  { key: 'projects', href: '#projects' },
   { key: 'contact', href: '#contact' },
 ] as const
 
@@ -26,7 +25,6 @@ export function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 
-      // Determine active section
       const sections = navItems.map(item => item.href.slice(1))
       for (let i = sections.length - 1; i >= 0; i--) {
         const el = document.getElementById(sections[i])
@@ -68,8 +66,7 @@ export function Navbar() {
             onClick={(e) => { e.preventDefault(); handleNavClick('#hero') }}
             className="font-display text-lg font-bold tracking-wider text-[var(--neon-cyan)] text-glow-cyan hover:opacity-80 transition-opacity"
           >
-            {/* TODO: ganti dengan data nyata */}
-            ALEX
+            ZAYIDAN
           </a>
 
           {/* Desktop Nav Links */}

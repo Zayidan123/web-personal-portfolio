@@ -2,27 +2,26 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { GlassCard } from '@/components/ui/GlassCard'
 import { useLanguageStore } from '@/store/language-store'
-import { Palette, Headphones, BarChart3 } from 'lucide-react'
+import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp } from 'lucide-react'
 
-const skills = [
+const skillCards = [
   {
-    icon: Palette,
-    titleKey: 'about.designer.title',
-    descKey: 'about.designer.desc',
+    icon: Target,
+    titleKey: 'about.sales.title',
+    descKey: 'about.sales.desc',
     color: 'cyan' as const,
   },
   {
-    icon: Headphones,
-    titleKey: 'about.cs.title',
-    descKey: 'about.cs.desc',
+    icon: Users,
+    titleKey: 'about.leadership.title',
+    descKey: 'about.leadership.desc',
     color: 'magenta' as const,
   },
   {
-    icon: BarChart3,
-    titleKey: 'about.analyst.title',
-    descKey: 'about.analyst.desc',
+    icon: MessageSquare,
+    titleKey: 'about.communication.title',
+    descKey: 'about.communication.desc',
     color: 'purple' as const,
   },
 ]
@@ -45,9 +44,32 @@ const borderMap = {
   purple: 'border-[var(--neon-purple)]/30',
 }
 
+const hardSkills = [
+  { icon: Monitor, key: 'about.skills.computer' },
+  { icon: Video, key: 'about.skills.video' },
+  { icon: Palette, key: 'about.skills.design' },
+  { icon: Sparkles, key: 'about.skills.ai' },
+  { icon: TrendingUp, key: 'about.skills.financial' },
+]
+
+const softSkills = [
+  'about.skills.team',
+  'about.skills.leadership',
+  'about.skills.communication',
+  'about.skills.problem',
+  'about.skills.timeManagement',
+  'about.skills.adaptif',
+  'about.skills.disiplin',
+  'about.skills.teliti',
+  'about.skills.customerFocus',
+  'about.skills.negotiation',
+  'about.skills.motivasi',
+]
+
 export function About() {
   const { t } = useLanguageStore()
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
+  const [skillsRef, skillsInView] = useInView({ triggerOnce: true, threshold: 0.05 })
 
   return (
     <section id="about" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
@@ -66,15 +88,15 @@ export function About() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Avatar */}
+          {/* Avatar + Education */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center lg:justify-start"
+            className="flex flex-col items-center lg:items-start gap-6"
           >
+            {/* Avatar with HUD Brackets */}
             <div className="relative">
-              {/* HUD Brackets on image */}
               <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-[var(--neon-cyan)]" />
               <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-[var(--neon-cyan)]" />
               <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[var(--neon-magenta)]" />
@@ -82,15 +104,44 @@ export function About() {
 
               <div className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-2xl overflow-hidden border border-[var(--glass-border)] shadow-[var(--glow-cyan)]">
                 <img
-                  src="https://picsum.photos/seed/avatar-alex/400/400"
-                  alt="Alex - Designer, Analyst, Customer Service"
+                  src="/zayidan-photo.png"
+                  alt="Zayidan Muttaqin - Sales, Leadership, Communication"
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              {/* Animated glow border */}
               <div className="absolute inset-0 rounded-2xl border-2 border-[var(--neon-cyan)]/20 pointer-events-none animate-pulse" />
             </div>
+
+            {/* Education Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="w-full max-w-sm"
+            >
+              <div className="p-5 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-[var(--glow-cyan)]">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--neon-purple)]/30 bg-[var(--neon-purple)]/10">
+                    <GraduationCap className="h-5 w-5 text-[var(--neon-purple)]" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+                      {t('about.education.school')}
+                    </h3>
+                    <p className="text-[10px] sm:text-xs text-[var(--neon-magenta)] font-mono-custom">
+                      {t('about.education.period')}
+                    </p>
+                  </div>
+                </div>
+                <p className="text-xs sm:text-sm text-[var(--text-secondary)] mb-2">
+                  {t('about.education.major')}
+                </p>
+                <div className="inline-block px-3 py-1 rounded-full text-[10px] font-mono-custom text-[var(--neon-cyan)] bg-[var(--neon-cyan)]/10 border border-[var(--neon-cyan)]/20">
+                  {t('about.education.score')}
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Text Content */}
@@ -109,7 +160,7 @@ export function About() {
 
             {/* Skill Identity Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4">
-              {skills.map((skill, idx) => {
+              {skillCards.map((skill, idx) => {
                 const Icon = skill.icon
                 return (
                   <motion.div
@@ -132,6 +183,68 @@ export function About() {
               })}
             </div>
           </motion.div>
+        </div>
+
+        {/* Skills Section */}
+        <div ref={skillsRef} className="mt-16 sm:mt-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Hard Skills - single column to prevent text overlap */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={skillsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="p-6 rounded-xl glass border border-[var(--glass-border)]"
+            >
+              <h3 className="font-display text-sm sm:text-base font-bold text-[var(--neon-cyan)] mb-5 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--neon-cyan)] shadow-[var(--glow-cyan)]" />
+                {t('about.skills.hardTitle')}
+              </h3>
+              <div className="flex flex-col gap-3">
+                {hardSkills.map((skill, idx) => {
+                  const Icon = skill.icon
+                  return (
+                    <motion.div
+                      key={skill.key}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={skillsInView ? { opacity: 1, x: 0 } : {}}
+                      transition={{ duration: 0.4, delay: 0.2 + idx * 0.1 }}
+                      className="flex items-center gap-3 p-3 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-cyan)]/30 transition-all duration-300 min-h-[44px]"
+                    >
+                      <Icon className="h-4 w-4 text-[var(--neon-cyan)] shrink-0" />
+                      <span className="text-xs sm:text-sm text-[var(--text-primary)] whitespace-nowrap">{t(skill.key)}</span>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </motion.div>
+
+            {/* Soft Skills */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={skillsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="p-6 rounded-xl glass border border-[var(--glass-border)]"
+            >
+              <h3 className="font-display text-sm sm:text-base font-bold text-[var(--neon-magenta)] mb-5 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[var(--neon-magenta)] shadow-[var(--glow-magenta)]" />
+                {t('about.skills.softTitle')}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {softSkills.map((key, idx) => (
+                  <motion.span
+                    key={key}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={skillsInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{ duration: 0.3, delay: 0.3 + idx * 0.06 }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs sm:text-sm text-[var(--text-primary)] border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-magenta)]/30 hover:text-[var(--neon-magenta)] transition-all duration-300 cursor-default"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--neon-magenta)]/60" />
+                    {t(key)}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -87,10 +87,88 @@ Current Project Status:
 - Responsive: Mobile / Tablet / Desktop
 - Accessibility: aria-labels, keyboard nav, prefers-reduced-motion
 
+---
+Task ID: 2
+Agent: Main Agent
+Task: Content update (name → Zayidan Muttaqin, bio → sales/leadership) + Light mode Web3 dynamic background
+
+Work Log:
+- Verified previous session already completed: name change in language-store/Navbar/Footer/layout, bio text, skill cards, hero role badge
+- Updated experiences.ts: replaced 4 design/analyst/CS entries with sales/leadership roles (Sales Manager, Senior Sales Executive, Sales Team Lead, Sales Representative)
+- Updated projects.ts: changed categories from design/analitik/cs to sales/leadership/communication, rewrote all 6 project entries
+- Updated language-store.ts: changed project category translations (ID: Penjualan/Kepemimpinan/Komunikasi, EN: Sales/Leadership/Communication)
+- Updated Projects.tsx: changed category filter array and key mapping to match new categories
+- Enhanced ParticleBackground.tsx for light mode:
+  - Increased particle count (60 → 90) with larger sizes
+  - Added particle opacity pulsing (sin wave)
+  - Added particle trails (last 6 positions)
+  - Added radial glow effect per particle
+  - Added gradient connection lines (color blending between connected particles)
+  - Added animated grid with pulsing intersection nodes
+  - Added floating hexagonal wireframe patterns
+  - Added energy pulse ripples on mouse interaction
+  - Added data flow particles traveling along connections
+  - Stronger mouse repulsion effect (200px radius, 1.2x force)
+  - Bouncing instead of wrapping for more natural movement
+- Created LightModeBackground.tsx: global fixed-position Web3 background component
+  - 3 large floating gradient mesh orbs with blur
+  - Subtle flowing grid overlay
+  - 5 scattered geometric shapes (hexagons, triangles, diamonds, circle)
+  - 5 vertical data stream lines
+  - 2 orbit ring decorations (xl/2xl only)
+- Updated Hero.tsx: removed duplicate mesh orbs/grid (now global), kept hero-specific dramatic elements
+  - Prominent geometric shapes with inline styles
+  - 3 orbit rings with glowing dot indicators
+  - 3 data stream lines
+- Updated page.tsx: added LightModeBackground with z-index layering
+
+Stage Summary:
+- All content now consistently reflects Zayidan Muttaqin's sales/leadership/communication profile
+- Light mode has comprehensive Web3-identical animations: particles, mesh orbs, grid, geometric shapes, orbit rings, data streams, energy pulses, hexagonal patterns, flow particles
+- Web3 background effects now extend across the full page (not just Hero)
+- Lint passes clean (0 errors, 1 pre-existing warning about custom fonts)
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: Sync portfolio with actual CV data, add SPB experience, remove Projects, fix skills
+
+Work Log:
+- Extracted CV text from uploaded PDF (CV_ZAYIDAN MUTTAQIN.pdf)
+- Updated experiences.ts: added SPB Mitra Swalayan Jajag (Mar-Apr 2023) as 3rd entry
+- Removed Projects section entirely:
+  - page.tsx: removed Projects component import and rendering
+  - Navbar.tsx: removed 'projects' from navItems array
+  - language-store.ts: removed 'projects' nav key, removed projects translations object, removed ctaProjects from hero
+  - Hero.tsx: replaced 2 CTA buttons with single "Contact Me" button, added location badge
+- Updated About.tsx:
+  - Changed avatar image from picsum placeholder to /zayidan-photo.png (uploaded photo)
+  - Fixed hard skills text overlap: changed from 2-column grid to single-column flex layout
+  - Added Financial Market (Saham, Forex, Komoditas, Crypto) as 5th hard skill with TrendingUp icon
+  - Expanded soft skills from 5 to 11: added Adaptif, Disiplin, Teliti & Bertanggung Jawab, Orientasi Pelanggan, Negosiasi, Motivasi Diri & Tim
+- Updated Contact.tsx: added phone (+62 812-5264-3578), location (Banyuwangi), MapPin icon import
+- Updated language-store.ts: added phoneLabel translations, location in hero, financial skill, 6 new soft skills, education section
+- QA verified via agent-browser: all 3 experiences, 5 hard skills, 11 soft skills, no Projects section, language toggle ID/EN, dark/light mode, contact info correct
+
+Stage Summary:
+- Portfolio fully synced with actual CV data (Zayidan Muttaqin, Banyuwangi)
+- 3 work experiences: Kepala Toko, Pramuniaga, SPB Event Ramadan
+- Real photo displayed in About section
+- Hard skills text overlap fixed (single column layout)
+- 5 hard skills including Financial Market
+- 11 soft skills covering all CV attributes
+- Projects section completely removed per user request
+- Location badge added to Hero section
+- Lint clean, all QA tests pass
+
+Current Project Status:
+- COMPLETE: Web3 portfolio with real CV data
+- Sections: Hero → About (photo, bio, education, skills) → Experience (3 entries) → Contact (email, phone, location, socials)
+- Features: Dark/Light theme, ID/EN bilingual, wallet connect, particle animations, responsive design
+- No runtime errors
+
 Unresolved / Future Improvements:
-- Wallet connect is mock (needs real wagmi/viem integration with WalletConnect Project ID)
+- Wallet connect is mock (needs real wagmi/viem integration)
 - Formspree integration ready but needs NEXT_PUBLIC_FORMSPREE_ID env var
 - Google Fonts loaded externally (could use next/font/google for self-hosting)
-- Images use picsum.photos placeholders
-- All text content is placeholder (marked with TODO)
-- Could add: NFT gallery, blog, CMS, smart contract interaction (out of scope v1.0)
+- Projects section removed — can be re-added when real projects are available

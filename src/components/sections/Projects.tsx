@@ -7,13 +7,13 @@ import { useLanguageStore } from '@/store/language-store'
 import { projects, type ProjectCategory } from '@/data/projects'
 import { ExternalLink, FileText } from 'lucide-react'
 
-const categories: (ProjectCategory | 'all')[] = ['all', 'design', 'analitik', 'cs']
+const categories: (ProjectCategory | 'all')[] = ['all', 'sales', 'leadership', 'communication']
 
 const categoryKeyMap: Record<string, string> = {
   all: 'projects.all',
-  design: 'projects.design',
-  analitik: 'projects.analytics',
-  cs: 'projects.cs',
+  sales: 'projects.sales',
+  leadership: 'projects.leadership',
+  communication: 'projects.communication',
 }
 
 export function Projects() {

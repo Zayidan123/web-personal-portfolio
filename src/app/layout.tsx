@@ -4,13 +4,12 @@ import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { PortfolioPage } from "./page";
 
 export const metadata: Metadata = {
-  // TODO: ganti dengan data nyata
-  title: "Alex — Designer · Analis · Customer Service",
-  description: "Portfolio profesional Alex — Desainer UI/UX, Analis Data, dan Customer Service Expert. Menggabungkan kreativitas, analitik, dan empati.",
-  keywords: ["portfolio", "designer", "analyst", "customer service", "UI/UX", "web3", "Alex"],
+  title: "Zayidan Muttaqin — Sales · Kepemimpinan · Komunikasi",
+  description: "Portfolio profesional Zayidan Muttaqin — Sales, Leadership, dan Communication Expert. Disiplin, teliti, bertanggung jawab, dan adaptif.",
+  keywords: ["portfolio", "sales", "leadership", "communication", "web3", "Zayidan Muttaqin"],
   openGraph: {
-    title: "Alex — Designer · Analis · Customer Service",
-    description: "Portfolio profesional Alex — Menggabungkan kreativitas, analitik, dan empati.",
+    title: "Zayidan Muttaqin — Sales · Kepemimpinan · Komunikasi",
+    description: "Portfolio profesional Zayidan Muttaqin — Disiplin, teliti, bertanggung jawab, dan adaptif.",
     type: "website",
   },
 };

@@ -6,10 +6,13 @@ import { ChevronDown } from 'lucide-react'
 import { ParticleBackground } from '@/components/ui/ParticleBackground'
 import { NeonButton } from '@/components/ui/NeonButton'
 import { useLanguageStore } from '@/store/language-store'
+import { useTheme } from 'next-themes'
 
 export function Hero() {
   const { t } = useLanguageStore()
+  const { theme } = useTheme()
   const [glitchDone, setGlitchDone] = useState(false)
+  const isDark = theme === 'dark'
 
   useEffect(() => {
     const timer = setTimeout(() => setGlitchDone(true), 1000)
@@ -28,17 +31,234 @@ export function Hero() {
       {/* Particle Background */}
       <ParticleBackground />
 
-      {/* Grid Overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]"
-        style={{
-          backgroundImage: `
-            linear-gradient(var(--neon-cyan) 1px, transparent 1px),
-            linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-        }}
-      />
+      {/* ===== HERO-SPECIFIC LIGHT MODE ANIMATED ELEMENTS ===== */}
+      {!isDark && (
+        <>
+          {/* Larger, more prominent geometric shapes for hero area */}
+          <div
+            className="absolute hidden sm:block"
+            style={{
+              top: '12%',
+              left: '5%',
+              width: '140px',
+              height: '140px',
+              border: '2px solid rgba(0, 128, 255, 0.08)',
+              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+              animation: 'float-geometric 14s ease-in-out infinite',
+            }}
+          />
+          <div
+            className="absolute hidden sm:block"
+            style={{
+              top: '55%',
+              right: '8%',
+              width: '100px',
+              height: '100px',
+              border: '2px solid rgba(204, 0, 136, 0.07)',
+              clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+              animation: 'float-geometric 11s ease-in-out infinite reverse',
+            }}
+          />
+          <div
+            className="absolute hidden md:block"
+            style={{
+              bottom: '15%',
+              left: '18%',
+              width: '70px',
+              height: '70px',
+              border: '2px solid rgba(109, 40, 217, 0.06)',
+              transform: 'rotate(45deg)',
+              animation: 'float-geometric 16s ease-in-out infinite',
+              animationDelay: '-4s',
+            }}
+          />
+          <div
+            className="absolute hidden lg:block"
+            style={{
+              top: '25%',
+              right: '20%',
+              width: '100px',
+              height: '100px',
+              border: '1.5px solid rgba(0, 200, 150, 0.06)',
+              clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+              animation: 'float-geometric 18s ease-in-out infinite',
+              animationDelay: '-7s',
+            }}
+          />
+
+          {/* Hero orbit rings */}
+          <div
+            className="absolute hidden lg:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '500px',
+              height: '500px',
+              marginTop: '-250px',
+              marginLeft: '-250px',
+              border: '1px solid rgba(0, 128, 255, 0.06)',
+              borderRadius: '50%',
+              animation: 'orbit-spin 45s linear infinite',
+            }}
+          />
+          <div
+            className="absolute hidden lg:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '700px',
+              height: '700px',
+              marginTop: '-350px',
+              marginLeft: '-350px',
+              border: '1px solid rgba(204, 0, 136, 0.04)',
+              borderRadius: '50%',
+              animation: 'orbit-spin 60s linear infinite reverse',
+            }}
+          />
+          <div
+            className="absolute hidden xl:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '900px',
+              height: '900px',
+              marginTop: '-450px',
+              marginLeft: '-450px',
+              border: '1px solid rgba(109, 40, 217, 0.03)',
+              borderRadius: '50%',
+              animation: 'orbit-spin 80s linear infinite',
+            }}
+          />
+
+          {/* Orbit dots on rings */}
+          <div
+            className="absolute hidden lg:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '500px',
+              height: '500px',
+              marginTop: '-250px',
+              marginLeft: '-250px',
+              animation: 'orbit-spin 45s linear infinite',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: '-4px',
+                left: '50%',
+                width: '8px',
+                height: '8px',
+                background: 'rgba(0, 128, 255, 0.5)',
+                borderRadius: '50%',
+                boxShadow: '0 0 12px rgba(0, 128, 255, 0.7)',
+                transform: 'translateX(-50%)',
+              }}
+            />
+          </div>
+          <div
+            className="absolute hidden lg:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '700px',
+              height: '700px',
+              marginTop: '-350px',
+              marginLeft: '-350px',
+              animation: 'orbit-spin 60s linear infinite reverse',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: '-3px',
+                left: '50%',
+                width: '6px',
+                height: '6px',
+                background: 'rgba(204, 0, 136, 0.4)',
+                borderRadius: '50%',
+                boxShadow: '0 0 10px rgba(204, 0, 136, 0.6)',
+                transform: 'translateX(-50%)',
+              }}
+            />
+          </div>
+          <div
+            className="absolute hidden xl:block"
+            style={{
+              top: '50%',
+              left: '50%',
+              width: '900px',
+              height: '900px',
+              marginTop: '-450px',
+              marginLeft: '-450px',
+              animation: 'orbit-spin 80s linear infinite',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-3px',
+                left: '50%',
+                width: '6px',
+                height: '6px',
+                background: 'rgba(109, 40, 217, 0.4)',
+                borderRadius: '50%',
+                boxShadow: '0 0 10px rgba(109, 40, 217, 0.6)',
+                transform: 'translateX(-50%)',
+              }}
+            />
+          </div>
+
+          {/* Data stream lines - hero area */}
+          <div
+            className="absolute hidden md:block"
+            style={{
+              left: '15%',
+              height: '200px',
+              width: '1px',
+              background: 'linear-gradient(to bottom, transparent, rgba(0, 128, 255, 0.12), transparent)',
+              animation: 'data-stream 7s linear infinite',
+            }}
+          />
+          <div
+            className="absolute hidden md:block"
+            style={{
+              left: '45%',
+              height: '150px',
+              width: '1px',
+              background: 'linear-gradient(to bottom, transparent, rgba(204, 0, 136, 0.1), transparent)',
+              animation: 'data-stream 9s linear infinite',
+              animationDelay: '-2.5s',
+            }}
+          />
+          <div
+            className="absolute hidden md:block"
+            style={{
+              right: '15%',
+              height: '180px',
+              width: '1px',
+              background: 'linear-gradient(to bottom, transparent, rgba(109, 40, 217, 0.1), transparent)',
+              animation: 'data-stream 6s linear infinite',
+              animationDelay: '-4s',
+            }}
+          />
+        </>
+      )}
+
+      {/* Grid Overlay (dark mode) */}
+      {isDark && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-[0.05]"
+          style={{
+            backgroundImage: `
+              linear-gradient(var(--neon-cyan) 1px, transparent 1px),
+              linear-gradient(90deg, var(--neon-cyan) 1px, transparent 1px)
+            `,
+            backgroundSize: '60px 60px',
+          }}
+        />
+      )}
 
       {/* HUD Corner Brackets - Large */}
       <div className="absolute top-8 left-8 w-8 h-8 border-t-2 border-l-2 border-[var(--neon-cyan)] opacity-30 hidden sm:block" />
@@ -63,7 +283,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className={`font-display text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-[var(--text-primary)] ${!glitchDone ? 'glitch-text' : ''}`}
+          className={`font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-6 text-[var(--text-primary)] ${!glitchDone ? 'glitch-text' : ''}`}
           data-text={t('hero.name')}
         >
           <span className="text-[var(--neon-cyan)] text-glow-cyan">{t('hero.name')}</span>
@@ -91,17 +311,25 @@ export function Hero() {
           {t('hero.tagline')}
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* Location Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+          className="mb-8"
+        >
+          <span className="inline-block px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono-custom text-[var(--text-secondary)] glass border border-[var(--glass-border)] tracking-wider">
+            {t('hero.location')}
+          </span>
+        </motion.div>
+
+        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <NeonButton variant="primary" onClick={() => scrollTo('projects')}>
-            {t('hero.ctaProjects')}
-          </NeonButton>
-          <NeonButton variant="secondary" onClick={() => scrollTo('contact')}>
+          <NeonButton variant="primary" onClick={() => scrollTo('contact')}>
             {t('hero.ctaContact')}
           </NeonButton>
         </motion.div>
