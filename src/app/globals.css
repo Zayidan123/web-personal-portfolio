@@ -871,3 +871,53 @@ html {
 :root .skill-bar-track {
   background: rgba(0, 0, 0, 0.06) !important;
 }
+
+/* ===== ANIMATED BACKGROUND GRADIENT SHIFT ===== */
+@keyframes bg-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.dark body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(135deg, 
+    rgba(0, 245, 255, 0.03) 0%, 
+    rgba(255, 0, 170, 0.02) 25%, 
+    rgba(139, 92, 246, 0.03) 50%, 
+    rgba(0, 245, 255, 0.02) 75%, 
+    rgba(255, 0, 170, 0.03) 100%
+  );
+  background-size: 400% 400%;
+  animation: bg-shift 30s ease infinite;
+  pointer-events: none;
+}
+
+/* ===== SOFT SKILL TAG HOVER GLOW ===== */
+.soft-skill-tag {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.soft-skill-tag::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, var(--neon-magenta), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.soft-skill-tag:hover::before {
+  opacity: 0.1;
+}
+
+.soft-skill-tag:hover {
+  border-color: var(--neon-magenta) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 0, 170, 0.15);
+}

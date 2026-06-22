@@ -20,6 +20,14 @@ const id = {
     leadership: { title: "Leader", desc: "Kepemimpinan, Manajemen, Tim" },
     communication: { title: "Communicator", desc: "Komunikasi, Presentasi, Relasi" },
     education: { title: "Pendidikan", school: "SMK Manbaul Ulum", major: "Teknik Kendaraan Ringan", period: "2017 – 2020", score: "Nilai Ijazah: 82.21" },
+    certifications: {
+      title: "Sertifikasi",
+      subtitle: "Kompetensi Inti",
+      sales: "Penjualan",
+      retail: "Retail",
+      leadership: "Kepemimpinan",
+      communication: "Komunikasi",
+    },
     skills: {
       hardTitle: "Hard Skills",
       softTitle: "Soft Skills",
@@ -69,6 +77,14 @@ const id = {
     github: "GitHub",
     wallet: "Wallet",
     cvLabel: "Download CV",
+    copied: "Berhasil disalin!",
+    share: "Bagikan Profil",
+  },
+  shortcuts: {
+    title: "Pintasan Keyboard",
+    theme: "Ganti Tema",
+    language: "Ganti Bahasa",
+    sections: "Navigasi Bagian",
   },
   wallet: { connect: "Connect Wallet", connecting: "Menghubungkan...", disconnect: "Disconnect" },
   footer: {
@@ -98,6 +114,14 @@ const en = {
     leadership: { title: "Leader", desc: "Leadership, Management, Team" },
     communication: { title: "Communicator", desc: "Communication, Presentation, Relations" },
     education: { title: "Education", school: "SMK Manbaul Ulum", major: "Light Vehicle Engineering", period: "2017 – 2020", score: "Diploma Score: 82.21" },
+    certifications: {
+      title: "Certifications",
+      subtitle: "Core Competencies",
+      sales: "Sales",
+      retail: "Retail",
+      leadership: "Leadership",
+      communication: "Communication",
+    },
     skills: {
       hardTitle: "Hard Skills",
       softTitle: "Soft Skills",
@@ -147,6 +171,14 @@ const en = {
     github: "GitHub",
     wallet: "Wallet",
     cvLabel: "Download CV",
+    copied: "Copied to clipboard!",
+    share: "Share Profile",
+  },
+  shortcuts: {
+    title: "Keyboard Shortcuts",
+    theme: "Toggle Theme",
+    language: "Toggle Language",
+    sections: "Navigate Sections",
   },
   wallet: { connect: "Connect Wallet", connecting: "Connecting...", disconnect: "Disconnect" },
   footer: {

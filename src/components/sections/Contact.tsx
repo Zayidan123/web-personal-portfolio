@@ -6,7 +6,9 @@ import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useWalletStore, shortenAddress } from '@/store/wallet-store'
 import { useToastStore } from '@/store/toast-store'
-import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown } from 'lucide-react'
+import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown, Check, Copy, Share2 } from 'lucide-react'
+import { TiltCard } from '@/components/ui/TiltCard'
+import { ScrambleText } from '@/components/ui/ScrambleText'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -17,6 +19,44 @@ export function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [formStatus, setFormStatus] = useState<FormStatus>('idle')
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
+  const [copiedField, setCopiedField] = useState<string | null>(null)
+
+  const handleCopy = (value: string, field: string) => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value)
+      } else {
+        document.execCommand('copy')
+      }
+    } catch { /* fallback */ }
+    setCopiedField(field)
+    addToast(t('contact.copied'), 'success')
+    setTimeout(() => setCopiedField(null), 1500)
+  }
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Zayidan Muttaqin',
+      text: 'Sales, Leadership, Communication — Zayidan Muttaqin Portfolio',
+      url: window.location.href,
+    }
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData)
+      } catch {
+        // User cancelled or share failed
+      }
+    } else {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(window.location.href)
+        } else {
+          document.execCommand('copy')
+        }
+        addToast(t('contact.copied'), 'success')
+      } catch { /* fallback */ }
+    }
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -51,21 +91,24 @@ export function Contact() {
   }
 
   const contactInfo = [
-    { icon: Mail, label: t('contact.emailLabel'), value: 'zayidan34@gmail.com', href: 'mailto:zayidan34@gmail.com', color: 'var(--neon-cyan)' },
-    { icon: Phone, label: t('contact.phoneLabel'), value: '+62 812-5264-3578', href: 'tel:+6281252643578', color: 'var(--neon-magenta)' },
-    { icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)' },
-    { icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://linkedin.com', color: 'var(--neon-cyan)' },
-    { icon: Github, label: t('contact.github'), value: 'github.com/zayidan-muttaqin', href: 'https://github.com', color: 'var(--neon-cyan)' },
-    { icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', download: true },
+    { key: 'email', icon: Mail, label: t('contact.emailLabel'), value: 'zayidan34@gmail.com', href: 'mailto:zayidan34@gmail.com', color: 'var(--neon-cyan)', copyable: true, copyValue: 'zayidan34@gmail.com' },
+    { key: 'phone', icon: Phone, label: t('contact.phoneLabel'), value: '+62 812-5264-3578', href: 'tel:+6281252643578', color: 'var(--neon-magenta)', copyable: true, copyValue: '+62 812-5264-3578' },
+    { key: 'location', icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)', copyable: false },
+    { key: 'linkedin', icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://linkedin.com', color: 'var(--neon-cyan)', copyable: false },
+    { key: 'github', icon: Github, label: t('contact.github'), value: 'github.com/zayidan-muttaqin', href: 'https://github.com', color: 'var(--neon-cyan)', copyable: false },
+    { key: 'share', icon: Share2, label: t('contact.share'), value: '', href: '#', color: 'var(--neon-cyan)', copyable: false, isShare: true },
+    { key: 'cv', icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', copyable: false, download: true },
   ]
 
   if (address) {
     contactInfo.push({
+      key: 'wallet' as string,
       icon: Wallet,
       label: t('contact.wallet'),
       value: shortenAddress(address),
       href: '#',
       color: 'var(--neon-magenta)',
+      copyable: false,
     })
   }
 
@@ -80,7 +123,7 @@ export function Contact() {
           className="mb-12 sm:mb-16"
         >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
-            {t('contact.title')}
+            <ScrambleText text={t('contact.title')} />
           </h2>
           <div className="section-title-line" />
           <p className="mt-4 text-sm sm:text-base text-[var(--text-secondary)] max-w-xl">
@@ -97,14 +140,27 @@ export function Contact() {
             className="lg:col-span-2 space-y-4"
           >
             {contactInfo.map((item) => {
-              const Icon = item.icon
+              const Icon = item.key === 'email' && copiedField === 'email'
+                ? Check
+                : item.key === 'phone' && copiedField === 'phone'
+                  ? Check
+                  : item.icon
               return (
                 <a
-                  key={item.label}
-                  href={item.href}
+                  key={item.key}
+                  href={item.isShare ? undefined : item.href}
                   download={'download' in item && item.download ? true : undefined}
-                  target={item.href.startsWith('http') ? '_blank' : undefined}
-                  rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  target={item.href?.startsWith('http') ? '_blank' : undefined}
+                  rel={item.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  onClick={(e) => {
+                    if (item.copyable) {
+                      e.preventDefault()
+                      handleCopy(item.copyValue!, item.key)
+                    } else if (item.isShare) {
+                      e.preventDefault()
+                      handleShare()
+                    }
+                  }}
                   className="flex items-start gap-4 p-4 rounded-xl glass border border-[var(--glass-border)] glass-card-advanced transition-all duration-300 group"
                   style={{ '--hover-glow': item.color } as React.CSSProperties}
                   onMouseEnter={(e) => {
@@ -123,9 +179,12 @@ export function Contact() {
                   <div>
                     <p className="text-xs text-[var(--text-secondary)] mb-0.5">{item.label}</p>
                     <p className="text-sm font-mono-custom font-medium" style={{ color: item.color }}>
-                      {item.value}
+                      {item.value || t('contact.share')}
                     </p>
                   </div>
+                  {item.copyable && copiedField !== item.key && (
+                    <Copy className="h-4 w-4 text-[var(--text-secondary)]/40 ml-auto mt-1 shrink-0" />
+                  )}
                 </a>
               )
             })}
@@ -138,7 +197,8 @@ export function Contact() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-3"
           >
-            <div className="relative p-6 sm:p-8 rounded-xl glass border border-[var(--glass-border)] glass-noise">
+            <TiltCard className="transition-[box-shadow_0.3s]" maxTilt={4}>
+            <div className="relative p-6 sm:p-8 rounded-xl glass border border-[var(--glass-border)] glass-noise transition-[box-shadow_0.3s]">
               {/* HUD Brackets */}
               <div className="absolute -top-px -left-px w-5 h-5 border-t-2 border-l-2 border-[var(--neon-cyan)]" />
               <div className="absolute -top-px -right-px w-5 h-5 border-t-2 border-r-2 border-[var(--neon-magenta)]" />
@@ -252,6 +312,7 @@ export function Contact() {
                 </form>
               )}
             </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>

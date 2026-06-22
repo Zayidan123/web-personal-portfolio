@@ -14,7 +14,18 @@ export function Hero() {
   const [glitchDone, setGlitchDone] = useState(false)
   const [displayedTagline, setDisplayedTagline] = useState('')
   const [typingDone, setTypingDone] = useState(false)
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const isDark = theme === 'dark'
+
+  useEffect(() => {
+    const handleMouse = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2
+      const y = (e.clientY / window.innerHeight - 0.5) * 2
+      setMousePos({ x, y })
+    }
+    window.addEventListener('mousemove', handleMouse)
+    return () => window.removeEventListener('mousemove', handleMouse)
+  }, [])
 
   const tagline = t('hero.tagline')
 
@@ -142,7 +153,7 @@ export function Hero() {
       <div className="absolute bottom-8 right-8 w-8 h-8 border-b-2 border-r-2 border-[var(--neon-magenta)] opacity-30 hidden sm:block" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto transition-transform duration-300 ease-out" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)` }}>
         {/* Greeting */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}

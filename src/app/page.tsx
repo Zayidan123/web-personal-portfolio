@@ -13,10 +13,14 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { FloatingBackToTop } from '@/components/ui/FloatingBackToTop'
 import { LoadingScreen } from '@/components/ui/LoadingScreen'
 import { Toast } from '@/components/ui/Toast'
+import { KeyboardShortcutsHint } from '@/components/ui/KeyboardShortcutsHint'
 import { useLanguageStore } from '@/store/language-store'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
 export function PortfolioPage() {
   const { setLang } = useLanguageStore()
+
+  useKeyboardShortcuts()
 
   useEffect(() => {
     const savedLang = localStorage.getItem('lang') as 'id' | 'en' | null
@@ -44,6 +48,7 @@ export function PortfolioPage() {
       <Footer />
       <FloatingBackToTop />
       <Toast />
+      <KeyboardShortcutsHint />
     </div>
   )
 }

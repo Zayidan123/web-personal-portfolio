@@ -3,7 +3,10 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
-import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp } from 'lucide-react'
+import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp, Award, ShieldCheck } from 'lucide-react'
+import { TiltCard } from '@/components/ui/TiltCard'
+import { ScrambleText } from '@/components/ui/ScrambleText'
+
 
 const skillCards = [
   {
@@ -82,7 +85,7 @@ export function About() {
           className="mb-12 sm:mb-16"
         >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
-            {t('about.title')}
+            <ScrambleText text={t('about.title')} />
           </h2>
           <div className="section-title-line" />
         </motion.div>
@@ -144,6 +147,38 @@ export function About() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Certifications */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              className="w-full max-w-sm"
+            >
+              <div className="p-5 rounded-xl glass border border-[var(--glass-border)] glass-noise">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center border border-[var(--neon-cyan)]/30 bg-[var(--neon-cyan)]/10">
+                    <Award className="h-5 w-5 text-[var(--neon-cyan)]" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
+                      {t('about.certifications.title')}
+                    </h3>
+                    <p className="text-[10px] sm:text-xs text-[var(--neon-cyan)] font-mono-custom">
+                      {t('about.certifications.subtitle')}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {['about.certifications.sales', 'about.certifications.retail', 'about.certifications.leadership', 'about.certifications.communication'].map((key) => (
+                    <span key={key} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-mono-custom text-[var(--neon-cyan)] border border-[var(--neon-cyan)]/20 bg-[var(--neon-cyan)]/5">
+                      <ShieldCheck className="h-3 w-3" />
+                      {t(key)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* Text Content */}
@@ -171,7 +206,8 @@ export function About() {
                     animate={inView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.5 + idx * 0.15 }}
                   >
-                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} glass-card-advanced`}>
+                    <TiltCard className="transition-[box-shadow_0.3s]">
+                    <div className={`p-4 rounded-xl glass border ${borderMap[skill.color]} transition-[box-shadow_0.3s]`}>
                       <Icon className={`h-6 w-6 ${iconColorMap[skill.color]} mb-2`} />
                       <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)] mb-1">
                         {t(skill.titleKey)}
@@ -180,6 +216,7 @@ export function About() {
                         {t(skill.descKey)}
                       </p>
                     </div>
+                    </TiltCard>
                   </motion.div>
                 )
               })}
@@ -251,7 +288,7 @@ export function About() {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={skillsInView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.3, delay: 0.3 + idx * 0.06 }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs sm:text-sm text-[var(--text-primary)] border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-magenta)]/30 hover:text-[var(--neon-magenta)] transition-all duration-300 cursor-default"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs sm:text-sm text-[var(--text-primary)] border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-magenta)]/30 hover:text-[var(--neon-magenta)] transition-all duration-300 cursor-default soft-skill-tag"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-[var(--neon-magenta)]/60" />
                     {t(key)}

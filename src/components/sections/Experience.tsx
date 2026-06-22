@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { experiences, formatDate } from '@/data/experiences'
-
+import { ScrambleText } from '@/components/ui/ScrambleText'
 export function Experience() {
   const { t, lang } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
@@ -22,7 +22,7 @@ export function Experience() {
           className="mb-12 sm:mb-16"
         >
           <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
-            {t('experience.title')}
+            <ScrambleText text={t('experience.title')} />
           </h2>
           <div className="section-title-line" />
         </motion.div>

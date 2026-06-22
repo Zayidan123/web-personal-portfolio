@@ -22,6 +22,15 @@ export function Navbar() {
   const { t, lang } = useLanguageStore()
 
   useEffect(() => {
+    if (!mobileOpen) return
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false)
+    }
+    document.addEventListener('keydown', handleEsc)
+    return () => document.removeEventListener('keydown', handleEsc)
+  }, [mobileOpen])
+
+  useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50)
 

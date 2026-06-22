@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { Briefcase, Cpu, Users, HeartHandshake } from 'lucide-react'
+import { TiltCard } from '@/components/ui/TiltCard'
 
 const statItems = [
   { icon: Briefcase, valueKey: 'stats.experience.value', labelKey: 'stats.experience.label', numericValue: 3, suffix: '+', color: 'cyan' as const },
@@ -81,25 +82,28 @@ export function Stats() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: idx * 0.15 }}
-                className={`relative p-5 sm:p-6 rounded-xl glass border ${colors.border} glass-hover-glow glass-noise`}
               >
-                <div className="flex flex-col items-center text-center gap-3">
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${colors.border} bg-[var(--glass-bg)]`}>
-                    <Icon className={`h-5 w-5 ${colors.icon}`} />
+                <TiltCard className="transition-[box-shadow_0.3s]" maxTilt={6}>
+                <div className={`relative p-5 sm:p-6 rounded-xl glass border ${colors.border} glass-hover-glow glass-noise transition-[box-shadow_0.3s]`}>
+                  <div className="flex flex-col items-center text-center gap-3">
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${colors.border} bg-[var(--glass-bg)]`}>
+                      <Icon className={`h-5 w-5 ${colors.icon}`} />
+                    </div>
+                    <div className="text-[var(--text-primary)]">
+                      <AnimatedCounter
+                        target={item.numericValue}
+                        suffix={item.suffix}
+                        inView={inView}
+                      />
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-mono-custom text-[var(--text-secondary)] tracking-wider uppercase">
+                      {t(item.labelKey)}
+                    </span>
                   </div>
-                  <div className="text-[var(--text-primary)]">
-                    <AnimatedCounter
-                      target={item.numericValue}
-                      suffix={item.suffix}
-                      inView={inView}
-                    />
-                  </div>
-                  <span className="text-[10px] sm:text-xs font-mono-custom text-[var(--text-secondary)] tracking-wider uppercase">
-                    {t(item.labelKey)}
-                  </span>
+                  {/* Neon accent dot */}
+                  <div className={`absolute -top-1 -right-1 w-2 h-2 rounded-full ${colors.accent} ${colors.glow} opacity-60`} />
                 </div>
-                {/* Neon accent dot */}
-                <div className={`absolute -top-1 -right-1 w-2 h-2 rounded-full ${colors.accent} ${colors.glow} opacity-60`} />
+                </TiltCard>
               </motion.div>
             )
           })}
