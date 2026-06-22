@@ -9,6 +9,7 @@ const id = {
     tagline: "Disiplin, teliti, bertanggung jawab, dan adaptif — siap berkontribusi secara profesional.",
     location: "Banyuwangi, Indonesia",
     ctaContact: "Hubungi Saya",
+    downloadCV: "Download CV",
   },
   about: {
     title: "Tentang Saya",
@@ -56,6 +57,7 @@ const id = {
     linkedin: "LinkedIn",
     github: "GitHub",
     wallet: "Wallet",
+    cvLabel: "Download CV",
   },
   wallet: { connect: "Connect Wallet", connecting: "Menghubungkan...", disconnect: "Disconnect" },
   footer: {
@@ -74,6 +76,7 @@ const en = {
     tagline: "Disciplined, detail-oriented, responsible, and adaptive — ready to contribute professionally.",
     location: "Banyuwangi, Indonesia",
     ctaContact: "Contact Me",
+    downloadCV: "Download CV",
   },
   about: {
     title: "About Me",
@@ -121,6 +124,7 @@ const en = {
     linkedin: "LinkedIn",
     github: "GitHub",
     wallet: "Wallet",
+    cvLabel: "Download CV",
   },
   wallet: { connect: "Connect Wallet", connecting: "Connecting...", disconnect: "Disconnect" },
   footer: {

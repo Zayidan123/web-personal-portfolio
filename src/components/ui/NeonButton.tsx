@@ -11,6 +11,7 @@ interface NeonButtonProps {
   className?: string
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
+  download?: boolean
 }
 
 export function NeonButton({
@@ -21,6 +22,7 @@ export function NeonButton({
   className,
   type = 'button',
   disabled = false,
+  download = false,
 }: NeonButtonProps) {
   const baseClasses = 'relative inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-display text-sm tracking-wider uppercase transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--neon-cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--dark-base)] disabled:opacity-50 disabled:cursor-not-allowed'
 
@@ -46,7 +48,7 @@ export function NeonButton({
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} download={download || undefined} className={classes}>
         {children}
       </a>
     )

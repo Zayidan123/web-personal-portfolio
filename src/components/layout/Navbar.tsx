@@ -107,7 +107,7 @@ export function Navbar() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden w-9 h-9 rounded-lg glass flex items-center justify-center text-[var(--text-primary)] transition-colors hover:text-[var(--neon-cyan)]"
+              className="md:hidden w-10 h-10 rounded-lg glass border border-[var(--glass-border)] flex items-center justify-center text-[var(--text-primary)] transition-all duration-300 hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 hover:shadow-[var(--glow-cyan)]"
               aria-label="Toggle menu"
               aria-expanded={mobileOpen}
             >

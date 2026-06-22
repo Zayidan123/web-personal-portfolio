@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Download } from 'lucide-react'
 import { ParticleBackground } from '@/components/ui/ParticleBackground'
 import { NeonButton } from '@/components/ui/NeonButton'
 import { useLanguageStore } from '@/store/language-store'
@@ -323,14 +323,19 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <NeonButton variant="primary" onClick={() => scrollTo('contact')}>
             {t('hero.ctaContact')}
+          </NeonButton>
+          <NeonButton variant="secondary" href="/CV_ZAYIDAN_MUTTAQIN.pdf" download>
+            <Download className="h-4 w-4" />
+            {t('hero.downloadCV')}
           </NeonButton>
         </motion.div>
       </div>

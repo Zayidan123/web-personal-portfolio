@@ -6,8 +6,10 @@ import { useLanguageStore } from '@/store/language-store'
 import { experiences, formatDate } from '@/data/experiences'
 
 export function Experience() {
-  const { t } = useLanguageStore()
+  const { t, lang } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
+
+  const locale = lang === 'id' ? 'id-ID' : 'en-US'
 
   return (
     <section id="experience" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
@@ -33,6 +35,9 @@ export function Experience() {
           <div className="space-y-8 sm:space-y-12">
             {experiences.map((exp, idx) => {
               const isLeft = idx % 2 === 0
+              const role = exp.role[lang]
+              const company = exp.company[lang]
+              const description = exp.description[lang]
               return (
                 <motion.div
                   key={exp.id}
@@ -60,22 +65,22 @@ export function Experience() {
 
                       {/* Period */}
                       <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono-custom text-[var(--neon-cyan)] bg-[var(--neon-cyan)]/10 border border-[var(--neon-cyan)]/20 mb-3">
-                        {formatDate(exp.period.start, t('experience.present'))} – {formatDate(exp.period.end, t('experience.present'))}
+                        {formatDate(exp.period.start, t('experience.present'), locale)} – {formatDate(exp.period.end, t('experience.present'), locale)}
                       </span>
 
                       {/* Role */}
                       <h3 className="font-display text-base sm:text-lg font-semibold text-[var(--text-primary)] mb-1">
-                        {exp.role}
+                        {role}
                       </h3>
 
                       {/* Company */}
                       <p className="text-sm text-[var(--neon-magenta)] font-medium mb-3">
-                        {exp.company}
+                        {company}
                       </p>
 
                       {/* Description */}
                       <ul className="space-y-1.5 mb-4">
-                        {exp.description.map((item, i) => (
+                        {description.map((item, i) => (
                           <li key={i} className="text-xs sm:text-sm text-[var(--text-secondary)] flex items-start gap-2">
                             <span className="text-[var(--neon-cyan)] mt-1.5 shrink-0">▹</span>
                             <span>{item}</span>

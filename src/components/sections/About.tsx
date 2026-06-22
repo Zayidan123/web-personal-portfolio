@@ -211,7 +211,7 @@ export function About() {
                       className="flex items-center gap-3 p-3 rounded-lg border border-[var(--glass-border)] bg-[var(--glass-bg)]/50 hover:border-[var(--neon-cyan)]/30 transition-all duration-300 min-h-[44px]"
                     >
                       <Icon className="h-4 w-4 text-[var(--neon-cyan)] shrink-0" />
-                      <span className="text-xs sm:text-sm text-[var(--text-primary)] whitespace-nowrap">{t(skill.key)}</span>
+                      <span className="text-xs sm:text-sm text-[var(--text-primary)] leading-snug min-w-0">{t(skill.key)}</span>
                     </motion.div>
                   )
                 })}

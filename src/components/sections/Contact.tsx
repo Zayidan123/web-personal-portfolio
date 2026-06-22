@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useWalletStore, shortenAddress } from '@/store/wallet-store'
-import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin } from 'lucide-react'
+import { Mail, Phone, Linkedin, Github, Wallet, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown } from 'lucide-react'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -50,6 +50,7 @@ export function Contact() {
     { icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)' },
     { icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://linkedin.com', color: 'var(--neon-cyan)' },
     { icon: Github, label: t('contact.github'), value: 'github.com/zayidan-muttaqin', href: 'https://github.com', color: 'var(--neon-cyan)' },
+    { icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', download: true },
   ]
 
   if (address) {
@@ -95,6 +96,7 @@ export function Contact() {
                 <a
                   key={item.label}
                   href={item.href}
+                  download={'download' in item && item.download ? true : undefined}
                   target={item.href.startsWith('http') ? '_blank' : undefined}
                   rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="flex items-start gap-4 p-4 rounded-xl glass border border-[var(--glass-border)] transition-all duration-300 hover:shadow-lg hover:scale-[1.02] group"

@@ -172,3 +172,44 @@ Unresolved / Future Improvements:
 - Formspree integration ready but needs NEXT_PUBLIC_FORMSPREE_ID env var
 - Google Fonts loaded externally (could use next/font/google for self-hosting)
 - Projects section removed — can be re-added when real projects are available
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Add CV download feature + fix bugs (hard skills overlap, hamburger menu, experience i18n)
+
+Work Log:
+- Copied CV PDF to public/CV_ZAYIDAN_MUTTAQIN.pdf (153KB, accessible at /CV_ZAYIDAN_MUTTAQIN.pdf)
+- Added "Download CV" button to Hero section (secondary NeonButton variant with Download icon)
+- Added CV download card to Contact section (FileDown icon, purple color, download attribute)
+- Updated NeonButton component to support `download` prop
+- Added hero.downloadCV and contact.cvLabel translations (ID: "Download CV", EN: "Download CV")
+- Removed dead code: Projects.tsx component, projects.ts data file
+- Fixed hard skills text overlap on mobile: removed whitespace-nowrap, added leading-snug and min-w-0
+- Enhanced hamburger menu visibility: larger button (w-10 h-10), visible border, hover glow effect
+- Made experience section fully bilingual:
+  - Restructured experiences.ts with LocalizedText type (id/en) for role, company, description
+  - Updated Experience.tsx to use lang from store for localized content
+  - Added locale parameter to formatDate (id-ID for Indonesian, en-US for English)
+  - All 3 experiences now fully translate: roles, descriptions, date formats
+- QA verified via agent-browser:
+  - Desktop: all sections, theme toggle, language toggle, wallet connect, navigation
+  - Mobile (iPhone 14): hamburger menu opens with nav links + language + wallet, all sections scrollable
+  - VLM visual check: hard skills text no overlap on mobile, Financial Market text fully readable
+  - Both ID and EN languages verified in experience section
+  - PDF accessible (HTTP 200, 153KB)
+  - No console errors
+
+Stage Summary:
+- CV download feature working in Hero and Contact sections
+- Hard skills text overlap fixed on mobile
+- Hamburger menu more visible and functional on mobile
+- Experience section now fully bilingual (ID/EN) with localized dates
+- Lint clean (0 errors, 1 pre-existing warning)
+- All QA tests pass
+
+Current Project Status:
+- COMPLETE: Web3 portfolio with real CV data, CV download, full i18n
+- All content bilingual: Hero, About, Experience, Contact, Footer, Skills
+- Dead code cleaned up (Projects component and data removed)
+- No runtime errors, no visual bugs detected
