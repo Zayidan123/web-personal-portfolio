@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hello, I'm",
+    "name": "Alex",
+    "role": "Designer \u00b7 Analyst \u00b7 Customer Service",
+    "tagline": "Blending design creativity, analytical precision, and customer empathy into digital excellence.",
+    "ctaProjects": "View My Projects",
+    "ctaContact": "Contact Me"
+  },
+  "about": {
+    "title": "About Me",
+    "bio": "I'm a multidisciplinary professional with experience in UI/UX design, data analysis, and customer service. I believe that combining creativity with analytics is the key to creating exceptional digital experiences.",
+    "bio2": "With a background spanning user research, visual design, and problem-solving, I always strive to deliver solutions that are not only visually stunning but also functional and impactful.",
+    "designer": {
+      "title": "Designer",
+      "desc": "Visual, UX, Creativity"
+    },
+    "cs": {
+      "title": "CS Expert",
+      "desc": "Communication, Empathy, Problem-solving"
+    },
+    "analyst": {
+      "title": "Analyst",
+      "desc": "Data, Insight, Strategy"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "present": "Present"
+  },
+  "projects": {
+    "title": "Projects",
+    "all": "All",
+    "design": "Design",
+    "analytics": "Analytics",
+    "cs": "Customer Service",
+    "liveDemo": "Live Demo",
+    "detail": "Detail"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Interested in working together? Send me a message and let's bring ideas to life.",
+    "name": "Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully! I'll get back to you soon.",
+    "error": "Failed to send message. Please try again.",
+    "emailLabel": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "wallet": "Wallet"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "connecting": "Connecting...",
+    "disconnect": "Disconnect"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "backToTop": "Back to top"
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "about": "Tentang",
+    "experience": "Pengalaman",
+    "projects": "Proyek",
+    "contact": "Kontak"
+  },
+  "hero": {
+    "greeting": "Halo, saya",
+    "name": "Alex",
+    "role": "Designer \u00b7 Analis \u00b7 Customer Service",
+    "tagline": "Menggabungkan kreativitas desain, ketelitian analisis, dan empati layanan pelanggan.",
+    "ctaProjects": "Lihat Proyek Saya",
+    "ctaContact": "Hubungi Saya"
+  },
+  "about": {
+    "title": "Tentang Saya",
+    "bio": "Saya adalah seorang profesional multidisiplin dengan pengalaman di bidang desain UI/UX, analisis data, dan layanan pelanggan. Saya percaya bahwa perpaduan kreativitas dan analitik adalah kunci untuk menciptakan pengalaman digital yang luar biasa.",
+    "bio2": "Dengan latar belakang yang mencakup riset pengguna, visual design, dan problem-solving, saya selalu berusaha menghadirkan solusi yang tidak hanya indah secara visual, tetapi juga fungsional dan berdampak.",
+    "designer": {
+      "title": "Designer",
+      "desc": "Visual, UX, Kreativitas"
+    },
+    "cs": {
+      "title": "CS Expert",
+      "desc": "Komunikasi, Empati, Problem-solving"
+    },
+    "analyst": {
+      "title": "Analyst",
+      "desc": "Data, Insight, Strategi"
+    }
+  },
+  "experience": {
+    "title": "Pengalaman",
+    "present": "Sekarang"
+  },
+  "projects": {
+    "title": "Proyek",
+    "all": "Semua",
+    "design": "Design",
+    "analytics": "Analitik",
+    "cs": "Customer Service",
+    "liveDemo": "Live Demo",
+    "detail": "Detail"
+  },
+  "contact": {
+    "title": "Hubungi Saya",
+    "subtitle": "Tertarik untuk bekerja sama? Kirim pesan dan mari wujudkan ide bersama.",
+    "name": "Nama",
+    "email": "Email",
+    "subject": "Subjek",
+    "message": "Pesan",
+    "send": "Kirim Pesan",
+    "sending": "Mengirim...",
+    "success": "Pesan berhasil dikirim! Saya akan segera merespons.",
+    "error": "Gagal mengirim pesan. Silakan coba lagi.",
+    "emailLabel": "Email",
+    "linkedin": "LinkedIn",
+    "github": "GitHub",
+    "wallet": "Wallet"
+  },
+  "wallet": {
+    "connect": "Connect Wallet",
+    "connecting": "Menghubungkan...",
+    "disconnect": "Disconnect"
+  },
+  "footer": {
+    "rights": "Hak cipta dilindungi.",
+    "backToTop": "Kembali ke atas"
+  }
+}

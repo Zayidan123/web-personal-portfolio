@@ -1,0 +1,402 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===== WEB3 PORTFOLIO DESIGN SYSTEM ===== */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Orbitron', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Custom cyberpunk colors */
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+  --color-neon-purple: var(--neon-purple);
+  --color-dark-base: var(--dark-base);
+  --color-dark-surface: var(--dark-surface);
+}
+
+/* ===== LIGHT MODE (non-default) ===== */
+:root {
+  --radius: 0.75rem;
+  --background: #F0F4FF;
+  --foreground: #0A0A1A;
+  --card: #FFFFFF;
+  --card-foreground: #0A0A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #0A0A1A;
+  --primary: #0080FF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #E8ECFF;
+  --secondary-foreground: #0A0A1A;
+  --muted: #E8ECFF;
+  --muted-foreground: #444466;
+  --accent: #E8ECFF;
+  --accent-foreground: #0A0A1A;
+  --destructive: #FF4444;
+  --border: rgba(100, 120, 200, 0.15);
+  --input: rgba(100, 120, 200, 0.2);
+  --ring: #0080FF;
+  --chart-1: #0080FF;
+  --chart-2: #CC0088;
+  --chart-3: #6D28D9;
+  --chart-4: #00AA66;
+  --chart-5: #FF6600;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0A0A1A;
+  --sidebar-primary: #0080FF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E8ECFF;
+  --sidebar-accent-foreground: #0A0A1A;
+  --sidebar-border: rgba(100, 120, 200, 0.15);
+  --sidebar-ring: #0080FF;
+
+  /* Cyberpunk Light */
+  --neon-cyan: #0080FF;
+  --neon-magenta: #CC0088;
+  --neon-purple: #6D28D9;
+  --dark-base: #F0F4FF;
+  --dark-surface: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(100, 120, 200, 0.15);
+  --glow-cyan: 0 0 20px rgba(0, 128, 255, 0.25);
+  --glow-magenta: 0 0 20px rgba(204, 0, 136, 0.25);
+  --text-primary: #0A0A1A;
+  --text-secondary: #444466;
+  --scanline-opacity: 0;
+}
+
+/* ===== DARK MODE (Default) ===== */
+.dark {
+  --background: #0A0A0F;
+  --foreground: #F0F0FF;
+  --card: #0F0F1A;
+  --card-foreground: #F0F0FF;
+  --popover: #0F0F1A;
+  --popover-foreground: #F0F0FF;
+  --primary: #00F5FF;
+  --primary-foreground: #0A0A0F;
+  --secondary: #1A1A2E;
+  --secondary-foreground: #F0F0FF;
+  --muted: #1A1A2E;
+  --muted-foreground: #8888AA;
+  --accent: #1A1A2E;
+  --accent-foreground: #F0F0FF;
+  --destructive: #FF4466;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #00F5FF;
+  --chart-1: #00F5FF;
+  --chart-2: #FF00AA;
+  --chart-3: #8B5CF6;
+  --chart-4: #00FF88;
+  --chart-5: #FF8800;
+  --sidebar: #0F0F1A;
+  --sidebar-foreground: #F0F0FF;
+  --sidebar-primary: #00F5FF;
+  --sidebar-primary-foreground: #0A0A0F;
+  --sidebar-accent: #1A1A2E;
+  --sidebar-accent-foreground: #F0F0FF;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #00F5FF;
+
+  /* Cyberpunk Dark */
+  --neon-cyan: #00F5FF;
+  --neon-magenta: #FF00AA;
+  --neon-purple: #8B5CF6;
+  --dark-base: #0A0A0F;
+  --dark-surface: #0F0F1A;
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.3);
+  --glow-magenta: 0 0 20px rgba(255, 0, 170, 0.3);
+  --text-primary: #F0F0FF;
+  --text-secondary: #8888AA;
+  --scanline-opacity: 0.03;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* ===== GLASSMORPHISM UTILITIES ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+/* ===== NEON GLOW EFFECTS ===== */
+.glow-cyan {
+  box-shadow: var(--glow-cyan);
+}
+
+.glow-magenta {
+  box-shadow: var(--glow-magenta);
+}
+
+.text-glow-cyan {
+  text-shadow: var(--glow-cyan);
+}
+
+.text-glow-magenta {
+  text-shadow: var(--glow-magenta);
+}
+
+/* ===== HUD BRACKET DECORATIONS ===== */
+.hud-bracket {
+  position: relative;
+}
+
+.hud-bracket::before,
+.hud-bracket::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hud-bracket::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--neon-cyan);
+  border-left: 2px solid var(--neon-cyan);
+}
+
+.hud-bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--neon-cyan);
+  border-right: 2px solid var(--neon-cyan);
+}
+
+.hud-bracket-magenta::before {
+  border-color: var(--neon-magenta);
+}
+
+.hud-bracket-magenta::after {
+  border-color: var(--neon-magenta);
+}
+
+/* ===== SCANLINE OVERLAY ===== */
+.scanline-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 4px
+  );
+}
+
+/* ===== GLITCH ANIMATION ===== */
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+  0% { transform: skew(0deg); }
+  20% { transform: skew(-2deg); }
+  40% { transform: skew(0.5deg); }
+  60% { transform: skew(-0.5deg); }
+  80% { transform: skew(1deg); }
+  100% { transform: skew(0deg); }
+}
+
+.glitch-text {
+  animation: glitch-skew 0.8s ease-in-out;
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch-text:hover::before {
+  opacity: 0.8;
+  color: var(--neon-cyan);
+  animation: glitch 0.3s ease-in-out;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+.glitch-text:hover::after {
+  opacity: 0.8;
+  color: var(--neon-magenta);
+  animation: glitch 0.3s ease-in-out reverse;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+/* ===== NEON BORDER ANIMATION ===== */
+@keyframes neon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.neon-border-animate {
+  animation: neon-pulse 2s ease-in-out infinite;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-magenta);
+}
+
+/* ===== CUSTOM SCROLLABLE AREA ===== */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* ===== PARTICLE CANVAS ===== */
+.particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ===== FONT FAMILIES ===== */
+.font-display {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-mono-custom {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .glitch-text::before,
+  .glitch-text::after {
+    display: none;
+  }
+  .scanline-overlay {
+    display: none;
+  }
+}
+
+/* ===== THEME TRANSITION ===== */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== SMOOTH SCROLL ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: #fff;
+}
+
+.dark ::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: #fff;
+}
