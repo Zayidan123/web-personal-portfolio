@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Heart } from 'lucide-react'
+import { Menu, X, Heart, Search } from 'lucide-react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { WalletConnectButton } from '@/components/ui/WalletConnectButton'
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 
 const navItems = [
   { key: 'about', href: '#about' },
+  { key: 'projects', href: '#projects' },
   { key: 'experience', href: '#experience' },
   { key: 'contact', href: '#contact' },
 ] as const
@@ -113,6 +114,18 @@ export function Navbar() {
             <div className="hidden sm:block">
               <WalletConnectButton />
             </div>
+              {/* Command Palette Trigger (desktop) */}
+            <button
+              onClick={() => window.dispatchEvent(new Event('command-palette:toggle'))}
+              className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg glass border border-[var(--glass-border)] text-xs font-mono-custom text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 transition-all duration-300"
+              aria-label="Command Palette"
+            >
+              <Search className="h-3.5 w-3.5" />
+              <span className="hidden xl:inline">...</span>
+              <kbd className="hidden xl:inline-flex px-1.5 py-0.5 rounded text-[9px] font-mono-custom bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)]/60">
+                Ctrl K
+              </kbd>
+            </button>
             {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}

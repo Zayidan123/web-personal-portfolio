@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 
 const id = {
-  nav: { about: "Tentang", experience: "Pengalaman", contact: "Kontak" },
+  nav: { about: "Tentang", projects: "Proyek", experience: "Pengalaman", contact: "Kontak" },
   hero: {
     greeting: "Halo, saya",
     name: "Zayidan Muttaqin",
@@ -55,6 +55,22 @@ const id = {
     softSkills: { value: "11", label: "Soft Skills" },
     clients: { value: "100+", label: "Pelanggan Dilayani" },
   },
+  projects: {
+    title: "Proyek",
+    subtitle: "Beberapa proyek yang telah saya kerjakan.",
+    viewProject: "Lihat Proyek",
+    sourceCode: "Kode Sumber",
+    salesDash: { title: "Sales Dashboard", desc: "Platform analitik untuk pelacakan penjualan ritel. Menyediakan visualisasi data real-time, laporan performa, dan insight penjualan untuk membantu pengambilan keputusan bisnis." },
+    teamMgmt: { title: "Team Management System", desc: "Sistem manajemen karyawan untuk penjadwalan dan pemantauan performa tim. Membantu koordinasi tugas, tracking kehadiran, dan evaluasi kinerja." },
+    customerCRM: { title: "Customer CRM", desc: "Sistem manajemen hubungan pelanggan untuk ritel. Mencatat interaksi, preferensi pelanggan, dan riwayat pembelian untuk meningkatkan layanan." },
+  },
+  testimonials: {
+    title: "Testimoni",
+    subtitle: "Apa kata mereka tentang bekerja bersama saya.",
+    t1: { name: "Ahmad Fauzi", role: "Pemilik Toko", company: "Toko Berkah", text: "Zayidan membantu meningkatkan penjualan bulanan kami hingga 40%. Kemampuan negosiasi dan pemahaman pelanggan luar biasa.", rating: 5 },
+    t2: { name: "Siti Rahmawati", role: "Regional Manager", company: "CV Maju Jaya", text: "Kepemimpinan yang luar biasa. Zayidan mampu memotivasi tim dan mencapai target melebihi ekspektasi. Rekomendasi tinggi!", rating: 5 },
+    t3: { name: "Budi Santoso", role: "Mitra Bisnis", company: "Freelance", text: "Komunikasi dan negosiasi yang sangat baik. Zayidan selalu profesional dan tepat waktu dalam setiap proyek kolaborasi.", rating: 4 },
+  },
   experience: { title: "Pengalaman Kerja", present: "Sekarang" },
   contact: {
     title: "Hubungi Saya",
@@ -85,6 +101,24 @@ const id = {
     theme: "Ganti Tema",
     language: "Ganti Bahasa",
     sections: "Navigasi Bagian",
+    palette: "Palet Perintah",
+  },
+  commandPalette: {
+    title: "Perintah",
+    search: "Cari perintah...",
+    navGroup: "Navigasi",
+    actionsGroup: "Tindakan",
+    goHero: "Ke Beranda",
+    goAbout: "Ke Tentang Saya",
+    goProjects: "Ke Proyek",
+    goExperience: "Ke Pengalaman",
+    goContact: "Ke Kontak",
+    toggleTheme: "Ganti Tema",
+    switchLang: "Ganti Bahasa",
+    connectWallet: "Hubungkan Wallet",
+    downloadCV: "Unduh CV",
+    scrollTop: "Ke Atas",
+    hint: "↑↓ Navigasi · ↵ Pilih · Esc Tutup",
   },
   wallet: { connect: "Connect Wallet", connecting: "Menghubungkan...", disconnect: "Disconnect" },
   footer: {
@@ -95,7 +129,7 @@ const id = {
 }
 
 const en = {
-  nav: { about: "About", experience: "Experience", contact: "Contact" },
+  nav: { about: "About", projects: "Projects", experience: "Experience", contact: "Contact" },
   hero: {
     greeting: "Hello, I'm",
     name: "Zayidan Muttaqin",
@@ -149,6 +183,22 @@ const en = {
     softSkills: { value: "11", label: "Soft Skills" },
     clients: { value: "100+", label: "Clients Served" },
   },
+  projects: {
+    title: "Projects",
+    subtitle: "Some projects I've been working on.",
+    viewProject: "View Project",
+    sourceCode: "Source Code",
+    salesDash: { title: "Sales Dashboard", desc: "Analytics platform for retail sales tracking. Provides real-time data visualization, performance reports, and sales insights for business decision-making." },
+    teamMgmt: { title: "Team Management System", desc: "Employee management system for scheduling and team performance monitoring. Helps coordinate tasks, track attendance, and evaluate performance." },
+    customerCRM: { title: "Customer CRM", desc: "Customer relationship management system for retail. Records interactions, customer preferences, and purchase history to improve service." },
+  },
+  testimonials: {
+    title: "Testimonials",
+    subtitle: "What people say about working with me.",
+    t1: { name: "Ahmad Fauzi", role: "Store Owner", company: "Toko Berkah", text: "Zayidan helped increase our monthly sales by 40%. Exceptional negotiation skills and customer understanding.", rating: 5 },
+    t2: { name: "Siti Rahmawati", role: "Regional Manager", company: "CV Maju Jaya", text: "Outstanding leadership. Zayidan motivated the team and exceeded targets beyond expectations. Highly recommended!", rating: 5 },
+    t3: { name: "Budi Santoso", role: "Business Partner", company: "Freelance", text: "Excellent communication and negotiation. Zayidan is always professional and on-time in every collaborative project.", rating: 4 },
+  },
   experience: { title: "Work Experience", present: "Present" },
   contact: {
     title: "Get In Touch",
@@ -179,6 +229,24 @@ const en = {
     theme: "Toggle Theme",
     language: "Toggle Language",
     sections: "Navigate Sections",
+    palette: "Command Palette",
+  },
+  commandPalette: {
+    title: "Commands",
+    search: "Search commands...",
+    navGroup: "Navigation",
+    actionsGroup: "Actions",
+    goHero: "Go to Hero",
+    goAbout: "Go to About",
+    goProjects: "Go to Projects",
+    goExperience: "Go to Experience",
+    goContact: "Go to Contact",
+    toggleTheme: "Toggle Theme",
+    switchLang: "Switch Language",
+    connectWallet: "Connect Wallet",
+    downloadCV: "Download CV",
+    scrollTop: "Scroll to Top",
+    hint: "↑↓ Navigate · ↵ Select · Esc Close",
   },
   wallet: { connect: "Connect Wallet", connecting: "Connecting...", disconnect: "Disconnect" },
   footer: {

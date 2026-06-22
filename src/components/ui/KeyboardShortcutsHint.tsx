@@ -88,6 +88,16 @@ export function KeyboardShortcutsHint() {
                 ))}
               </div>
             </div>
+
+            {/* Command Palette */}
+            <div className="pt-1 mt-1 border-t border-[var(--glass-border)]">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-[var(--text-secondary)]">{t('shortcuts.palette')}</span>
+                <kbd className="inline-flex items-center justify-center h-6 px-1.5 rounded-md text-[10px] font-mono-custom text-[var(--neon-cyan)] border border-[var(--neon-cyan)]/20 bg-[var(--neon-cyan)]/5">
+                  <span className="opacity-60">⌘</span>K
+                </kbd>
+              </div>
+            </div>
           </div>
         </div>
       </div>

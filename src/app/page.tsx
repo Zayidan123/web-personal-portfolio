@@ -6,6 +6,8 @@ import { Footer } from '@/components/layout/Footer'
 import { Hero } from '@/components/sections/Hero'
 import { About } from '@/components/sections/About'
 import { Stats } from '@/components/sections/Stats'
+import { Projects } from '@/components/sections/Projects'
+import { Testimonials } from '@/components/sections/Testimonials'
 import { Experience } from '@/components/sections/Experience'
 import { Contact } from '@/components/sections/Contact'
 import { LightModeBackground } from '@/components/ui/LightModeBackground'
@@ -13,6 +15,7 @@ import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { FloatingBackToTop } from '@/components/ui/FloatingBackToTop'
 import { LoadingScreen } from '@/components/ui/LoadingScreen'
 import { Toast } from '@/components/ui/Toast'
+import { CommandPalette } from '@/components/ui/CommandPalette'
 import { KeyboardShortcutsHint } from '@/components/ui/KeyboardShortcutsHint'
 import { useLanguageStore } from '@/store/language-store'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
@@ -41,6 +44,9 @@ export function PortfolioPage() {
         <About />
         <Stats />
         <div className="section-divider my-4 sm:my-8" />
+        <Projects />
+        <Testimonials />
+        <div className="section-divider my-4 sm:my-8" />
         <Experience />
         <div className="section-divider my-4 sm:my-8" />
         <Contact />
@@ -48,6 +54,7 @@ export function PortfolioPage() {
       <Footer />
       <FloatingBackToTop />
       <Toast />
+      <CommandPalette />
       <KeyboardShortcutsHint />
     </div>
   )

@@ -3,6 +3,12 @@ import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { useLanguageStore } from '@/store/language-store'
 
+// Module-level flag — CommandPalette sets this to true when open
+let _commandPaletteOpen = false
+export function setCommandPaletteOpen(open: boolean) {
+  _commandPaletteOpen = open
+}
+
 export function useKeyboardShortcuts() {
   const { theme, setTheme } = useTheme()
   const { toggleLang } = useLanguageStore()
@@ -12,6 +18,8 @@ export function useKeyboardShortcuts() {
       // Don't trigger when typing in inputs
       const tag = (e.target as HTMLElement).tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+      // Don't trigger when command palette is open
+      if (_commandPaletteOpen) return
 
       switch (e.key.toLowerCase()) {
         case 't':
