@@ -3,14 +3,14 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
-import { ArrowUp, Github, Linkedin, Heart, MessageCircle, Instagram, Gamepad2, Mail } from 'lucide-react'
+import { ArrowUp, Github, Linkedin, MessageCircle, Instagram, Gamepad2, Mail } from 'lucide-react'
 
 const socialLinks = [
   { icon: Linkedin, href: 'https://www.linkedin.com/in/zayidan-muttaqin/', label: 'LinkedIn', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
   { icon: Github, href: 'https://github.com/Zayidan123', label: 'GitHub', hoverColor: 'var(--neon-magenta)', hoverBorder: 'var(--neon-magenta)', hoverGlow: 'var(--glow-magenta)' },
-  { icon: MessageCircle, href: 'https://t.me/zayidan123', label: 'Telegram', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
-  { icon: Instagram, href: 'https://instagram.com/zayidan123', label: 'Instagram', hoverColor: 'var(--neon-magenta)', hoverBorder: 'var(--neon-magenta)', hoverGlow: 'var(--glow-magenta)' },
-  { icon: Gamepad2, href: 'https://discord.com/users/zayidan123', label: 'Discord', hoverColor: 'var(--neon-purple)', hoverBorder: 'var(--neon-purple)', hoverGlow: 'var(--glow-purple)' },
+  { icon: MessageCircle, href: 'https://t.me/ZayM1122', label: 'Telegram', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
+  { icon: Instagram, href: 'https://www.instagram.com/zayidan1122?igsh=NW43eHZ0bXFtMzhz', label: 'Instagram', hoverColor: 'var(--neon-magenta)', hoverBorder: 'var(--neon-magenta)', hoverGlow: 'var(--glow-magenta)' },
+  { icon: Gamepad2, href: 'https://discord.gg/4hv4vKAccC', label: 'Discord', hoverColor: 'var(--neon-purple)', hoverBorder: 'var(--neon-purple)', hoverGlow: 'var(--glow-purple)' },
   { icon: Mail, href: 'mailto:zayidan34@gmail.com', label: 'Email', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
 ]
 
@@ -96,10 +96,6 @@ export function Footer() {
             &copy; {year} Zayidan Muttaqin.
             <span className="mx-1">&middot;</span>
             {t('footer.rights')}
-            <span className="mx-1">&middot;</span>
-            <span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">
-              Built with <Heart className="h-3 w-3 fill-current" />
-            </span>
           </p>
         </motion.div>
       </div>

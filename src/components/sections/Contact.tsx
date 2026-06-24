@@ -70,9 +70,9 @@ export function Contact() {
     { key: 'location', icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)', copyable: false },
     { key: 'linkedin', icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://www.linkedin.com/in/zayidan-muttaqin/', color: 'var(--neon-cyan)', copyable: false },
     { key: 'github', icon: Github, label: t('contact.github'), value: 'github.com/Zayidan123', href: 'https://github.com/Zayidan123', color: 'var(--neon-cyan)', copyable: false },
-    { key: 'telegram', icon: MessageCircle, label: t('contact.telegram'), value: 't.me/zayidan123', href: 'https://t.me/zayidan123', color: 'var(--neon-cyan)', copyable: false },
-    { key: 'instagram', icon: Instagram, label: t('contact.instagram'), value: 'instagram.com/zayidan123', href: 'https://instagram.com/zayidan123', color: 'var(--neon-magenta)', copyable: false },
-    { key: 'discord', icon: Gamepad2, label: t('contact.discord'), value: 'zayidan123', href: 'https://discord.com/users/zayidan123', color: 'var(--neon-purple)', copyable: false },
+    { key: 'telegram', icon: MessageCircle, label: t('contact.telegram'), value: 't.me/ZayM1122', href: 'https://t.me/ZayM1122', color: 'var(--neon-cyan)', copyable: false },
+    { key: 'instagram', icon: Instagram, label: t('contact.instagram'), value: 'instagram.com/zayidan1122', href: 'https://www.instagram.com/zayidan1122?igsh=NW43eHZ0bXFtMzhz', color: 'var(--neon-magenta)', copyable: false },
+    { key: 'discord', icon: Gamepad2, label: t('contact.discord'), value: 'Discord Server', href: 'https://discord.gg/4hv4vKAccC', color: 'var(--neon-purple)', copyable: false },
     { key: 'share', icon: Share2, label: t('contact.share'), value: '', href: '#', color: 'var(--neon-cyan)', copyable: false, isShare: true },
     { key: 'cv', icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', copyable: false, download: true },
   ] as const

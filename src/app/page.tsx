@@ -21,7 +21,6 @@ import { Toast } from '@/components/ui/Toast'
 import { CommandPalette } from '@/components/ui/CommandPalette'
 import { KeyboardShortcutsHint } from '@/components/ui/KeyboardShortcutsHint'
 import { KonamiEasterEgg } from '@/components/ui/KonamiEasterEgg'
-import { NowPlaying } from '@/components/ui/NowPlaying'
 import { CursorGlow } from '@/components/ui/CursorGlow'
 import { AmbientSound } from '@/components/ui/AmbientSound'
 import { ThemeCustomizer } from '@/components/ui/ThemeCustomizer'
@@ -71,7 +70,6 @@ export function PortfolioPage() {
       <CommandPalette />
       <KeyboardShortcutsHint />
       <KonamiEasterEgg />
-      <NowPlaying />
       <CursorGlow />
     </div>
   )

@@ -9,7 +9,7 @@ import { Trophy, Zap, Users, Star, Target, BrainCircuit } from 'lucide-react'
 
 const achievementKeys = ['firstSale', 'hundredClients', 'topPerformer', 'teamLeader', 'negotiator', 'quickLearner'] as const
 const icons = [Trophy, Users, Star, Zap, Target, BrainCircuit]
-const colors = ['var(--neon-cyan)', 'var(--neon-magenta)', 'var(--neon-purple)', 'var(--neon-cyan)', 'var(--neon-magenta)', 'var(--neon-purple)']
+const neonColors = ['#00f0ff', '#ff00aa', '#8b5cf6', '#00f0ff', '#ff00aa', '#8b5cf6']
 
 export function Achievements() {
   const { t } = useLanguageStore()
@@ -50,7 +50,7 @@ export function Achievements() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {achievementKeys.map((key, idx) => {
             const Icon = icons[idx]!
-            const color = colors[idx]!
+            const color = neonColors[idx]!
             return (
               <motion.div
                 key={key}
@@ -61,23 +61,25 @@ export function Achievements() {
                 <TiltCard maxTilt={5}>
                   <div
                     className="relative p-5 rounded-xl glass border glass-card-advanced card-shine transition-all duration-300 group overflow-hidden"
-                    style={{ borderColor: `${color}22` }}
+                    style={{ borderColor: color + '22' }}
                     onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = `${color}44`
-                      (e.currentTarget as HTMLElement).style.boxShadow = `0 0 20px ${color}22`
+                      const el = e.currentTarget as HTMLElement
+                      el.style.borderColor = color + '44'
+                      el.style.boxShadow = '0 0 20px ' + color + '22'
                     }}
                     onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.borderColor = `${color}22`
-                      (e.currentTarget as HTMLElement).style.boxShadow = 'none'
+                      const el = e.currentTarget as HTMLElement
+                      el.style.borderColor = color + '22'
+                      el.style.boxShadow = 'none'
                     }}
                   >
                     {/* Top accent line */}
-                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: `linear-gradient(to right, transparent, ${color}66, transparent)` }} />
+                    <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(to right, transparent, ' + color + '66, transparent)' }} />
 
                     <div className="flex items-start gap-4">
                       <div
                         className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border"
-                        style={{ color, borderColor: `${color}33`, backgroundColor: `${color}0D` }}
+                        style={{ color: color, borderColor: color + '33', backgroundColor: color + '0D' }}
                       >
                         <Icon className="h-5 w-5" />
                       </div>
@@ -93,7 +95,7 @@ export function Achievements() {
 
                     {/* UNLOCKED badge */}
                     <div className="absolute top-3 right-3">
-                      <span className="text-[8px] font-mono-custom px-1.5 py-0.5 rounded tracking-wider" style={{ color, backgroundColor: `${color}15`, border: `1px solid ${color}33` }}>
+                      <span className="text-[8px] font-mono-custom px-1.5 py-0.5 rounded tracking-wider" style={{ color: color, backgroundColor: color + '15', border: '1px solid ' + color + '33' }}>
                         UNLOCKED
                       </span>
                     </div>
