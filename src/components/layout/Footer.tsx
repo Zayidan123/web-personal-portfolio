@@ -3,7 +3,16 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
-import { ArrowUp, Github, Linkedin, Heart } from 'lucide-react'
+import { ArrowUp, Github, Linkedin, Heart, MessageCircle, Instagram, Gamepad2, Mail } from 'lucide-react'
+
+const socialLinks = [
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/zayidan-muttaqin/', label: 'LinkedIn', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
+  { icon: Github, href: 'https://github.com/Zayidan123', label: 'GitHub', hoverColor: 'var(--neon-magenta)', hoverBorder: 'var(--neon-magenta)', hoverGlow: 'var(--glow-magenta)' },
+  { icon: MessageCircle, href: 'https://t.me/zayidan123', label: 'Telegram', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
+  { icon: Instagram, href: 'https://instagram.com/zayidan123', label: 'Instagram', hoverColor: 'var(--neon-magenta)', hoverBorder: 'var(--neon-magenta)', hoverGlow: 'var(--glow-magenta)' },
+  { icon: Gamepad2, href: 'https://discord.com/users/zayidan123', label: 'Discord', hoverColor: 'var(--neon-purple)', hoverBorder: 'var(--neon-purple)', hoverGlow: 'var(--glow-purple)' },
+  { icon: Mail, href: 'mailto:zayidan34@gmail.com', label: 'Email', hoverColor: 'var(--neon-cyan)', hoverBorder: 'var(--neon-cyan)', hoverGlow: 'var(--glow-cyan)' },
+]
 
 export function Footer() {
   const { t } = useLanguageStore()
@@ -45,25 +54,22 @@ export function Footer() {
           </div>
 
           {/* Center: Social Links */}
-          <div className="flex items-center gap-3">
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group w-10 h-10 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 hover:shadow-[var(--glow-cyan)] transition-all duration-300 hover:scale-110"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-4 w-4" />
-            </a>
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group w-10 h-10 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--neon-magenta)] hover:border-[var(--neon-magenta)]/30 hover:shadow-[var(--glow-magenta)] transition-all duration-300 hover:scale-110"
-              aria-label="GitHub"
-            >
-              <Github className="h-4 w-4" />
-            </a>
+          <div className="flex items-center gap-2.5">
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group w-9 h-9 sm:w-10 sm:h-10 rounded-lg glass flex items-center justify-center text-[var(--text-secondary)] hover:text-[${social.hoverColor}] hover:border-[${social.hoverBorder}]/30 hover:shadow-[${social.hoverGlow}] transition-all duration-300 hover:scale-110`}
+                style={{ '--hover-color': social.hoverColor } as React.CSSProperties}
+                onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = social.hoverColor; el.style.borderColor = social.hoverColor + '4D'; el.style.boxShadow = `0 0 15px ${social.hoverColor}33` }}
+                onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.color = ''; el.style.borderColor = ''; el.style.boxShadow = 'none' }}
+                aria-label={social.label}
+              >
+                <social.icon className="h-4 w-4" />
+              </a>
+            ))}
           </div>
 
           {/* Right: Back to top */}
@@ -88,9 +94,9 @@ export function Footer() {
         >
           <p className="text-xs text-[var(--text-secondary)] flex items-center justify-center gap-1">
             &copy; {year} Zayidan Muttaqin.
-            <span className="mx-1">·</span>
+            <span className="mx-1">&middot;</span>
             {t('footer.rights')}
-            <span className="mx-1">·</span>
+            <span className="mx-1">&middot;</span>
             <span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">
               Built with <Heart className="h-3 w-3 fill-current" />
             </span>

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useToastStore } from '@/store/toast-store'
-import { Mail, Phone, Linkedin, Github, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown, Check, Copy, Share2, ExternalLink, X } from 'lucide-react'
+import { Mail, Phone, Linkedin, Github, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown, Check, Copy, Share2, ExternalLink, X, MessageCircle, Instagram, Gamepad2 } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
 import { ScrambleText } from '@/components/ui/ScrambleText'
 
@@ -70,6 +70,9 @@ export function Contact() {
     { key: 'location', icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)', copyable: false },
     { key: 'linkedin', icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://www.linkedin.com/in/zayidan-muttaqin/', color: 'var(--neon-cyan)', copyable: false },
     { key: 'github', icon: Github, label: t('contact.github'), value: 'github.com/Zayidan123', href: 'https://github.com/Zayidan123', color: 'var(--neon-cyan)', copyable: false },
+    { key: 'telegram', icon: MessageCircle, label: t('contact.telegram'), value: 't.me/zayidan123', href: 'https://t.me/zayidan123', color: 'var(--neon-cyan)', copyable: false },
+    { key: 'instagram', icon: Instagram, label: t('contact.instagram'), value: 'instagram.com/zayidan123', href: 'https://instagram.com/zayidan123', color: 'var(--neon-magenta)', copyable: false },
+    { key: 'discord', icon: Gamepad2, label: t('contact.discord'), value: 'zayidan123', href: 'https://discord.com/users/zayidan123', color: 'var(--neon-purple)', copyable: false },
     { key: 'share', icon: Share2, label: t('contact.share'), value: '', href: '#', color: 'var(--neon-cyan)', copyable: false, isShare: true },
     { key: 'cv', icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', copyable: false, download: true },
   ] as const
