@@ -59,9 +59,23 @@ export function Contact() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault(); setFormStatus('loading')
-    const fid = process.env.NEXT_PUBLIC_FORMSPREE_ID
-    if (fid) { try { const r = await fetch(`https://formspree.io/f/${fid}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) }); if (r.ok) { setFormStatus('success'); setFormData({ name: '', email: '', subject: '', message: '' }); addToast(t('contact.success'), 'success') } else { setFormStatus('error'); addToast(t('contact.error'), 'error') } } catch { setFormStatus('error'); addToast(t('contact.error'), 'error') } }
-    else { await new Promise(r => setTimeout(r, 1500)); setFormStatus('success'); setFormData({ name: '', email: '', subject: '', message: '' }); addToast(t('contact.success'), 'success') }
+    try {
+      const r = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      if (r.ok) {
+        setFormStatus('success'); setFormData({ name: '', email: '', subject: '', message: '' }); addToast(t('contact.success'), 'success')
+      } else if (r.status === 429) {
+        setFormStatus('error'); addToast('Too many messages. Please wait a moment.', 'error')
+      } else {
+        const err = await r.json().catch(() => ({}))
+        setFormStatus('error'); addToast(err.error || t('contact.error'), 'error')
+      }
+    } catch {
+      setFormStatus('error'); addToast(t('contact.error'), 'error')
+    }
   }
 
   const contactInfo = [

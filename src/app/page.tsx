@@ -75,6 +75,7 @@ export function PortfolioPage() {
       <KonamiEasterEgg />
       <CursorGlow />
       <AnalyticsTracker />
+      <CopyrightProtection enabled={true} />
       <AdminPanel />
     </div>
   )

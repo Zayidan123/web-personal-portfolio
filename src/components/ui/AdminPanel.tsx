@@ -338,13 +338,17 @@ function AdminPanelContent({ password }: { password: string }) {
     try {
       const res = await fetch('/api/cms', { headers: { Authorization: `Bearer ${password}` } })
       if (!res.ok) return
-      const data: Record<string, string> = await res.json()
+      const json = await res.json()
+      // API returns { success, data: [...items], grouped }
+      const items: { key: string; value: string }[] = json.data || json || []
+      const kvMap: Record<string, string> = {}
+      for (const item of items) { kvMap[item.key] = item.value }
       setCmsGroups((prev) =>
         prev.map((group) => ({
           ...group,
           fields: group.fields.map((field) => ({
             ...field,
-            currentValue: data[field.key] || '',
+            currentValue: kvMap[field.key] || '',
           })),
         }))
       )
@@ -427,8 +431,18 @@ function AdminPanelContent({ password }: { password: string }) {
         headers: { Authorization: `Bearer ${password}` },
       })
       if (!res.ok) throw new Error('Failed to fetch analytics')
-      const data: DashboardData = await res.json()
-      setDashboard(data)
+      const json = await res.json()
+      // API wraps in { success, data: {...} }
+      const data: DashboardData = json.data || json
+      setDashboard({
+        totalVisitors: data.totalVisitors ?? 0,
+        totalPageViews: data.totalPageViews ?? 0,
+        contactSubmissions: data.contactSubmissions ?? 0,
+        avgSectionsPerVisit: data.avgSectionsPerVisit ?? 0,
+        sectionViews: data.sectionViews ?? [],
+        recentVisitors: data.recentVisitors ?? [],
+        contactSubmissionsList: data.contactSubmissionsList ?? [],
+      })
     } catch {
       setAnalyticsError('Unable to load analytics data')
     } finally {
@@ -526,18 +540,23 @@ function AdminPanelContent({ password }: { password: string }) {
 
   // ─── Environment Info ────────────────────────────────────────────────────
 
-  const getEnvInfo = () => {
+  const getEnvInfo = (): Record<string, string> => {
     if (typeof window === 'undefined') return {}
-    const cs = getComputedStyle(document.documentElement)
-    return {
-      'Theme': document.documentElement.classList.contains('dark') ? 'Dark (Cyberpunk)' : 'Light',
-      'Neon Cyan': cs.getPropertyValue('--neon-cyan').trim(),
-      'Neon Magenta': cs.getPropertyValue('--neon-magenta').trim(),
-      'Neon Purple': cs.getPropertyValue('--neon-purple').trim(),
-      'Glass BG': cs.getPropertyValue('--glass-bg').trim().slice(0, 40) + '...',
-      'Browser': `${navigator.userAgent.split(' ').slice(-2).join(' ')}`,
-      'Viewport': `${window.innerWidth}×${window.innerHeight}`,
-      'Platform': navigator.platform || 'Unknown',
+    try {
+      const cs = getComputedStyle(document.documentElement)
+      const ua = navigator.userAgent || ''
+      return {
+        'Theme': document.documentElement.classList.contains('dark') ? 'Dark (Cyberpunk)' : 'Light',
+        'Neon Cyan': cs.getPropertyValue('--neon-cyan').trim(),
+        'Neon Magenta': cs.getPropertyValue('--neon-magenta').trim(),
+        'Neon Purple': cs.getPropertyValue('--neon-purple').trim(),
+        'Glass BG': cs.getPropertyValue('--glass-bg').trim().slice(0, 40) + '...',
+        'Browser': ua.split(' ').slice(-2).join(' '),
+        'Viewport': `${window.innerWidth}×${window.innerHeight}`,
+        'Platform': navigator.userAgentData?.platform || 'Unknown',
+      }
+    } catch {
+      return { 'Theme': 'Unknown' }
     }
   }
 
@@ -947,7 +966,7 @@ function AnalyticsTab({
                 { label: 'Total Visitors', value: dashboard.totalVisitors, icon: Users, color: 'var(--neon-cyan)' },
                 { label: 'Total Page Views', value: dashboard.totalPageViews, icon: Eye, color: 'var(--neon-magenta)' },
                 { label: 'Contact Submissions', value: dashboard.contactSubmissions, icon: Mail, color: 'var(--neon-purple)' },
-                { label: 'Avg. Sections/Visit', value: dashboard.avgSectionsPerVisit.toFixed(1), icon: BarChart3, color: '#00FF88' },
+                { label: 'Avg. Sections/Visit', value: typeof dashboard.avgSectionsPerVisit === 'number' ? dashboard.avgSectionsPerVisit.toFixed(1) : '0.0', icon: BarChart3, color: '#00FF88' },
               ].map((stat) => (
                 <motion.div
                   key={stat.label}

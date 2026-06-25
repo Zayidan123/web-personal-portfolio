@@ -10,7 +10,10 @@
     "db:push": "prisma db push",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
-    "db:reset": "prisma migrate reset"
+    "db:reset": "prisma migrate reset",
+    "security:audit": "bun x npm-audit --production",
+    "security:check": "echo '=== Checking for committed secrets ===' && grep -rE '(ghp_|sk_|sk-|AKIA|AIza)[A-Za-z0-9_]{30,}' src/ --include='*.ts' --include='*.tsx' -l || echo 'No secrets found in source code.' && echo '' && echo '=== Checking .env files are ignored ===' && git check-ignore .env .env.local .env.production >/dev/null 2>&1 && echo 'OK: .env files are gitignored' || echo 'WARNING: .env files may be committed!'",
+    "security:outdated": "bun outdated"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -56,6 +59,7 @@
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.2",
     "input-otp": "^1.4.2",
+    "isomorphic-dompurify": "^3.18.0",
     "lucide-react": "^0.525.0",
     "next": "^16.1.1",
     "next-auth": "^4.24.11",
