@@ -25,6 +25,9 @@ import { CursorGlow } from '@/components/ui/CursorGlow'
 import { AmbientSound } from '@/components/ui/AmbientSound'
 import { ThemeCustomizer } from '@/components/ui/ThemeCustomizer'
 import { ScrollSpy } from '@/components/ui/ScrollSpy'
+import { AdminPanel } from '@/components/ui/AdminPanel'
+import { AnalyticsTracker } from '@/components/ui/AnalyticsTracker'
+import { CopyrightProtection } from '@/components/ui/CopyrightProtection'
 import { useLanguageStore } from '@/store/language-store'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
@@ -71,6 +74,8 @@ export function PortfolioPage() {
       <KeyboardShortcutsHint />
       <KonamiEasterEgg />
       <CursorGlow />
+      <AnalyticsTracker />
+      <AdminPanel />
     </div>
   )
 }
