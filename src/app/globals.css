@@ -1415,6 +1415,164 @@ html {
   }
 }
 
+/* ===== LIQUID GLASS THEME KEYFRAMES ===== */
+
+@keyframes liquid-morph-0 {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(-45%, -55%) scale(1.1) rotate(5deg); }
+  50% { border-radius: 50% 60% 30% 60% / 30% 50% 70% 60%; transform: translate(-55%, -45%) scale(0.95) rotate(-3deg); }
+  75% { border-radius: 60% 30% 60% 40% / 70% 40% 50% 60%; transform: translate(-48%, -52%) scale(1.05) rotate(4deg); }
+}
+
+@keyframes liquid-morph-1 {
+  0%, 100% { border-radius: 40% 60% 70% 30% / 40% 70% 30% 60%; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  33% { border-radius: 70% 30% 50% 50% / 30% 60% 70% 40%; transform: translate(-55%, -48%) scale(1.08) rotate(-4deg); }
+  66% { border-radius: 30% 70% 40% 60% / 60% 30% 60% 40%; transform: translate(-42%, -58%) scale(0.92) rotate(6deg); }
+}
+
+@keyframes liquid-morph-2 {
+  0%, 100% { border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  20% { border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%; transform: translate(-60%, -50%) scale(1.12) rotate(3deg); }
+  40% { border-radius: 30% 70% 30% 70% / 70% 30% 70% 30%; transform: translate(-40%, -45%) scale(0.9) rotate(-5deg); }
+  60% { border-radius: 60% 40% 70% 30% / 30% 70% 40% 60%; transform: translate(-55%, -55%) scale(1.05) rotate(2deg); }
+  80% { border-radius: 40% 60% 30% 70% / 60% 40% 60% 30%; transform: translate(-48%, -50%) scale(0.95) rotate(-3deg); }
+}
+
+@keyframes sparkle-twinkle {
+  0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+/* Liquid Glass Theme overrides */
+.liquid-glass {
+  --background: #f8f0ff;
+  --foreground: #2d1b4e;
+  --card: rgba(255, 255, 255, 0.35);
+  --card-foreground: #2d1b4e;
+  --popover: rgba(255, 255, 255, 0.5);
+  --popover-foreground: #2d1b4e;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(255, 255, 255, 0.25);
+  --secondary-foreground: #4a2d7a;
+  --muted: rgba(200, 180, 230, 0.2);
+  --muted-foreground: #7c6b99;
+  --accent: rgba(200, 160, 255, 0.2);
+  --accent-foreground: #4a2d7a;
+  --destructive: #ff4466;
+  --border: rgba(180, 150, 220, 0.15);
+  --input: rgba(180, 150, 220, 0.15);
+  --ring: #8b5cf6;
+
+  --neon-cyan: #7c3aed;
+  --neon-magenta: #db2777;
+  --neon-purple: #8b5cf6;
+  --dark-base: #f3e8ff;
+  --dark-surface: rgba(255, 255, 255, 0.45);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glow-cyan: 0 8px 32px rgba(139, 92, 246, 0.15);
+  --glow-magenta: 0 8px 32px rgba(219, 39, 119, 0.12);
+  --text-primary: #2d1b4e;
+  --text-secondary: #7c6b99;
+  --scanline-opacity: 0;
+}
+
+/* Liquid glass card styling */
+.liquid-glass .glass {
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.liquid-glass .glass-strong {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(30px) saturate(1.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.liquid-glass .glass-card-advanced {
+  background: linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.15) 100%);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 8px 32px rgba(139, 92, 246, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-glass .glass-card-advanced:hover {
+  box-shadow:
+    0 16px 48px rgba(139, 92, 246, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  border-color: rgba(200, 160, 255, 0.4);
+}
+
+/* Liquid glass text glow */
+.liquid-glass .font-display {
+  text-shadow: 0 2px 20px rgba(139, 92, 246, 0.15);
+}
+
+/* Liquid glass buttons */
+.liquid-glass .ripple-effect {
+  background: rgba(139, 92, 246, 0.1) !important;
+  border-color: rgba(139, 92, 246, 0.3) !important;
+  color: #7c3aed !important;
+  backdrop-filter: blur(10px);
+}
+
+.liquid-glass .ripple-effect:hover {
+  background: rgba(139, 92, 246, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.2) !important;
+  color: #6d28d9 !important;
+}
+
+/* Liquid glass navbar */
+.liquid-glass header nav,
+.liquid-glass .glass-nav {
+  background: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(20px) saturate(1.8) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.06) !important;
+}
+
+/* Liquid glass footer */
+.liquid-glass footer {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) saturate(1.5) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Liquid glass scanline off */
+.liquid-glass .scanline-overlay {
+  display: none !important;
+}
+
+/* Liquid glass scrollbar */
+.liquid-glass ::-webkit-scrollbar { width: 6px; }
+.liquid-glass ::-webkit-scrollbar-track { background: rgba(200, 180, 230, 0.1); }
+.liquid-glass ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.25); border-radius: 3px; }
+.liquid-glass ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.4); }
+
+/* Reduced motion for liquid glass */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-blob,
+  .sparkle-particle {
+    animation: none !important;
+  }
+  .liquid-glass .glass-card-advanced:hover {
+    transform: none;
+  }
+}
+
 /* ===== REDUCED MOTION: NEW ANIMATIONS ===== */
 @media (prefers-reduced-motion: reduce) {
   .aurora-hover::before,

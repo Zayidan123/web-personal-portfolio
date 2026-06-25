@@ -23,6 +23,7 @@ import { KeyboardShortcutsHint } from '@/components/ui/KeyboardShortcutsHint'
 import { KonamiEasterEgg } from '@/components/ui/KonamiEasterEgg'
 import { CursorGlow } from '@/components/ui/CursorGlow'
 import { AmbientSound } from '@/components/ui/AmbientSound'
+import { LiquidGlassBackground, SparkleField } from '@/components/ui/LiquidGlassBackground'
 import { ThemeCustomizer } from '@/components/ui/ThemeCustomizer'
 import { ScrollSpy } from '@/components/ui/ScrollSpy'
 import { AdminPanel } from '@/components/ui/AdminPanel'
@@ -46,6 +47,8 @@ export function PortfolioPage() {
       <ScrollProgress />
       <LightModeBackground />
       <DarkModeBackground />
+      <LiquidGlassBackground />
+      <SparkleField />
       <Navbar />
       <main className="flex-1 relative z-[1]">
         <Hero />

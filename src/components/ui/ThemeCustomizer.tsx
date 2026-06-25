@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { Palette, X, RotateCcw } from 'lucide-react'
+import { useTheme } from 'next-themes'
 
 interface Preset {
   name: string
@@ -10,6 +11,7 @@ interface Preset {
   purple: string
   bg?: string
   surface?: string
+  themeMode?: 'dark' | 'light' | 'liquid-glass'
 }
 
 const PRESETS: Preset[] = [
@@ -19,18 +21,12 @@ const PRESETS: Preset[] = [
   { name: 'Sunset', cyan: '#FF6B6B', magenta: '#FFA07A', purple: '#FFD700' },
   { name: 'Aurora', cyan: '#00E676', magenta: '#E040FB', purple: '#7C4DFF' },
   { name: 'Matrix', cyan: '#00FF41', magenta: '#39FF14', purple: '#008F11', bg: '#000a00', surface: '#001100' },
+  { name: 'Liquid Glass', cyan: '#C8A0FF', magenta: '#F8BBD9', purple: '#A5E6CF', themeMode: 'liquid-glass' },
+  { name: 'Rose Gold', cyan: '#E8A0BF', magenta: '#F4C2C2', purple: '#DDA0DD' },
+  { name: 'Ocean', cyan: '#00ACC1', magenta: '#0097A7', purple: '#26C6DA' },
 ]
 
 const DEFAULT_COLORS = { cyan: '#00F5FF', magenta: '#FF00AA', purple: '#8B5CF6' }
-
-function loadSavedFromStorage(): Record<string, string> {
-  if (typeof window === 'undefined') return {}
-  try {
-    const raw = localStorage.getItem('theme-custom-colors')
-    if (raw) return JSON.parse(raw)
-  } catch { /* ignore */ }
-  return {}
-}
 
 function applyColor(key: string, value: string) {
   if (typeof document === 'undefined') return
@@ -46,37 +42,61 @@ function applyPresetColors(preset: Preset) {
 }
 
 export function ThemeCustomizer() {
+  const { setTheme } = useTheme()
   const [open, setOpen] = useState(false)
-  const [activeColors, setActiveColors] = useState<Record<string, string>>({})
-  const [activePreset, setActivePreset] = useState<string | null>(null)
+
+  // Initialize from localStorage (runs once during mount)
+  const [activeColors, setActiveColors] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {}
+    try {
+      const raw = localStorage.getItem('theme-custom-colors')
+      if (raw) return JSON.parse(raw)
+    } catch { /* ignore */ }
+    return {}
+  })
+  const [activePreset, setActivePreset] = useState<string | null>(() => {
+    if (typeof window === 'undefined') return null
+    return localStorage.getItem('theme-preset')
+  })
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const handleToggle = useCallback(() => {
-    if (!open) {
-      const saved = loadSavedFromStorage()
-      if (Object.keys(saved).length > 0) {
-        setActiveColors(saved)
-        setActivePreset(null)
-      }
-    }
     setOpen((prev) => !prev)
-  }, [open])
+  }, [])
 
   const applyPreset = useCallback((preset: Preset) => {
     applyPresetColors(preset)
     const colors = { cyan: preset.cyan, magenta: preset.magenta, purple: preset.purple }
     setActiveColors(colors)
     setActivePreset(preset.name)
+
+    // Handle theme mode switching
+    if (preset.themeMode === 'liquid-glass') {
+      setTheme('liquid-glass')
+      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.add('liquid-glass')
+    } else {
+      // Restore to dark mode for non-liquid presets
+      setTheme('dark')
+      document.documentElement.classList.add('dark')
+      document.documentElement.classList.remove('liquid-glass')
+    }
+
     try { localStorage.setItem('theme-custom-colors', JSON.stringify(colors)) } catch { /* ignore */ }
-  }, [])
+    try { localStorage.setItem('theme-preset', preset.name) } catch { /* ignore */ }
+  }, [setTheme])
 
   const resetTheme = useCallback(() => {
     applyPresetColors(DEFAULT_COLORS as Preset)
     setActiveColors(DEFAULT_COLORS)
     setActivePreset('Cyberpunk')
+    setTheme('dark')
+    document.documentElement.classList.add('dark')
+    document.documentElement.classList.remove('liquid-glass')
     try { localStorage.removeItem('theme-custom-colors') } catch { /* ignore */ }
-  }, [])
+    try { localStorage.removeItem('theme-preset') } catch { /* ignore */ }
+  }, [setTheme])
 
   const handleColorChange = useCallback((key: string, cssVar: string, value: string) => {
     applyColor(cssVar, value)
@@ -118,7 +138,7 @@ export function ThemeCustomizer() {
       {open && (
         <div
           ref={panelRef}
-          className="fixed bottom-16 right-20 z-40 w-72 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl p-4 shadow-[0_0_30px_rgba(0,0,0,0.5)]"
+          className="fixed bottom-16 right-20 z-40 w-72 rounded-xl border border-[var(--glass-border)] bg-[var(--glass-bg)] backdrop-blur-xl p-4 shadow-[0_0_30px_rgba(0,0,0,0.5)] max-h-[70vh] overflow-y-auto"
         >
           <div className="flex items-center justify-between mb-4">
             <span className="text-sm font-display font-bold text-[var(--text-primary)] tracking-wider">THEME</span>
@@ -134,7 +154,7 @@ export function ThemeCustomizer() {
                 onClick={() => setOpen(false)}
                 className="w-6 h-6 rounded-md flex items-center justify-center text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
               >
-                <X className="h-3.5 w-3.5" />
+                <X className="h-3.5 h-3.5" />
               </button>
             </div>
           </div>
@@ -145,6 +165,7 @@ export function ThemeCustomizer() {
               <div className="grid grid-cols-3 gap-1.5">
                 {PRESETS.map((preset) => {
                   const isActive = activePreset === preset.name
+                  const isLiquid = preset.themeMode === 'liquid-glass'
                   return (
                     <button
                       key={preset.name}
@@ -158,7 +179,12 @@ export function ThemeCustomizer() {
                         <span className="w-3 h-3 rounded-full" style={{ backgroundColor: preset.magenta }} />
                         <span className="w-3 h-3 rounded-full" style={{ backgroundColor: preset.purple }} />
                       </div>
-                      <span className="text-[9px] font-mono-custom text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">{preset.name}</span>
+                      <span className="text-[9px] font-mono-custom text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors leading-tight block">
+                        {preset.name}
+                      </span>
+                      {isLiquid && (
+                        <span className="text-[7px] text-[var(--neon-purple)] font-mono-custom">✦ NEW</span>
+                      )}
                       {isActive && <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-[var(--neon-cyan)]" />}
                     </button>
                   )
