@@ -6,7 +6,7 @@ interface ExperienceEntry {
   role: LocalizedText
   company: LocalizedText
   description: { id: string[]; en: string[] }
-  tags: string[]
+  tags: { id: string[]; en: string[] }
 }
 
 export const experiences: ExperienceEntry[] = [
@@ -29,7 +29,7 @@ export const experiences: ExperienceEntry[] = [
         "Led, motivated, and evaluated store staff performance (cashiers, sales associates)",
       ],
     },
-    tags: ["Retail Management", "Leadership", "Customer Service", "SOP"],
+    tags: { id: ["Manajemen Retail", "Kepemimpinan", "Layanan Pelanggan", "SOP"], en: ["Retail Management", "Leadership", "Customer Service", "SOP"] },
   },
   {
     id: 2,
@@ -48,7 +48,7 @@ export const experiences: ExperienceEntry[] = [
         "Handled customer complaints quickly and professionally",
       ],
     },
-    tags: ["Customer Service", "Product Knowledge", "Communication", "Retail"],
+    tags: { id: ["Layanan Pelanggan", "Pengetahuan Produk", "Komunikasi", "Retail"], en: ["Customer Service", "Product Knowledge", "Communication", "Retail"] },
   },
   {
     id: 3,
@@ -71,7 +71,7 @@ export const experiences: ExperienceEntry[] = [
         "Created daily sales reports for monitoring target achievement",
       ],
     },
-    tags: ["Sales Promotion", "Visual Merchandising", "Product Knowledge", "Reporting"],
+    tags: { id: ["Sales Promotion", "Visual Merchandising", "Pengetahuan Produk", "Laporan Penjualan"], en: ["Sales Promotion", "Visual Merchandising", "Product Knowledge", "Reporting"] },
   },
 ]
 

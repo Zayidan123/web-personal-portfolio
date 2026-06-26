@@ -67,7 +67,7 @@ export function Contact() {
       if (r.ok) {
         setFormStatus('success'); setFormData({ name: '', email: '', subject: '', message: '' }); addToast(t('contact.success'), 'success')
       } else if (r.status === 429) {
-        setFormStatus('error'); addToast('Too many messages. Please wait a moment.', 'error')
+        setFormStatus('error'); addToast(t('contact.rateLimitError'), 'error')
       } else {
         const err = await r.json().catch(() => ({}))
         setFormStatus('error'); addToast(err.error || t('contact.error'), 'error')
@@ -85,7 +85,7 @@ export function Contact() {
     { key: 'github', icon: Github, label: t('contact.github'), value: 'github.com/Zayidan123', href: 'https://github.com/Zayidan123', color: 'var(--neon-cyan)', copyable: false },
     { key: 'telegram', icon: MessageCircle, label: t('contact.telegram'), value: 't.me/ZayM1122', href: 'https://t.me/ZayM1122', color: 'var(--neon-cyan)', copyable: false },
     { key: 'instagram', icon: Instagram, label: t('contact.instagram'), value: 'instagram.com/zayidan1122', href: 'https://www.instagram.com/zayidan1122?igsh=NW43eHZ0bXFtMzhz', color: 'var(--neon-magenta)', copyable: false },
-    { key: 'discord', icon: Gamepad2, label: t('contact.discord'), value: 'Discord Server', href: 'https://discord.gg/4hv4vKAccC', color: 'var(--neon-purple)', copyable: false },
+    { key: 'discord', icon: Gamepad2, label: t('contact.discord'), value: t('contact.discordServer'), href: 'https://discord.gg/4hv4vKAccC', color: 'var(--neon-purple)', copyable: false },
     { key: 'share', icon: Share2, label: t('contact.share'), value: '', href: '#', color: 'var(--neon-cyan)', copyable: false, isShare: true },
     { key: 'cv', icon: FileDown, label: t('contact.cvLabel'), value: 'CV_ZAYIDAN_MUTTAQIN.pdf', href: '/CV_ZAYIDAN_MUTTAQIN.pdf', color: 'var(--neon-purple)', copyable: false, download: true },
   ] as const

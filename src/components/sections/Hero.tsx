@@ -256,7 +256,7 @@ export function Hero() {
         transition={{ delay: 1.5, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer"
         onClick={() => scrollTo('about')}
-        aria-label="Scroll down"
+        aria-label={t('hero.scrollDown')}
       >
         <motion.span
           animate={{ opacity: [0.3, 1, 0.3] }}

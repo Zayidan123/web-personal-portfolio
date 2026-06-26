@@ -11,7 +11,14 @@ export function ScrambleText({ text, className, delay = 0 }: { text: string; cla
   const hasScrambled = useRef(false)
 
   useEffect(() => {
-    if (!inView || hasScrambled.current) return
+    if (!inView) return
+
+    // After initial scramble, just update text directly (e.g. language switch)
+    if (hasScrambled.current) {
+      setDisplayed(text)
+      return
+    }
+
     hasScrambled.current = true
     setIsScrambling(true)
 

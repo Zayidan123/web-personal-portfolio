@@ -102,7 +102,7 @@ export function Experience() {
 
                       {/* Tags */}
                       <div className="flex flex-wrap gap-1.5">
-                        {exp.tags.map(tag => (
+                        {exp.tags[lang].map(tag => (
                           <span
                             key={tag}
                             className="px-2 py-0.5 rounded text-[10px] font-mono-custom text-[var(--text-secondary)] bg-[var(--glass-bg)] border border-[var(--glass-border)]"

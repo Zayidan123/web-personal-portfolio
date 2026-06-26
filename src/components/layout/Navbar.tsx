@@ -50,10 +50,10 @@ export function Navbar() {
           <div className="flex items-center gap-2 sm:gap-3">
             <ThemeToggle />
             <div className="hidden sm:block"><LanguageToggle /></div>
-            <button onClick={() => window.dispatchEvent(new Event('command-palette:toggle'))} className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg glass border border-[var(--glass-border)] text-xs font-mono-custom text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 transition-all" aria-label="Command Palette">
+            <button onClick={() => window.dispatchEvent(new Event('command-palette:toggle'))} className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-lg glass border border-[var(--glass-border)] text-xs font-mono-custom text-[var(--text-secondary)] hover:text-[var(--neon-cyan)] hover:border-[var(--neon-cyan)]/30 transition-all" aria-label={t('commandPalette.title')}>
               <Search className="h-3.5 w-3.5" /><span className="hidden xl:inline">...</span><kbd className="hidden xl:inline-flex px-1.5 py-0.5 rounded text-[9px] font-mono-custom bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-secondary)]/60">Ctrl K</kbd>
             </button>
-            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden w-10 h-10 rounded-lg glass border border-[var(--glass-border)] flex items-center justify-center text-[var(--text-primary)] transition-all hover:text-[var(--neon-cyan)]" aria-label="Toggle menu" aria-expanded={mobileOpen}>
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden w-10 h-10 rounded-lg glass border border-[var(--glass-border)] flex items-center justify-center text-[var(--text-primary)] transition-all hover:text-[var(--neon-cyan)]" aria-label={t('shortcuts.sections')} aria-expanded={mobileOpen}>
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
@@ -75,7 +75,7 @@ export function Navbar() {
               ))}
             </div>
             <div className="px-6 py-4 border-t border-[var(--glass-border)]"><LanguageToggle /></div>
-            <div className="px-6 py-3 border-t border-[var(--glass-border)] text-center"><p className="text-[10px] text-[var(--text-secondary)] flex items-center justify-center gap-1"><span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">Built with <Heart className="h-2.5 w-2.5 fill-current" /></span></p></div>
+            <div className="px-6 py-3 border-t border-[var(--glass-border)] text-center"><p className="text-[10px] text-[var(--text-secondary)] flex items-center justify-center gap-1"><span className="inline-flex items-center gap-0.5 text-[var(--neon-magenta)]">{t('footer.builtWith')} <Heart className="h-2.5 w-2.5 fill-current" /></span></p></div>
           </div>
         </motion.div>
       </>)}</AnimatePresence>
