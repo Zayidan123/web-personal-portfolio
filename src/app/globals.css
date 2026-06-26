@@ -1593,3 +1593,751 @@ html {
     opacity: 0 !important;
   }
 }
+
+/* =============================================================
+   ===== 3D WORLD THEME =====
+   ============================================================= */
+
+/* 3D Theme Keyframes */
+@keyframes float-3d {
+  0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+  25% { transform: translateY(-15px) rotateX(5deg) rotateY(10deg); }
+  50% { transform: translateY(-8px) rotateX(-3deg) rotateY(-5deg); }
+  75% { transform: translateY(-20px) rotateX(3deg) rotateY(8deg); }
+}
+
+@keyframes spin-3d-slow {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes spin-3d-reverse {
+  0% { transform: rotateX(360deg) rotateY(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(0deg) rotateY(360deg) rotateZ(360deg); }
+}
+
+@keyframes pulse-3d {
+  0%, 100% { transform: translateZ(0px) scale(1); box-shadow: 0 0 15px var(--neon-cyan), 0 10px 30px rgba(0,0,0,0.3); }
+  50% { transform: translateZ(10px) scale(1.05); box-shadow: 0 0 25px var(--neon-cyan), 0 15px 40px rgba(0,0,0,0.4); }
+}
+
+@keyframes grid-3d-flow {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes cube-rotate {
+  0% { transform: rotateX(-20deg) rotateY(0deg); }
+  100% { transform: rotateX(-20deg) rotateY(360deg); }
+}
+
+@keyframes depth-pulse {
+  0%, 100% { transform: perspective(600px) rotateX(2deg) rotateY(-2deg) translateZ(0); }
+  50% { transform: perspective(600px) rotateX(-1deg) rotateY(1deg) translateZ(5px); }
+}
+
+@keyframes orbit-3d {
+  0% { transform: rotateY(0deg) translateX(80px) rotateY(0deg); }
+  100% { transform: rotateY(360deg) translateX(80px) rotateY(-360deg); }
+}
+
+@keyframes orbit-3d-reverse {
+  0% { transform: rotateY(0deg) translateX(120px) rotateY(0deg) rotateX(10deg); }
+  100% { transform: rotateY(-360deg) translateX(120px) rotateY(360deg) rotateX(10deg); }
+}
+
+@keyframes wireframe-pulse {
+  0%, 100% { opacity: 0.15; transform: rotateX(15deg) rotateY(15deg) scale(1); }
+  50% { opacity: 0.25; transform: rotateX(15deg) rotateY(195deg) scale(1.1); }
+}
+
+@keyframes text-3d-breathe {
+  0%, 100% { text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 5px rgba(0,0,0,.1), 0 1px 3px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,.2), 0 5px 10px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.2), 0 20px 20px rgba(0,0,0,.15); }
+  50% { text-shadow: 0 1px 0 #ccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaa, 0 6px 1px rgba(0,0,0,.1), 0 0 10px rgba(0,245,255,.3), 0 1px 5px rgba(0,0,0,.3), 0 3px 8px rgba(0,245,255,.15), 0 5px 15px rgba(0,0,0,.25), 0 10px 15px rgba(0,245,255,.1), 0 20px 25px rgba(0,0,0,.15); }
+}
+
+/* 3D Theme: CSS Variable Overrides */
+.theme-3d {
+  --background: #050510;
+  --foreground: #e8e8ff;
+  --card: rgba(10, 10, 30, 0.85);
+  --card-foreground: #e8e8ff;
+  --popover: rgba(10, 10, 30, 0.9);
+  --popover-foreground: #e8e8ff;
+  --primary: #00F5FF;
+  --primary-foreground: #050510;
+  --secondary: #0a0a2e;
+  --secondary-foreground: #e8e8ff;
+  --muted: #0a0a2e;
+  --muted-foreground: #7777aa;
+  --accent: #0f0f3a;
+  --accent-foreground: #e8e8ff;
+  --destructive: #FF4466;
+  --border: rgba(0, 245, 255, 0.1);
+  --input: rgba(0, 245, 255, 0.12);
+  --ring: #00F5FF;
+
+  --neon-cyan: #00F5FF;
+  --neon-magenta: #FF2DAA;
+  --neon-purple: #A78BFA;
+  --dark-base: #050510;
+  --dark-surface: #0a0a20;
+  --glass-bg: rgba(10, 15, 40, 0.65);
+  --glass-border: rgba(0, 245, 255, 0.12);
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.4), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --glow-magenta: 0 0 20px rgba(255, 45, 170, 0.4), 0 8px 32px rgba(0, 0, 0, 0.5);
+  --text-primary: #e8e8ff;
+  --text-secondary: #8888bb;
+  --scanline-opacity: 0;
+  --3d-perspective: 1200px;
+  --3d-depth: 40px;
+}
+
+/* ===== 3D THEME: BASE LAYOUT ===== */
+.theme-3d body {
+  perspective: var(--3d-perspective);
+  perspective-origin: 50% 50%;
+  overflow-x: hidden;
+}
+
+.theme-3d main {
+  transform-style: preserve-3d;
+  perspective: var(--3d-perspective);
+}
+
+.theme-3d section {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 3D THEME: GLASS CARDS ===== */
+.theme-3d .glass {
+  background: linear-gradient(145deg, rgba(10, 15, 45, 0.7) 0%, rgba(5, 8, 25, 0.85) 100%);
+  backdrop-filter: blur(16px) brightness(1.1);
+  -webkit-backdrop-filter: blur(16px) brightness(1.1);
+  border: 1px solid rgba(0, 245, 255, 0.1);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 16px 32px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(0, 245, 255, 0.08);
+  transform-style: preserve-3d;
+  transform: translateZ(0px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d .glass-strong {
+  background: linear-gradient(145deg, rgba(10, 15, 45, 0.85) 0%, rgba(5, 8, 25, 0.95) 100%);
+  backdrop-filter: blur(24px) brightness(1.1);
+  -webkit-backdrop-filter: blur(24px) brightness(1.1);
+  border: 1px solid rgba(0, 245, 255, 0.15);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 8px 16px rgba(0, 0, 0, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(0, 245, 255, 0.1);
+  transform-style: preserve-3d;
+}
+
+/* ===== 3D THEME: CARD ADVANCED HOVER ===== */
+.theme-3d .glass-card-advanced {
+  background: linear-gradient(145deg, rgba(10, 15, 45, 0.7) 0%, rgba(5, 8, 25, 0.85) 100%);
+  backdrop-filter: blur(16px) brightness(1.1);
+  -webkit-backdrop-filter: blur(16px) brightness(1.1);
+  border: 1px solid rgba(0, 245, 255, 0.1);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(0, 245, 255, 0.08),
+    inset 0 -1px 0 rgba(255, 45, 170, 0.05);
+  transform-style: preserve-3d;
+  transform: perspective(800px) translateZ(0);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d .glass-card-advanced::after {
+  background: linear-gradient(135deg,
+    rgba(0, 245, 255, 0.08) 0%,
+    transparent 40%,
+    transparent 60%,
+    rgba(255, 45, 170, 0.06) 100%
+  );
+  transform: translateZ(1px);
+}
+
+.theme-3d .glass-card-advanced:hover {
+  transform: perspective(800px) translateZ(20px) rotateX(2deg) rotateY(-2deg);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 24px 48px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(0, 245, 255, 0.1),
+    inset 0 1px 0 rgba(0, 245, 255, 0.15),
+    inset 0 -1px 0 rgba(255, 45, 170, 0.08);
+  border-color: rgba(0, 245, 255, 0.25);
+}
+
+/* ===== 3D THEME: GLASS HOVER GLOW ===== */
+.theme-3d .glass-hover-glow:hover {
+  transform: perspective(600px) translateZ(15px) translateY(-4px) rotateX(3deg) rotateY(-2deg);
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 255, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 16px 48px rgba(0, 0, 0, 0.2),
+    0 0 30px rgba(0, 245, 255, 0.15);
+}
+
+/* ===== 3D THEME: FONTS ===== */
+.theme-3d .font-display {
+  font-family: 'Orbitron', sans-serif;
+  text-shadow:
+    0 0 10px rgba(0, 245, 255, 0.5),
+    0 0 20px rgba(0, 245, 255, 0.3),
+    0 0 40px rgba(0, 245, 255, 0.1);
+  letter-spacing: 0.05em;
+}
+
+.theme-3d .font-mono-custom {
+  text-shadow: 0 0 6px rgba(0, 245, 255, 0.2);
+}
+
+/* ===== 3D THEME: HERO NAME SHIMMER ===== */
+.theme-3d .hero-name-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--neon-cyan) 0%,
+    #fff 15%,
+    var(--neon-cyan) 30%,
+    var(--neon-magenta) 60%,
+    var(--neon-purple) 80%,
+    var(--neon-cyan) 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s linear infinite;
+  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.4)) drop-shadow(0 0 40px rgba(0, 245, 255, 0.2));
+  transform: translateZ(30px);
+  transform-style: preserve-3d;
+}
+
+/* ===== 3D THEME: SECTION TITLE LINE ===== */
+.theme-3d .section-title-line {
+  height: 4px;
+  box-shadow:
+    0 0 8px var(--neon-cyan),
+    0 0 16px rgba(0, 245, 255, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.5);
+  transform: perspective(200px) rotateX(30deg) translateZ(5px);
+  transform-origin: left center;
+}
+
+/* ===== 3D THEME: SECTION DIVIDER ===== */
+.theme-3d .section-divider {
+  height: 2px;
+  transform: perspective(300px) rotateX(10deg);
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.theme-3d .section-divider::before {
+  width: 8px;
+  height: 8px;
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 30px rgba(0, 245, 255, 0.3);
+  transform: translateZ(5px);
+  background: radial-gradient(circle, var(--neon-cyan), rgba(0, 245, 255, 0.5));
+}
+
+.theme-3d .section-divider::after {
+  width: 8px;
+  height: 8px;
+  box-shadow:
+    0 0 10px var(--neon-magenta),
+    0 0 20px var(--neon-magenta);
+  background: radial-gradient(circle, var(--neon-magenta), rgba(255, 45, 170, 0.5));
+}
+
+/* ===== 3D THEME: NAVBAR ===== */
+.theme-3d header {
+  transform-style: preserve-3d;
+}
+
+.theme-3d header nav,
+.theme-3d .glass-nav {
+  background: linear-gradient(180deg, rgba(5, 5, 16, 0.95) 0%, rgba(5, 5, 16, 0.85) 100%) !important;
+  backdrop-filter: blur(20px) brightness(1.1) !important;
+  -webkit-backdrop-filter: blur(20px) brightness(1.1) !important;
+  border-bottom: 1px solid rgba(0, 245, 255, 0.15) !important;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(0, 245, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 245, 255, 0.08) !important;
+  transform: translateZ(40px);
+}
+
+/* ===== 3D THEME: FOOTER ===== */
+.theme-3d footer {
+  background: linear-gradient(180deg, rgba(5, 5, 16, 0.8) 0%, rgba(5, 5, 20, 0.95) 100%) !important;
+  border-top: 1px solid rgba(0, 245, 255, 0.15) !important;
+  box-shadow:
+    0 -4px 20px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(0, 245, 255, 0.08);
+  transform: perspective(800px) translateZ(20px);
+}
+
+/* ===== 3D THEME: BUTTONS ===== */
+.theme-3d .ripple-effect {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d .ripple-effect:hover {
+  transform: perspective(400px) translateZ(8px) translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 245, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.theme-3d .ripple-effect:active {
+  transform: perspective(400px) translateZ(0) translateY(1px);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== 3D THEME: ICONS ===== */
+.theme-3d svg {
+  filter: drop-shadow(0 0 4px rgba(0, 245, 255, 0.3));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.theme-3d button:hover svg,
+.theme-3d a:hover svg {
+  filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.5)) drop-shadow(0 0 16px rgba(0, 245, 255, 0.2));
+  transform: translateZ(5px) scale(1.1);
+}
+
+/* ===== 3D THEME: TIMELINE (Experience) ===== */
+.theme-3d #experience [class*="absolute"][class*="left-4"] {
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+/* 3D timeline nodes */
+.theme-3d #experience [class*="rounded-full"][style*="neon-cyan"] {
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 30px rgba(0, 245, 255, 0.3);
+  transform: translateZ(10px);
+}
+
+/* ===== 3D THEME: SKILL BARS ===== */
+.theme-3d .skill-bar-track {
+  background: rgba(0, 245, 255, 0.05) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  transform: perspective(200px) rotateX(10deg);
+  transform-origin: left;
+}
+
+/* ===== 3D THEME: SOFT SKILL TAGS ===== */
+.theme-3d .soft-skill-tag {
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-3d .soft-skill-tag:hover {
+  transform: perspective(400px) translateZ(10px) translateY(-4px) rotateX(3deg);
+  box-shadow:
+    0 8px 16px rgba(255, 45, 170, 0.15),
+    0 0 15px rgba(255, 45, 170, 0.1);
+  border-color: var(--neon-magenta) !important;
+}
+
+/* ===== 3D THEME: AURORA HOVER ===== */
+.theme-3d .aurora-hover::before {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 245, 255, 0.15),
+    rgba(255, 45, 170, 0.15),
+    rgba(167, 139, 250, 0.15),
+    rgba(0, 245, 255, 0.15)
+  );
+  background-size: 400% 400%;
+  opacity: 0;
+  transform: translateZ(-1px);
+}
+
+.theme-3d .aurora-hover:hover::before {
+  opacity: 0.2;
+}
+
+/* ===== 3D THEME: TEXT GRADIENT ANIMATE ===== */
+.theme-3d .text-gradient-animate {
+  filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.4));
+}
+
+/* ===== 3D THEME: NEON PULSE RING ===== */
+.theme-3d .neon-pulse-ring {
+  animation: pulse-3d 2s ease-in-out infinite;
+}
+
+/* ===== 3D THEME: CARD SHINE ===== */
+.theme-3d .card-shine::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 245, 255, 0.1) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(0, 245, 255, 0.1) 60%,
+    transparent 100%
+  );
+  transform: translateX(-100%) translateY(-100%) rotate(45deg) translateZ(2px);
+}
+
+/* ===== 3D THEME: BREATHING GLOW ===== */
+.theme-3d .breathing-glow {
+  animation: pulse-3d 3s ease-in-out infinite;
+}
+
+/* ===== 3D THEME: SCROLLBAR ===== */
+.theme-3d ::-webkit-scrollbar { width: 8px; }
+.theme-3d ::-webkit-scrollbar-track {
+  background: rgba(5, 5, 16, 0.9);
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5);
+}
+.theme-3d ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+  border-radius: 4px;
+  box-shadow: 0 0 6px var(--neon-cyan), 0 0 12px rgba(0, 245, 255, 0.2);
+}
+.theme-3d ::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px rgba(0, 245, 255, 0.4);
+}
+
+/* ===== 3D THEME: SCANLINE OFF ===== */
+.theme-3d .scanline-overlay {
+  display: none !important;
+}
+
+/* ===== 3D THEME: COMMAND PALETTE ===== */
+.theme-3d .command-palette-dialog {
+  box-shadow:
+    0 0 0 1px rgba(0, 245, 255, 0.2),
+    0 0 40px rgba(0, 245, 255, 0.1),
+    0 25px 60px rgba(0, 0, 0, 0.6),
+    0 50px 100px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%) perspective(800px) translateZ(30px);
+  border: 1px solid rgba(0, 245, 255, 0.15);
+}
+
+/* ===== 3D THEME: HUD BRACKETS ===== */
+.theme-3d .hud-bracket::before,
+.theme-3d .hud-bracket::after {
+  box-shadow: 0 0 6px var(--neon-cyan);
+  transform: translateZ(5px);
+}
+
+/* ===== 3D THEME: AVATAR GRADIENT BORDER ===== */
+.theme-3d .avatar-gradient-border {
+  box-shadow:
+    0 0 20px rgba(0, 245, 255, 0.3),
+    0 0 40px rgba(255, 45, 170, 0.15),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  transform: perspective(600px) translateZ(10px);
+}
+
+/* ===== 3D THEME: TILT CARDS ENHANCED ===== */
+.theme-3d [data-tilt-card] {
+  transform-style: preserve-3d;
+}
+
+/* ===== 3D THEME: DOT LOADING ===== */
+.theme-3d .dots-loading span {
+  box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px rgba(0, 245, 255, 0.3);
+}
+
+/* ===== 3D THEME: GLITCH TEXT ===== */
+.theme-3d .glitch-text::before {
+  text-shadow: 2px 0 var(--neon-cyan), -2px 0 var(--neon-magenta);
+}
+
+.theme-3d .glitch-text::after {
+  text-shadow: -2px 0 var(--neon-magenta), 2px 0 var(--neon-cyan);
+}
+
+/* ===== 3D THEME: INPUT FIELDS ===== */
+.theme-3d input,
+.theme-3d textarea {
+  background: rgba(5, 8, 25, 0.6) !important;
+  border-color: rgba(0, 245, 255, 0.15) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 0 0 transparent;
+  transition: all 0.3s ease;
+}
+
+.theme-3d input:focus,
+.theme-3d textarea:focus {
+  border-color: var(--neon-cyan) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(0, 245, 255, 0.2),
+    0 0 30px rgba(0, 245, 255, 0.1) !important;
+  transform: perspective(400px) translateZ(3px);
+}
+
+/* ===== 3D THEME: BACKGROUND BODY ===== */
+.theme-3d body::before {
+  background: linear-gradient(135deg,
+    rgba(0, 245, 255, 0.04) 0%,
+    rgba(255, 45, 170, 0.03) 25%,
+    rgba(167, 139, 250, 0.04) 50%,
+    rgba(0, 245, 255, 0.03) 75%,
+    rgba(255, 45, 170, 0.04) 100%
+  ) !important;
+  background-size: 400% 400% !important;
+}
+
+/* ===== 3D THEME: FLOATING 3D GEOMETRY SHAPES ===== */
+.theme-3d-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+.theme-3d-cube {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform-style: preserve-3d;
+  animation: cube-rotate 20s linear infinite;
+  opacity: 0.15;
+}
+
+.theme-3d-cube .face {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--neon-cyan);
+  background: rgba(0, 245, 255, 0.03);
+  box-shadow: inset 0 0 10px rgba(0, 245, 255, 0.05);
+}
+
+.theme-3d-cube .face-front  { transform: translateZ(20px); }
+.theme-3d-cube .face-back   { transform: rotateY(180deg) translateZ(20px); }
+.theme-3d-cube .face-left   { transform: rotateY(-90deg) translateZ(20px); }
+.theme-3d-cube .face-right  { transform: rotateY(90deg) translateZ(20px); }
+.theme-3d-cube .face-top    { transform: rotateX(90deg) translateZ(20px); }
+.theme-3d-cube .face-bottom { transform: rotateX(-90deg) translateZ(20px); }
+
+.theme-3d-cube.magenta .face {
+  border-color: var(--neon-magenta);
+  background: rgba(255, 45, 170, 0.03);
+  box-shadow: inset 0 0 10px rgba(255, 45, 170, 0.05);
+}
+
+.theme-3d-cube.purple .face {
+  border-color: var(--neon-purple);
+  background: rgba(167, 139, 250, 0.03);
+  box-shadow: inset 0 0 10px rgba(167, 139, 250, 0.05);
+}
+
+/* 3D Wireframe Sphere */
+.theme-3d-sphere {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--neon-cyan);
+  opacity: 0.08;
+  animation: wireframe-pulse 8s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.05);
+}
+
+/* 3D Orbiting particles */
+.theme-3d-orbit-container {
+  position: absolute;
+  transform-style: preserve-3d;
+  animation: spin-3d-slow 30s linear infinite;
+}
+
+.theme-3d-orbit-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px rgba(0, 245, 255, 0.3);
+  animation: orbit-3d 8s linear infinite;
+}
+
+/* 3D Grid floor effect */
+.theme-3d-grid {
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  width: 140%;
+  height: 40%;
+  background-image:
+    linear-gradient(rgba(0, 245, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-3d-flow 4s linear infinite;
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: center top;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+/* ===== 3D THEME: CYBER LINK ===== */
+.theme-3d .cyber-link:hover {
+  text-shadow:
+    0 0 8px var(--neon-cyan),
+    0 0 16px rgba(0, 245, 255, 0.3);
+  transform: translateZ(5px);
+}
+
+/* ===== 3D THEME: FOCUS STYLES ===== */
+.theme-3d *:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 3px;
+  box-shadow:
+    0 0 10px rgba(0, 245, 255, 0.4),
+    0 0 20px rgba(0, 245, 255, 0.15);
+}
+
+/* ===== 3D THEME: SELECTION ===== */
+.theme-3d ::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: #fff;
+  text-shadow: 0 0 4px rgba(0, 245, 255, 0.5);
+}
+
+/* ===== 3D THEME: NEON UNDERLINE ===== */
+.theme-3d .neon-underline::after {
+  box-shadow: 0 0 6px var(--neon-cyan);
+  height: 2px;
+}
+
+/* ===== 3D THEME: TEXT STROKE ===== */
+.theme-3d .text-stroke {
+  -webkit-text-stroke: 2px var(--neon-cyan);
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(0, 245, 255, 0.4));
+}
+
+/* ===== 3D THEME: BADGES & TAGS ===== */
+.theme-3d .inline-flex.rounded-full {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+  transition: all 0.3s ease;
+}
+
+.theme-3d .inline-flex.rounded-full:hover {
+  transform: translateZ(5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 10px rgba(0, 245, 255, 0.15);
+}
+
+/* ===== 3D THEME: EXPERIENCE TIMELINE CARDS ===== */
+.theme-3d #experience .glass {
+  transform: perspective(800px) translateZ(0);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d #experience .glass:hover {
+  transform: perspective(800px) translateZ(15px) rotateY(2deg);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 12px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 245, 255, 0.08);
+}
+
+/* ===== 3D THEME: FAQ ACCORDION ===== */
+.theme-3d #faq .rounded-xl.glass {
+  transform: perspective(600px) translateZ(0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.theme-3d #faq .rounded-xl.glass:hover {
+  transform: perspective(600px) translateZ(5px);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(0, 245, 255, 0.08);
+}
+
+/* ===== 3D THEME: CONTACT CARDS ===== */
+.theme-3d #contact a.glass {
+  transform: perspective(600px) translateZ(0);
+  transform-style: preserve-3d;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d #contact a.glass:hover {
+  transform: perspective(600px) translateZ(10px) translateY(-3px);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(0, 245, 255, 0.1);
+}
+
+/* ===== 3D THEME: ACHIEVEMENT CARDS ===== */
+.theme-3d #achievements .glass {
+  transform: perspective(800px) translateZ(0);
+  transform-style: preserve-3d;
+}
+
+.theme-3d #achievements .glass:hover {
+  transform: perspective(800px) translateZ(12px) rotateX(2deg) rotateY(-1deg);
+}
+
+/* ===== 3D THEME: STATS CARDS ===== */
+.theme-3d #stats .glass,
+.theme-3d .glass-hover-glow {
+  transform: perspective(600px) translateZ(0);
+  transform-style: preserve-3d;
+}
+
+/* ===== 3D THEME: ABOUT AVATAR ===== */
+.theme-3d .avatar-gradient-border > .avatar-inner {
+  box-shadow: inset 0 0 30px rgba(0, 245, 255, 0.1);
+}
+
+/* ===== 3D THEME: SCROLL PROGRESS BAR ===== */
+.theme-3d [style*="translateX"] {
+  box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px rgba(0, 245, 255, 0.3);
+}
+
+/* ===== 3D THEME: REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .theme-3d-cube,
+  .theme-3d-sphere,
+  .theme-3d-orbit-container,
+  .theme-3d-orbit-dot,
+  .theme-3d-grid {
+    animation: none !important;
+  }
+  .theme-3d .glass-card-advanced:hover,
+  .theme-3d .glass-hover-glow:hover,
+  .theme-3d .ripple-effect:hover,
+  .theme-3d .soft-skill-tag:hover {
+    transform: none !important;
+  }
+}

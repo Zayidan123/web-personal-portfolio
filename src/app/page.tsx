@@ -24,6 +24,7 @@ import { KonamiEasterEgg } from '@/components/ui/KonamiEasterEgg'
 import { CursorGlow } from '@/components/ui/CursorGlow'
 import { AmbientSound } from '@/components/ui/AmbientSound'
 import { LiquidGlassBackground, SparkleField } from '@/components/ui/LiquidGlassBackground'
+import { Theme3DBackground } from '@/components/ui/Theme3DBackground'
 import { ThemeCustomizer } from '@/components/ui/ThemeCustomizer'
 import { ScrollSpy } from '@/components/ui/ScrollSpy'
 import { AdminPanel } from '@/components/ui/AdminPanel'
@@ -49,6 +50,7 @@ export function PortfolioPage() {
       <DarkModeBackground />
       <LiquidGlassBackground />
       <SparkleField />
+      <Theme3DBackground />
       <Navbar />
       <main className="flex-1 relative z-[1]">
         <Hero />
