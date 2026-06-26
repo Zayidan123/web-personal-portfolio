@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
-import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp, Award, ShieldCheck } from 'lucide-react'
+import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp, Award, ShieldCheck, Code2, Terminal } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
 import { ScrambleText } from '@/components/ui/ScrambleText'
 
@@ -53,6 +53,8 @@ const hardSkills = [
   { icon: Palette, key: 'about.skills.design', proficiency: 80 },
   { icon: Sparkles, key: 'about.skills.ai', proficiency: 70 },
   { icon: TrendingUp, key: 'about.skills.financial', proficiency: 65 },
+  { icon: Code2, key: 'about.skills.softwareDev', proficiency: 60 },
+  { icon: Terminal, key: 'about.skills.python', proficiency: 55 },
 ]
 
 const softSkills = [

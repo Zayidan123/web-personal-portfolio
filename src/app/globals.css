@@ -2325,6 +2325,153 @@ html {
   box-shadow: 0 0 8px var(--neon-cyan), 0 0 16px rgba(0, 245, 255, 0.3);
 }
 
+/* ===== 3D THEME: DYNAMIC LIGHTING (mouse-following) ===== */
+.theme-3d {
+  --light-x: 0;
+  --light-y: 0;
+  --light-px: 50%;
+  --light-py: 50%;
+}
+
+/* Dynamic neon glow border on glass card hover */
+.theme-3d .glass:hover,
+.theme-3d .glass-card-advanced:hover {
+  border-color: rgba(0, 245, 255, calc(0.15 + var(--light-x) * 0.1));
+  box-shadow:
+    /* Dynamic ambient occlusion shadow - shifts opposite to light */
+    calc(var(--light-x) * -8px) calc(var(--light-y) * -6px) 20px rgba(0, 0, 0, 0.45),
+    calc(var(--light-x) * -4px) calc(var(--light-y) * -3px) 10px rgba(0, 0, 0, 0.3),
+    /* Base depth shadows */
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 16px 32px rgba(0, 0, 0, 0.15),
+    /* Dynamic neon glow - follows light direction */
+    calc(var(--light-x) * 12px) calc(var(--light-y) * 8px) 30px rgba(0, 245, 255, calc(0.12 + var(--light-x) * 0.08)),
+    calc(var(--light-x) * 6px) calc(var(--light-y) * 4px) 15px rgba(0, 245, 255, calc(0.06 + var(--light-x) * 0.04)),
+    /* Secondary magenta glow on opposite edge */
+    calc(var(--light-x) * -10px) calc(var(--light-y) * -6px) 25px rgba(255, 45, 170, calc(0.06 - var(--light-x) * 0.04)),
+    /* Inset highlight on light-facing edge */
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.12 + var(--light-x) * 0.08)),
+    inset calc(var(--light-x) * -1px - 1px) calc(var(--light-y) * 1px + 1px) 0 rgba(255, 45, 170, calc(0.05 - var(--light-x) * 0.03));
+}
+
+/* Dynamic lighting for glass-hover-glow cards */
+.theme-3d .glass-hover-glow:hover {
+  box-shadow:
+    calc(var(--light-x) * -10px) calc(var(--light-y) * -8px) 30px rgba(0, 0, 0, 0.35),
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 16px 48px rgba(0, 0, 0, 0.2),
+    calc(var(--light-x) * 15px) calc(var(--light-y) * 10px) 35px rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.1)),
+    calc(var(--light-x) * 8px) calc(var(--light-y) * 6px) 18px rgba(0, 245, 255, calc(0.05 + var(--light-x) * 0.05)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.08));
+}
+
+/* Dynamic lighting for experience cards */
+.theme-3d #experience .glass:hover {
+  box-shadow:
+    calc(var(--light-x) * -6px) calc(var(--light-y) * -5px) 18px rgba(0, 0, 0, 0.4),
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 12px 24px rgba(0, 0, 0, 0.25),
+    calc(var(--light-x) * 10px) calc(var(--light-y) * 7px) 25px rgba(0, 245, 255, calc(0.08 + var(--light-x) * 0.08)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.06));
+}
+
+/* Dynamic lighting for FAQ cards */
+.theme-3d #faq .rounded-xl.glass:hover {
+  box-shadow:
+    calc(var(--light-x) * -5px) calc(var(--light-y) * -4px) 14px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.25),
+    calc(var(--light-x) * 8px) calc(var(--light-y) * 5px) 20px rgba(0, 245, 255, calc(0.07 + var(--light-x) * 0.07)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.08 + var(--light-x) * 0.06));
+}
+
+/* Dynamic lighting for contact cards */
+.theme-3d #contact a.glass:hover {
+  box-shadow:
+    calc(var(--light-x) * -6px) calc(var(--light-y) * -5px) 18px rgba(0, 0, 0, 0.35),
+    0 8px 24px rgba(0, 0, 0, 0.3),
+    calc(var(--light-x) * 12px) calc(var(--light-y) * 8px) 28px rgba(0, 245, 255, calc(0.08 + var(--light-x) * 0.09)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.07));
+}
+
+/* Dynamic lighting for achievement cards */
+.theme-3d #achievements .glass:hover {
+  box-shadow:
+    calc(var(--light-x) * -7px) calc(var(--light-y) * -5px) 20px rgba(0, 0, 0, 0.4),
+    0 6px 16px rgba(0, 0, 0, 0.3),
+    calc(var(--light-x) * 10px) calc(var(--light-y) * 7px) 22px rgba(0, 245, 255, calc(0.09 + var(--light-x) * 0.08)),
+    calc(var(--light-x) * -8px) calc(var(--light-y) * -5px) 18px rgba(167, 139, 250, calc(0.05 - var(--light-x) * 0.03)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.09 + var(--light-x) * 0.07));
+}
+
+/* Dynamic lighting for stats cards */
+.theme-3d #stats .glass:hover {
+  box-shadow:
+    calc(var(--light-x) * -6px) calc(var(--light-y) * -5px) 16px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    calc(var(--light-x) * 10px) calc(var(--light-y) * 7px) 24px rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.08)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.07));
+}
+
+/* 3D Tech Stack orbital ring animations */
+@keyframes orbit-outer-3d {
+  0% { transform: rotateY(0deg) rotateX(8deg); }
+  100% { transform: rotateY(360deg) rotateX(8deg); }
+}
+
+@keyframes orbit-inner-3d {
+  0% { transform: rotateY(360deg) rotateX(-5deg); }
+  100% { transform: rotateY(0deg) rotateX(-5deg); }
+}
+
+@keyframes tech-float-3d {
+  0%, 100% { transform: translateY(0px) translateZ(0px); }
+  50% { transform: translateY(-8px) translateZ(10px); }
+}
+
+@keyframes tech-pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* 3D Tech Stack orbital layout classes */
+.theme-3d .tech-3d-orbit-outer {
+  transform-style: preserve-3d;
+  animation: orbit-outer-3d 40s linear infinite;
+}
+
+.theme-3d .tech-3d-orbit-inner {
+  transform-style: preserve-3d;
+  animation: orbit-inner-3d 35s linear infinite;
+}
+
+.theme-3d .tech-3d-item {
+  transform-style: preserve-3d;
+  animation: tech-float-3d 4s ease-in-out infinite;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-3d .tech-3d-item:hover {
+  animation: none;
+  transform: perspective(600px) translateZ(20px) translateY(-6px) scale(1.08);
+  box-shadow:
+    calc(var(--light-x) * -6px) calc(var(--light-y) * -5px) 16px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    calc(var(--light-x) * 10px) calc(var(--light-y) * 7px) 24px rgba(0, 245, 255, calc(0.1 + var(--light-x) * 0.1)),
+    inset calc(var(--light-x) * 1px + 1px) calc(var(--light-y) * -1px - 1px) 0 rgba(0, 245, 255, calc(0.12 + var(--light-x) * 0.08));
+}
+
+.theme-3d .tech-3d-center-core {
+  transform-style: preserve-3d;
+  animation: pulse-3d 3s ease-in-out infinite;
+}
+
+.theme-3d .tech-3d-ring-line {
+  border: 1px solid rgba(0, 245, 255, 0.08);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.04);
+}
+
 /* ===== 3D THEME: REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .theme-3d-cube,
@@ -2337,7 +2484,12 @@ html {
   .theme-3d .glass-card-advanced:hover,
   .theme-3d .glass-hover-glow:hover,
   .theme-3d .ripple-effect:hover,
-  .theme-3d .soft-skill-tag:hover {
+  .theme-3d .soft-skill-tag:hover,
+  .theme-3d .tech-3d-orbit-outer,
+  .theme-3d .tech-3d-orbit-inner,
+  .theme-3d .tech-3d-item,
+  .theme-3d .tech-3d-center-core {
     transform: none !important;
+    animation: none !important;
   }
 }

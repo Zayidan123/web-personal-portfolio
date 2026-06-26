@@ -1,6 +1,7 @@
 'use client'
 
 import { useTheme } from 'next-themes'
+import { use3DLightSource } from '@/hooks/use3DLightSource'
 
 function Cube3D({ className, variant = 'cyan', size = 40 }: { className?: string; variant?: 'cyan' | 'magenta' | 'purple'; size?: number }) {
   const half = size / 2
@@ -19,6 +20,7 @@ function Cube3D({ className, variant = 'cyan', size = 40 }: { className?: string
 export function Theme3DBackground() {
   const { theme } = useTheme()
   const is3D = theme === 'theme-3d'
+  use3DLightSource()
 
   if (!is3D) return null
 
