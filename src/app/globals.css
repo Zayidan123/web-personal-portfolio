@@ -403,9 +403,10 @@ section#contact label {
   transition: color 0.3s ease, letter-spacing 0.3s ease;
 }
 
-section#contact input:focus ~ label,
-section#contact textarea:focus ~ label {
+section#contact div:has(input:focus) > label,
+section#contact div:has(textarea:focus) > label {
   color: var(--neon-cyan);
+  letter-spacing: 0.05em;
 }
 
 /* Input ripple on focus */
@@ -1727,18 +1728,22 @@ html {
 }
 
 /* ===== 3D THEME: BASE LAYOUT ===== */
+/* NOTE: Do NOT set perspective or preserve-3d on body/main/header.
+   perspective on body breaks fixed-position stacking contexts.
+   preserve-3d on elements with z-index creates undefined behavior.
+   Instead, apply perspective per-section so 3D card effects work
+   without breaking the global z-index / click event model. */
 .theme-3d body {
-  perspective: var(--3d-perspective);
-  perspective-origin: 50% 50%;
   overflow-x: hidden;
 }
 
 .theme-3d main {
-  transform-style: preserve-3d;
-  perspective: var(--3d-perspective);
+  /* No preserve-3d here — main has z-[1] which conflicts */
+  /* No perspective here — apply per-section instead */
 }
 
 .theme-3d section {
+  perspective: var(--3d-perspective);
   transform-style: preserve-3d;
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1754,8 +1759,8 @@ html {
     0 8px 16px rgba(0, 0, 0, 0.2),
     0 16px 32px rgba(0, 0, 0, 0.15),
     inset 0 1px 0 rgba(0, 245, 255, 0.08);
-  transform-style: preserve-3d;
-  transform: translateZ(0px);
+  /* No translateZ(0px) — creates stacking context on every glass element,
+     breaking click events on buttons, nav links, footer icons, etc. */
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1769,7 +1774,7 @@ html {
     0 8px 16px rgba(0, 0, 0, 0.3),
     0 20px 40px rgba(0, 0, 0, 0.2),
     inset 0 1px 0 rgba(0, 245, 255, 0.1);
-  transform-style: preserve-3d;
+  /* No preserve-3d — used on navbar header which has z-50 */
 }
 
 /* ===== 3D THEME: CARD ADVANCED HOVER ===== */
@@ -1897,7 +1902,7 @@ html {
 
 /* ===== 3D THEME: NAVBAR ===== */
 .theme-3d header {
-  transform-style: preserve-3d;
+  /* No preserve-3d — header has z-50 which conflicts */
 }
 
 .theme-3d header nav,
@@ -1910,7 +1915,7 @@ html {
     0 4px 16px rgba(0, 0, 0, 0.5),
     0 0 20px rgba(0, 245, 255, 0.05),
     inset 0 -1px 0 rgba(0, 245, 255, 0.08) !important;
-  transform: translateZ(40px);
+  /* No translateZ here — breaks click events on nav children */
 }
 
 /* ===== 3D THEME: FOOTER ===== */
@@ -1920,7 +1925,7 @@ html {
   box-shadow:
     0 -4px 20px rgba(0, 0, 0, 0.3),
     inset 0 1px 0 rgba(0, 245, 255, 0.08);
-  transform: perspective(800px) translateZ(20px);
+  /* No transform with translateZ — breaks click events on footer buttons */
 }
 
 /* ===== 3D THEME: BUTTONS ===== */

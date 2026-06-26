@@ -61,6 +61,7 @@ export function ThemeCustomizer() {
   })
   const panelRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const hasAppliedInitialTheme = useRef(false)
 
   const handleToggle = useCallback(() => {
     setOpen((prev) => !prev)
@@ -114,8 +115,11 @@ export function ThemeCustomizer() {
   }, [])
 
   useEffect(() => {
-    // Restore saved theme preset on mount
+    // Restore saved theme preset on mount — only once
     if (typeof window === 'undefined') return
+    if (hasAppliedInitialTheme.current) return
+    hasAppliedInitialTheme.current = true
+
     const savedPreset = localStorage.getItem('theme-preset')
     const savedColors = localStorage.getItem('theme-custom-colors')
 
@@ -130,8 +134,12 @@ export function ThemeCustomizer() {
       } catch { /* ignore */ }
     }
 
-    // Restore theme class
-    if (savedPreset) {
+    // Restore theme class only if current theme doesn't already match
+    const currentTheme = document.documentElement.classList.contains('theme-3d') ? 'theme-3d'
+      : document.documentElement.classList.contains('liquid-glass') ? 'liquid-glass'
+      : document.documentElement.classList.contains('dark') ? 'dark' : null
+
+    if (savedPreset && currentTheme === null) {
       const preset = PRESETS.find(p => p.name === savedPreset)
       if (preset?.themeMode === 'liquid-glass') {
         setTheme('liquid-glass')
@@ -143,7 +151,7 @@ export function ThemeCustomizer() {
         document.documentElement.classList.add('theme-3d')
       }
     }
-  }, [setTheme])
+  }, [])
 
   useEffect(() => {
     if (!open) return

@@ -23,14 +23,32 @@ export function ThemeToggle() {
     return <div className="w-9 h-9" />
   }
 
+  const handleToggle = () => {
+    // If currently in a special theme (3D, liquid-glass), clear the preset
+    // so ThemeCustomizer won't re-apply it
+    if (theme === 'theme-3d' || theme === 'liquid-glass') {
+      try { localStorage.removeItem('theme-preset') } catch { /* ignore */ }
+    }
+
+    // Determine target: switch between dark and light
+    const targetTheme = theme === 'light' ? 'dark' : 'light'
+
+    // Clean up special theme classes
+    document.documentElement.classList.remove('theme-3d', 'liquid-glass')
+
+    setTheme(targetTheme)
+  }
+
+  const isDark = theme !== 'light'
+
   return (
     <button
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="relative w-9 h-9 rounded-lg glass flex items-center justify-center transition-all duration-300 hover:shadow-[var(--glow-cyan)] group"
-      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      onClick={handleToggle}
+      className="relative w-9 h-9 rounded-lg glass flex items-center justify-center transition-all duration-300 hover:shadow-[var(--glow-cyan)] group cursor-pointer"
+      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
     >
-      <Sun className="h-4 w-4 absolute transition-all duration-300 text-[var(--neon-cyan)] group-hover:rotate-90 group-hover:scale-110" style={{ opacity: theme === 'dark' ? 0 : 1 }} />
-      <Moon className="h-4 w-4 absolute transition-all duration-300 text-[var(--neon-cyan)] group-hover:-rotate-12 group-hover:scale-110" style={{ opacity: theme === 'dark' ? 1 : 0 }} />
+      <Sun className="h-4 w-4 absolute transition-all duration-300 text-[var(--neon-cyan)] group-hover:rotate-90 group-hover:scale-110" style={{ opacity: isDark ? 0 : 1 }} />
+      <Moon className="h-4 w-4 absolute transition-all duration-300 text-[var(--neon-cyan)] group-hover:-rotate-12 group-hover:scale-110" style={{ opacity: isDark ? 1 : 0 }} />
     </button>
   )
 }
