@@ -191,3 +191,29 @@ Stage Summary:
 - Counter-rotation technique still keeps all text upright and readable
 - Responsive scaling prevents overflow on smaller screens
 - No lint errors, no compilation errors
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Bug fixes, i18n completeness, styling improvements
+
+Work Log:
+- Fixed Stats section missing id="stats" — ScrollSpy now finds the section
+- Fixed hardSkills counter: numericValue 5→7 (matches 7 actual hard skills)
+- Added Stats section title header with ScrambleText for visual consistency with other sections
+- Fixed all hardcoded English strings to use t() i18n:
+  - Hero: "SCROLL" → t('hero.scroll') (ID: "GULIR", EN: "SCROLL")
+  - Achievements: "UNLOCKED" → t('achievements.unlockedBadge') (ID: "TERBUKA", EN: "UNLOCKED")
+  - Contact: "Location" → t('contact.locationLabel'), share text → t('contact.shareText')
+- Deleted dead i18n JSON files (public/locales/en/common.json, public/locales/id/common.json)
+- Added new i18n keys: hero.scroll, stats.title, achievements.unlockedBadge, contact.locationLabel, contact.shareText
+- Enhanced hard skill bars: h-1→h-1.5, gradient fill to 40% opacity, percentage labels shown
+- Added experience timeline draw-in animation (line grows 0→100% on scroll, 1.5s easeOut)
+- Added contact form input focus glow animation (input-focus-glow keyframe)
+- Added contact form placeholder fade on focus
+
+Stage Summary:
+- 4 bug fixes, 8 styling improvements, 6 new i18n keys
+- Browser verified: stats id="stats" ✅, title "Statistik" ✅, counter=7 ✅
+- Zero lint errors, zero compilation errors
+- Pushed to GitHub: commit 652cc8e
