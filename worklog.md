@@ -274,3 +274,37 @@ Stage Summary:
 ### Unresolved / Risks
 - None currently — all reported bugs fixed and verified
 - Consider: adding more interactive features for continued development
+
+---
+Task ID: 6
+Agent: Main Agent
+Task: Fix language toggle not translating all content
+
+Work Log:
+- **Root cause 1 — ScrambleText cache bug**: Component used `hasScrambled.current` ref guard that prevented `displayed` state from updating when `text` prop changed (e.g. language switch). After initial scramble animation completed, any subsequent `text` change was ignored because the effect returned early.
+  - Fix: When `hasScrambled.current` is true and `text` changes, directly call `setDisplayed(text)` instead of returning early.
+
+- **Root cause 2 — Experience tags not localized**: `tags` in `experiences.ts` was `string[]` (English only). No mechanism to translate tags when language switches.
+  - Fix: Changed `tags` type from `string[]` to `{ id: string[]; en: string[] }`. Updated `Experience.tsx` to render `exp.tags[lang]`. Translated all 12 tags (4 per experience × 3 experiences).
+
+- **Root cause 3 — Hardcoded English strings in components**: 9 user-visible strings were not using `t()`:
+  - Footer: "Online" → `t('footer.online')`
+  - Hero: `aria-label="Scroll down"` → `t('hero.scrollDown')`
+  - Navbar: `aria-label="Command Palette"` → `t('commandPalette.title')`, `aria-label="Toggle menu"` → `t('shortcuts.sections')`, "Built with" → `t('footer.builtWith')`
+  - Contact: "Discord Server" → `t('contact.discordServer')`, rate limit error → `t('contact.rateLimitError')`
+
+- Added 5 new i18n keys to both ID and EN translations: hero.scrollDown, footer.online, footer.builtWith, contact.discordServer, contact.rateLimitError
+
+Verification (agent-browser):
+- English → Indonesian: "About Me" → "Tentang Saya" ✅, "Work Experience" → "Pengalaman Kerja" ✅, "Statistics" → "Statistik" ✅, "Achievements" → "Pencapaian" ✅
+- Experience tags: "Retail Management" → "Manajemen Retail" ✅, "Customer Service" → "Layanan Pelanggan" ✅, "Product Knowledge" → "Pengetahuan Produk" ✅, "Reporting" → "Laporan Penjualan" ✅
+- Dynamic toggle (no reload): EN→ID→EN all content updates correctly ✅
+- Zero lint errors
+- Pushed to GitHub: commit 182cae4
+
+Stage Summary:
+- All content now properly translates when language toggle is clicked
+- ScrambleText section titles update immediately on language switch
+- Experience section fully bilingual (roles, companies, descriptions, tags)
+- 9 hardcoded strings replaced with i18n calls
+- Total new i18n keys: 5 (both languages)
