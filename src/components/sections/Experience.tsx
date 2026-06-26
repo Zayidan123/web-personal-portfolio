@@ -8,6 +8,7 @@ import { ScrambleText } from '@/components/ui/ScrambleText'
 export function Experience() {
   const { t, lang } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
+  const [lineRef, lineInView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   const locale = lang === 'id' ? 'id-ID' : 'en-US'
 
@@ -29,8 +30,15 @@ export function Experience() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-4 sm:left-1/2 sm:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--neon-cyan)] via-[var(--neon-magenta)] to-[var(--neon-purple)] opacity-30" />
+          {/* Timeline Line — draws in on scroll */}
+          <div className="absolute left-4 sm:left-1/2 sm:-translate-x-px top-0 bottom-0 w-0.5 overflow-hidden" ref={lineRef}>
+            <motion.div
+              initial={{ height: 0 }}
+              animate={lineInView ? { height: '100%' } : { height: 0 }}
+              transition={{ duration: 1.5, ease: 'easeOut' }}
+              className="w-full bg-gradient-to-b from-[var(--neon-cyan)] via-[var(--neon-magenta)] to-[var(--neon-purple)] opacity-40"
+            />
+          </div>
 
           <div className="space-y-8 sm:space-y-12">
             {experiences.map((exp, idx) => {

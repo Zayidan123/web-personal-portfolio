@@ -11,8 +11,7 @@ import { ScrambleText } from '@/components/ui/ScrambleText'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
-function buildShareOptions(shareUrl: string, copyLinkLabel: string) {
-  const shareText = 'Sales, Leadership, Communication — Zayidan Muttaqin Portfolio'
+function buildShareOptions(shareUrl: string, copyLinkLabel: string, shareText: string) {
   return [
     { key: 'telegram', icon: '💬', label: 'Telegram', url: `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}` },
     { key: 'whatsapp', icon: '📱', label: 'WhatsApp', url: `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}` },
@@ -32,7 +31,7 @@ export function Contact() {
   const shareDropdownRef = useRef<HTMLDivElement>(null)
 
   const getShareUrl = () => { if (typeof window !== 'undefined') return window.location.href; return '' }
-  const getShareOptions = useCallback(() => buildShareOptions(getShareUrl(), t('contact.copyLink')), [t])
+  const getShareOptions = useCallback(() => buildShareOptions(getShareUrl(), t('contact.copyLink'), t('contact.shareText')), [t])
 
   const handleCopy = (value: string, field: string) => {
     try { if (navigator.clipboard?.writeText) navigator.clipboard.writeText(value); else document.execCommand('copy') } catch { /* */ }
@@ -40,7 +39,7 @@ export function Contact() {
   }
 
   const handleShare = async () => {
-    if (navigator.share) { try { await navigator.share({ title: 'Zayidan Muttaqin', text: 'Sales, Leadership, Communication — Zayidan Muttaqin Portfolio', url: getShareUrl() }); return } catch { } }
+    if (navigator.share) { try { await navigator.share({ title: 'Zayidan Muttaqin', text: t('contact.shareText'), url: getShareUrl() }); return } catch { } }
     setShareOpen(prev => !prev)
   }
 
@@ -81,7 +80,7 @@ export function Contact() {
   const contactInfo = [
     { key: 'email', icon: Mail, label: t('contact.emailLabel'), value: 'zayidan34@gmail.com', href: 'mailto:zayidan34@gmail.com', color: 'var(--neon-cyan)', copyable: true, copyValue: 'zayidan34@gmail.com' },
     { key: 'phone', icon: Phone, label: t('contact.phoneLabel'), value: '+62 812-5264-3578', href: 'tel:+6281252643578', color: 'var(--neon-magenta)', copyable: true, copyValue: '+62 812-5264-3578' },
-    { key: 'location', icon: MapPin, label: "Location", value: "Banyuwangi, Indonesia", href: '#', color: 'var(--neon-purple)', copyable: false },
+    { key: 'location', icon: MapPin, label: t('contact.locationLabel'), value: t('hero.location'), href: '#', color: 'var(--neon-purple)', copyable: false },
     { key: 'linkedin', icon: Linkedin, label: t('contact.linkedin'), value: 'linkedin.com/in/zayidan-muttaqin', href: 'https://www.linkedin.com/in/zayidan-muttaqin/', color: 'var(--neon-cyan)', copyable: false },
     { key: 'github', icon: Github, label: t('contact.github'), value: 'github.com/Zayidan123', href: 'https://github.com/Zayidan123', color: 'var(--neon-cyan)', copyable: false },
     { key: 'telegram', icon: MessageCircle, label: t('contact.telegram'), value: 't.me/ZayM1122', href: 'https://t.me/ZayM1122', color: 'var(--neon-cyan)', copyable: false },

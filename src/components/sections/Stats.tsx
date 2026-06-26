@@ -6,10 +6,11 @@ import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { Briefcase, Cpu, Users, HeartHandshake } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
+import { ScrambleText } from '@/components/ui/ScrambleText'
 
 const statItems = [
   { icon: Briefcase, valueKey: 'stats.experience.value', labelKey: 'stats.experience.label', numericValue: 3, suffix: '+', color: 'cyan' as const },
-  { icon: Cpu, valueKey: 'stats.hardSkills.value', labelKey: 'stats.hardSkills.label', numericValue: 5, suffix: '', color: 'magenta' as const },
+  { icon: Cpu, valueKey: 'stats.hardSkills.value', labelKey: 'stats.hardSkills.label', numericValue: 7, suffix: '', color: 'magenta' as const },
   { icon: HeartHandshake, valueKey: 'stats.softSkills.value', labelKey: 'stats.softSkills.label', numericValue: 11, suffix: '', color: 'purple' as const },
   { icon: Users, valueKey: 'stats.clients.value', labelKey: 'stats.clients.label', numericValue: 100, suffix: '+', color: 'cyan' as const },
 ]
@@ -70,8 +71,19 @@ export function Stats() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 })
 
   return (
-    <section className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section id="stats" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto" ref={ref}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="mb-10 sm:mb-14 text-center"
+        >
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-2">
+            <ScrambleText text={t('stats.title')} />
+          </h2>
+          <div className="section-title-line mx-auto" />
+        </motion.div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {statItems.map((item, idx) => {
             const Icon = item.icon

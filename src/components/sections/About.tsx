@@ -254,16 +254,19 @@ export function About() {
                       <Icon className="h-4 w-4 text-[var(--neon-cyan)] shrink-0" />
                       <div className="flex-1 min-w-0">
                         <span className="text-xs sm:text-sm text-[var(--text-primary)] leading-snug block">{t(skill.key)}</span>
-                        <div className="mt-1.5 w-full h-1 rounded-full overflow-hidden skill-bar-track" style={{ background: 'rgba(255,255,255,0.05)' }}>
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={skillsInView ? { width: `${skill.proficiency}%` } : { width: 0 }}
-                            transition={{ duration: 1, delay: 0.4 + idx * 0.1, ease: 'easeOut' }}
-                            className="h-full rounded-full"
-                            style={{
-                              background: 'linear-gradient(90deg, var(--neon-cyan), transparent)',
-                            }}
-                          />
+                        <div className="flex items-center gap-2 mt-1.5">
+                          <div className="flex-1 w-full h-1.5 rounded-full overflow-hidden skill-bar-track" style={{ background: 'rgba(255,255,255,0.05)' }}>
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={skillsInView ? { width: `${skill.proficiency}%` } : { width: 0 }}
+                              transition={{ duration: 1, delay: 0.4 + idx * 0.1, ease: 'easeOut' }}
+                              className="h-full rounded-full relative"
+                              style={{
+                                background: 'linear-gradient(90deg, var(--neon-cyan), rgba(0,245,255,0.4))',
+                              }}
+                            />
+                          </div>
+                          <span className="text-[10px] font-mono-custom text-[var(--neon-cyan)]/60 tabular-nums w-8 text-right">{skill.proficiency}%</span>
                         </div>
                       </div>
                     </motion.div>

@@ -263,7 +263,7 @@ export function Hero() {
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           className="text-[10px] font-mono-custom text-[var(--neon-cyan)] tracking-[0.3em] uppercase"
         >
-          SCROLL
+          {t('hero.scroll')}
         </motion.span>
         <div className="flex flex-col gap-1">
           {[0, 1, 2].map((i) => (

@@ -93,10 +93,10 @@ export function Achievements() {
                       </div>
                     </div>
 
-                    {/* UNLOCKED badge */}
+                    {/* Unlocked badge */}
                     <div className="absolute top-3 right-3">
                       <span className="text-[8px] font-mono-custom px-1.5 py-0.5 rounded tracking-wider" style={{ color: color, backgroundColor: color + '15', border: '1px solid ' + color + '33' }}>
-                        UNLOCKED
+                        {t('achievements.unlockedBadge')}
                       </span>
                     </div>
                   </div>
