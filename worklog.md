@@ -146,3 +146,26 @@ Stage Summary:
 - 7 hard skills confirmed in DOM (was 5)
 - Zero console errors, zero lint errors
 - Pushed to GitHub: commit f2ca0d6
+
+---
+Task ID: 4
+Agent: Main Agent
+Task: Fix 3D Tech Stack readability — orbital with counter-rotation
+
+Work Log:
+- User reported orbital animation was visually impressive but text was hard to read
+- First attempt: removed orbital rotation entirely, replaced with static flex layout
+  - Commit 6f71491 — user wanted orbit back, just readable text
+- Final solution: **counter-rotation technique**
+  - Container still rotates (orbit-outer-3d 40s, orbit-inner-3d 35s)
+  - Each item has matching counter-rotation animation that cancels parent rotation
+  - Created `counter-orbit-outer` keyframe: rotateY(-360deg) rotateX(-8deg) + -4px float over 40s
+  - Created `counter-orbit-inner` keyframe: rotateY(360deg) rotateX(5deg) + -4px float over 35s
+  - Negative animation-delay on each item spreads them evenly around the orbit
+  - Hover pauses counter-rotation (`animation-play-state: paused`) and applies dynamic light shadows
+
+Verification:
+- matrix3d computed styles confirm identity rotation (no text flip)
+- All 11 items text readable: Video Editing, Graphic Design, AI Prompting, Financial Market, Computer Ops, Python Fundamental, Software Dev Fundamental, Penjualan, Kepemimpinan, Komunikasi, Negosiasi
+- Zero console errors, zero lint errors
+- Pushed to GitHub: commit c4749bb
