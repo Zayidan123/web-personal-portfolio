@@ -2424,6 +2424,19 @@ html {
   100% { transform: rotateY(0deg) rotateX(-5deg); }
 }
 
+/* Counter-rotations keep text upright + gentle float */
+@keyframes counter-orbit-outer {
+  0%   { transform: rotateY(0deg) rotateX(-8deg) translateY(0px); }
+  50%  { transform: rotateY(-180deg) rotateX(-8deg) translateY(-4px); }
+  100% { transform: rotateY(-360deg) rotateX(-8deg) translateY(0px); }
+}
+
+@keyframes counter-orbit-inner {
+  0%   { transform: rotateY(0deg) rotateX(5deg) translateY(0px); }
+  50%  { transform: rotateY(180deg) rotateX(5deg) translateY(-4px); }
+  100% { transform: rotateY(360deg) rotateX(5deg) translateY(0px); }
+}
+
 @keyframes tech-float-3d {
   0%, 100% { transform: translateY(0px) translateZ(0px); }
   50% { transform: translateY(-5px) translateZ(6px); }
@@ -2451,8 +2464,18 @@ html {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.theme-3d .tech-3d-item:hover {
-  animation: none;
+/* Counter-rotating items stay upright while orbiting */
+.theme-3d .tech-3d-counter-outer {
+  animation: counter-orbit-outer 40s linear infinite !important;
+}
+
+.theme-3d .tech-3d-counter-inner {
+  animation: counter-orbit-inner 35s linear infinite !important;
+}
+
+.theme-3d .tech-3d-counter-outer:hover,
+.theme-3d .tech-3d-counter-inner:hover {
+  animation-play-state: paused !important;
   transform: perspective(600px) translateZ(20px) translateY(-6px) scale(1.08);
   box-shadow:
     calc(var(--light-x) * -6px) calc(var(--light-y) * -5px) 16px rgba(0, 0, 0, 0.4),

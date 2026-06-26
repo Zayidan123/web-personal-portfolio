@@ -119,25 +119,33 @@ export function TechStack() {
   )
 }
 
-/* ===== 3D Tech Stack: Readable 3D Layout ===== */
+/* ===== 3D Tech Stack: Orbital with Counter-Rotation (text always readable) ===== */
 function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boolean; ref: React.RefObject<HTMLDivElement | null> }) {
-  // Arrange outer skills in a wide ellipse — static, no rotation
-  const outerPositions = outerSkills.map((_, i) => ({
-    x: ((i / (outerSkills.length - 1)) - 0.5) * 460,  // spread evenly across 460px
-    y: -70,
-    z: 10 + Math.sin(i * 1.2) * 8,  // subtle depth variation
-    floatDelay: i * 0.4,
-    floatDuration: 3.5 + (i % 3) * 0.5,
-  }))
+  // Position outer skills in an ellipse (7 items)
+  const outerPositions = outerSkills.map((_, i) => {
+    const angle = (i / outerSkills.length) * Math.PI * 2 - Math.PI / 2
+    const rx = 220
+    const ry = 75
+    return {
+      x: Math.cos(angle) * rx,
+      y: Math.sin(angle) * ry,
+      z: Math.sin(angle) * 50,
+      delay: i * (40 / outerSkills.length),
+    }
+  })
 
-  // Inner skills in a smaller, tighter arc below
-  const innerPositions = innerSkills.map((_, i) => ({
-    x: ((i / (innerSkills.length - 1)) - 0.5) * 320,
-    y: 55,
-    z: 15 + Math.cos(i * 1.5) * 6,
-    floatDelay: i * 0.5 + 0.2,
-    floatDuration: 4 + (i % 2) * 0.6,
-  }))
+  // Position inner skills in a smaller ellipse (4 items)
+  const innerPositions = innerSkills.map((_, i) => {
+    const angle = (i / innerSkills.length) * Math.PI * 2 - Math.PI / 2
+    const rx = 130
+    const ry = 45
+    return {
+      x: Math.cos(angle) * rx,
+      y: Math.sin(angle) * ry,
+      z: Math.sin(angle) * 35,
+      delay: i * (35 / innerSkills.length),
+    }
+  })
 
   return (
     <section id="techstack" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
@@ -157,45 +165,73 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
           </p>
         </motion.div>
 
-        {/* 3D Static Orbital Layout */}
+        {/* 3D Orbital Container */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative flex flex-col items-center"
-          style={{ minHeight: '320px', perspective: '900px', transformStyle: 'preserve-3d' }}
+          transition={{ duration: 1, delay: 0.2 }}
+          className="relative flex items-center justify-center"
+          style={{ minHeight: '420px', perspective: '900px' }}
         >
-          {/* Outer Ring Label */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className="text-[10px] font-mono-custom text-[var(--text-secondary)] uppercase tracking-[0.3em] mb-5"
-          >
-            {t('techstack.outerRing')}
-          </motion.div>
-
-          {/* Outer Ring Skills — static positions, individual float */}
+          {/* Outer orbit ring visual */}
           <div
-            className="relative flex justify-center items-center flex-wrap gap-3 sm:gap-4"
-            style={{ transformStyle: 'preserve-3d', perspective: '800px' }}
+            className="absolute tech-3d-ring-line"
+            style={{
+              width: 480,
+              height: 180,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) rotateX(25deg)',
+            }}
+          />
+
+          {/* Inner orbit ring visual */}
+          <div
+            className="absolute tech-3d-ring-line"
+            style={{
+              width: 300,
+              height: 120,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) rotateX(25deg)',
+              borderColor: 'rgba(255, 45, 170, 0.08)',
+              boxShadow: '0 0 15px rgba(255, 45, 170, 0.04)',
+            }}
+          />
+
+          {/* Outer Ring — container orbits, each item counter-rotates to stay upright */}
+          <div
+            className="absolute tech-3d-orbit-outer"
+            style={{
+              width: 480,
+              height: 180,
+              top: '50%',
+              left: '50%',
+              marginTop: -90,
+              marginLeft: -240,
+              transformStyle: 'preserve-3d',
+            }}
           >
             {outerSkills.map((skill, idx) => {
               const pos = outerPositions[idx]!
               return (
                 <motion.div
                   key={skill}
-                  initial={{ opacity: 0, y: 15, translateZ: 0 }}
-                  animate={inView ? { opacity: 1, y: 0, translateZ: pos.z } : {}}
-                  transition={{ duration: 0.6, delay: 0.4 + idx * 0.08 }}
-                  className="tech-3d-item"
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.5 + idx * 0.08 }}
+                  className="absolute tech-3d-counter-outer"
                   style={{
-                    animationDelay: `${pos.floatDelay}s`,
-                    animationDuration: `${pos.floatDuration}s`,
+                    left: '50%',
+                    top: '50%',
+                    marginLeft: pos.x,
+                    marginTop: pos.y,
+                    transform: `translateZ(${pos.z}px)`,
+                    animationDelay: `${-pos.delay}s`,
                   }}
                 >
-                  <div className="px-4 py-2.5 rounded-lg glass border border-[var(--glass-border)] whitespace-nowrap">
-                    <span className="text-xs font-mono-custom text-[var(--text-secondary)]">
+                  <div className="px-3.5 py-2 rounded-lg glass border border-[var(--glass-border)] whitespace-nowrap">
+                    <span className="text-[11px] font-mono-custom text-[var(--text-secondary)]">
                       {t(`techstack.${skill}`)}
                     </span>
                   </div>
@@ -204,15 +240,75 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
             })}
           </div>
 
-          {/* Center Core with decorative rings */}
+          {/* Inner Ring — counter-rotates opposite direction */}
+          <div
+            className="absolute tech-3d-orbit-inner"
+            style={{
+              width: 300,
+              height: 120,
+              top: '50%',
+              left: '50%',
+              marginTop: -60,
+              marginLeft: -150,
+              transformStyle: 'preserve-3d',
+            }}
+          >
+            {innerSkills.map((skill, idx) => {
+              const pos = innerPositions[idx]!
+              const color = innerColors[idx]!
+              return (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : {}}
+                  transition={{ duration: 0.5, delay: 0.8 + idx * 0.1 }}
+                  className="absolute tech-3d-counter-inner"
+                  style={{
+                    left: '50%',
+                    top: '50%',
+                    marginLeft: pos.x,
+                    marginTop: pos.y,
+                    transform: `translateZ(${pos.z}px)`,
+                    animationDelay: `${-pos.delay}s`,
+                  }}
+                >
+                  <div
+                    className="px-5 py-2.5 rounded-xl glass border whitespace-nowrap transition-all duration-300 group cursor-default"
+                    style={{ borderColor: `${color}33`, boxShadow: `0 0 15px ${color}11` }}
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLElement
+                      el.style.borderColor = `${color}66`
+                      el.style.boxShadow = `0 0 25px ${color}33`
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLElement
+                      el.style.borderColor = `${color}33`
+                      el.style.boxShadow = `0 0 15px ${color}11`
+                    }}
+                  >
+                    <span className="text-xs font-display tracking-wider font-medium" style={{ color }}>
+                      {t(`techstack.${skill}`)}
+                    </span>
+                  </div>
+                </motion.div>
+              )
+            })}
+          </div>
+
+          {/* Center Core */}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, delay: 0.6, type: 'spring', stiffness: 200 }}
-            className="tech-3d-center-core my-8 sm:my-10"
-            style={{ transform: 'translateZ(20px)', zIndex: 10 }}
+            transition={{ duration: 0.8, delay: 0.4, type: 'spring', stiffness: 200 }}
+            className="absolute tech-3d-center-core"
+            style={{
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%) translateZ(30px)',
+              zIndex: 10,
+            }}
           >
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center mx-auto">
+            <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full flex items-center justify-center">
               {/* Pulsing rings */}
               <div className="absolute inset-0 rounded-full border border-[var(--neon-cyan)]/20" style={{ animation: 'pulse-3d 3s ease-in-out infinite' }} />
               <div className="absolute inset-2 rounded-full border border-[var(--neon-magenta)]/15" style={{ animation: 'pulse-3d 3s ease-in-out infinite 0.5s' }} />
@@ -226,59 +322,6 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
               </div>
             </div>
           </motion.div>
-
-          {/* Inner Ring Label */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.4, delay: 0.8 }}
-            className="text-[10px] font-mono-custom text-[var(--neon-magenta)] uppercase tracking-[0.3em] mb-5"
-          >
-            {t('techstack.innerRing')}
-          </motion.div>
-
-          {/* Inner Ring Skills — larger, static, individual float */}
-          <div
-            className="relative flex justify-center items-center flex-wrap gap-4 sm:gap-5"
-            style={{ transformStyle: 'preserve-3d', perspective: '800px' }}
-          >
-            {innerSkills.map((skill, idx) => {
-              const pos = innerPositions[idx]!
-              const color = innerColors[idx]!
-              return (
-                <motion.div
-                  key={skill}
-                  initial={{ opacity: 0, scale: 0.85, translateZ: 0 }}
-                  animate={inView ? { opacity: 1, scale: 1, translateZ: pos.z } : {}}
-                  transition={{ duration: 0.6, delay: 0.9 + idx * 0.1 }}
-                  className="tech-3d-item"
-                  style={{
-                    animationDelay: `${pos.floatDelay}s`,
-                    animationDuration: `${pos.floatDuration}s`,
-                  }}
-                >
-                  <div
-                    className="px-6 py-3 rounded-xl glass border whitespace-nowrap transition-all duration-300 group cursor-default"
-                    style={{ borderColor: `${color}33`, boxShadow: `0 0 15px ${color}11` }}
-                    onMouseEnter={(e) => {
-                      const el = e.currentTarget as HTMLElement
-                      el.style.borderColor = `${color}66`
-                      el.style.boxShadow = `0 0 25px ${color}33`
-                    }}
-                    onMouseLeave={(e) => {
-                      const el = e.currentTarget as HTMLElement
-                      el.style.borderColor = `${color}33`
-                      el.style.boxShadow = `0 0 15px ${color}11`
-                    }}
-                  >
-                    <span className="text-sm font-display tracking-wider font-medium" style={{ color }}>
-                      {t(`techstack.${skill}`)}
-                    </span>
-                  </div>
-                </motion.div>
-              )
-            })}
-          </div>
         </motion.div>
       </div>
     </section>
