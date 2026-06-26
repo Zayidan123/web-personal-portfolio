@@ -2426,7 +2426,7 @@ html {
 
 @keyframes tech-float-3d {
   0%, 100% { transform: translateY(0px) translateZ(0px); }
-  50% { transform: translateY(-8px) translateZ(10px); }
+  50% { transform: translateY(-5px) translateZ(6px); }
 }
 
 @keyframes tech-pulse-glow {
