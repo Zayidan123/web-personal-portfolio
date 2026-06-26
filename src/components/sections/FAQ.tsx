@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { ScrambleText } from '@/components/ui/ScrambleText'
@@ -13,14 +13,17 @@ export function FAQ() {
   const { t } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
 
   const toggle = (idx: number) => {
     setOpenIndex(prev => prev === idx ? null : idx)
   }
 
   return (
-    <section id="faq" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto" ref={ref}>
+    <section id="faq" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8" ref={parallaxRef}>
+      <motion.div className="max-w-3xl mx-auto" style={{ y }} ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -89,7 +92,7 @@ export function FAQ() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

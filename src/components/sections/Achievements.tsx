@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { ScrambleText } from '@/components/ui/ScrambleText'
@@ -14,10 +15,13 @@ const neonColors = ['#00f0ff', '#ff00aa', '#8b5cf6', '#00f0ff', '#ff00aa', '#8b5
 export function Achievements() {
   const { t } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
 
   return (
-    <section id="achievements" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto" ref={ref}>
+    <section id="achievements" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8" ref={parallaxRef}>
+      <motion.div className="max-w-5xl mx-auto" style={{ y }} ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -105,7 +109,7 @@ export function Achievements() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

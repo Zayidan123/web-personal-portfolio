@@ -30,6 +30,8 @@ import { ScrollSpy } from '@/components/ui/ScrollSpy'
 import { AdminPanel } from '@/components/ui/AdminPanel'
 import { AnalyticsTracker } from '@/components/ui/AnalyticsTracker'
 import { CopyrightProtection } from '@/components/ui/CopyrightProtection'
+import { PWARegister } from '@/components/ui/PWARegister'
+import { PWAInstallPrompt } from '@/components/ui/PWAInstallPrompt'
 import { useLanguageStore } from '@/store/language-store'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
@@ -82,6 +84,8 @@ export function PortfolioPage() {
       <AnalyticsTracker />
       <CopyrightProtection enabled={true} />
       <AdminPanel />
+      <PWARegister />
+      <PWAInstallPrompt />
     </div>
   )
 }

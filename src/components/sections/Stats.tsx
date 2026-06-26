@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useState, useRef, useCallback, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { Briefcase, Cpu, Users, HeartHandshake } from 'lucide-react'
@@ -69,10 +69,13 @@ function AnimatedCounter({ target, suffix, inView, duration = 2000 }: { target: 
 export function Stats() {
   const { t } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 })
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
 
   return (
-    <section id="stats" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto" ref={ref}>
+    <section id="stats" className="relative py-16 sm:py-20 px-4 sm:px-6 lg:px-8" ref={parallaxRef}>
+      <motion.div className="max-w-6xl mx-auto" style={{ y }} ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -120,7 +123,7 @@ export function Stats() {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -33,6 +33,21 @@ export function ThemeToggle() {
     // Determine target: switch between dark and light
     const targetTheme = theme === 'light' ? 'dark' : 'light'
 
+    // Theme transition overlay
+    const overlay = document.createElement('div')
+    overlay.id = 'theme-transition-overlay'
+    const overlayBg = targetTheme === 'light' ? '#ffffff' : '#050510'
+    Object.assign(overlay.style, {
+      position: 'fixed', inset: '0', zIndex: '9999',
+      background: overlayBg, pointerEvents: 'none', opacity: '0',
+    })
+    document.body.appendChild(overlay)
+    const anim = overlay.animate(
+      [{ opacity: 0 }, { opacity: 0.3 }, { opacity: 0 }],
+      { duration: 400, easing: 'ease-in-out' },
+    )
+    anim.onfinish = () => overlay.remove()
+
     // Clean up special theme classes
     document.documentElement.classList.remove('theme-3d', 'liquid-glass')
 

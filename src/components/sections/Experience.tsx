@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { experiences, formatDate } from '@/data/experiences'
@@ -9,12 +10,15 @@ export function Experience() {
   const { t, lang } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
   const [lineRef, lineInView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
 
   const locale = lang === 'id' ? 'id-ID' : 'en-US'
 
   return (
-    <section id="experience" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto" ref={ref}>
+    <section id="experience" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8" ref={parallaxRef}>
+      <motion.div className="max-w-4xl mx-auto" style={{ y }} ref={ref}>
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -121,7 +125,7 @@ export function Experience() {
             })}
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

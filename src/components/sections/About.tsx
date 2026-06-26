@@ -1,11 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { Target, Users, MessageSquare, Monitor, Video, Palette, Sparkles, GraduationCap, TrendingUp, Award, ShieldCheck, Code2, Terminal } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
 import { ScrambleText } from '@/components/ui/ScrambleText'
+import { SkillRadar } from '@/components/ui/SkillRadar'
 
 
 const skillCards = [
@@ -75,10 +77,13 @@ export function About() {
   const { t } = useLanguageStore()
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 })
   const [skillsRef, skillsInView] = useInView({ triggerOnce: true, threshold: 0.05 })
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
 
   return (
-    <section id="about" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto" ref={ref}>
+    <section id="about" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8" ref={parallaxRef}>
+      <motion.div className="max-w-6xl mx-auto" style={{ y }} ref={ref}>
         {/* Section Title */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -302,8 +307,26 @@ export function About() {
               </div>
             </motion.div>
           </div>
+
+          {/* Skills Radar Chart */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={skillsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 flex justify-center"
+          >
+            <div className="p-6 rounded-xl glass border border-[var(--glass-border)]">
+              <SkillRadar
+                skills={hardSkills.map(s => ({
+                  name: t(s.key).split('(')[0].trim().substring(0, 12),
+                  value: s.proficiency,
+                  color: s.proficiency >= 80 ? 'var(--neon-cyan)' : s.proficiency >= 65 ? 'var(--neon-purple)' : 'var(--neon-magenta)',
+                }))}
+              />
+            </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

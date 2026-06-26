@@ -5,9 +5,10 @@ import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useLanguageStore } from '@/store/language-store'
 import { useToastStore } from '@/store/toast-store'
-import { Mail, Phone, Linkedin, Github, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown, Check, Copy, Share2, ExternalLink, X, MessageCircle, Instagram, Gamepad2 } from 'lucide-react'
+import { Mail, Phone, Linkedin, Github, Send, CheckCircle, AlertCircle, Loader2, MapPin, FileDown, Check, Copy, Share2, ExternalLink, X, MessageCircle, Instagram, Gamepad2, QrCode } from 'lucide-react'
 import { TiltCard } from '@/components/ui/TiltCard'
 import { ScrambleText } from '@/components/ui/ScrambleText'
+import QRCode from 'qrcode'
 
 type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
@@ -20,6 +21,15 @@ function buildShareOptions(shareUrl: string, copyLinkLabel: string, shareText: s
   ] as const
 }
 
+const VCARD_TEXT = `BEGIN:VCARD
+VERSION:3.0
+FN:Zayidan Muttaqin
+TEL:+6281252643578
+EMAIL:zayidan34@gmail.com
+URL:https://github.com/Zayidan123
+ADR:;;Banyuwangi;;;Indonesia
+END:VCARD`
+
 export function Contact() {
   const { t } = useLanguageStore()
   const { addToast } = useToastStore()
@@ -29,6 +39,23 @@ export function Contact() {
   const [copiedField, setCopiedField] = useState<string | null>(null)
   const [shareOpen, setShareOpen] = useState(false)
   const shareDropdownRef = useRef<HTMLDivElement>(null)
+  const [qrDataUrl, setQrDataUrl] = useState<string>('')
+
+  // Generate QR code for vCard
+  useEffect(() => {
+    QRCode.toDataURL(VCARD_TEXT, {
+      width: 120,
+      margin: 1,
+      color: { dark: '#00F5FF', light: '#05051000' },
+    }).then((url: string) => {
+      setQrDataUrl(url)
+    }).catch(() => {
+      // fallback: generate with default colors
+      QRCode.toDataURL(VCARD_TEXT, { width: 120, margin: 1 }).then((url: string) => {
+        setQrDataUrl(url)
+      }).catch(() => { /* ignore */ })
+    })
+  }, [])
 
   const getShareUrl = () => { if (typeof window !== 'undefined') return window.location.href; return '' }
   const getShareOptions = useCallback(() => buildShareOptions(getShareUrl(), t('contact.copyLink'), t('contact.shareText')), [t])
@@ -116,6 +143,28 @@ export function Contact() {
                 </a>
               )
             })}
+
+            {/* QR Code Card */}
+            {qrDataUrl && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                className="flex items-center gap-4 p-4 rounded-xl glass border border-[var(--glass-border)] glass-card-advanced transition-all duration-300 group"
+                style={{ '--hover-glow': 'var(--neon-cyan)' } as React.CSSProperties}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 20px var(--neon-cyan)33' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = 'none' }}
+              >
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 border" style={{ color: 'var(--neon-cyan)', borderColor: 'rgba(0,245,255,0.2)', backgroundColor: 'rgba(0,245,255,0.05)' }}>
+                  <QrCode className="h-5 w-5" />
+                </div>
+                <div className="flex-1 flex flex-col items-center">
+                  <img src={qrDataUrl} alt="vCard QR Code" className="w-[120px] h-[120px] rounded-lg mb-2" />
+                  <p className="text-[10px] font-mono-custom text-[var(--text-secondary)] tracking-wider">{t('contact.scanToSave')}</p>
+                </div>
+              </motion.div>
+            )}
+
             {shareOpen && (
               <div ref={shareDropdownRef} className="relative z-50">
                 <motion.div initial={{ opacity: 0, scale: 0.95, y: 8 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 8 }} transition={{ duration: 0.2 }} className="p-2 rounded-xl glass border border-[var(--glass-border)] bg-[var(--dark-base)]/95 backdrop-blur-xl shadow-[0_0_30px_rgba(0,240,255,0.1)] min-w-[200px]">
@@ -130,7 +179,7 @@ export function Contact() {
               </div>
             )}
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.3 }} className="lg:col-span-3">
+          <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.6, delay: 0.3 }} className="lg:col-span-3 space-y-6">
             <TiltCard maxTilt={4}><div className="relative p-6 sm:p-8 rounded-xl glass border border-[var(--glass-border)] glass-noise">
               <div className="absolute -top-px -left-px w-5 h-5 border-t-2 border-l-2 border-[var(--neon-cyan)]" /><div className="absolute -top-px -right-px w-5 h-5 border-t-2 border-r-2 border-[var(--neon-magenta)]" /><div className="absolute -bottom-px -left-px w-5 h-5 border-b-2 border-l-2 border-[var(--neon-magenta)]" /><div className="absolute -bottom-px -right-px w-5 h-5 border-b-2 border-r-2 border-[var(--neon-cyan)]" />
               {formStatus === 'success' ? (
@@ -157,6 +206,29 @@ export function Contact() {
                 </form>
               )}
             </div></TiltCard>
+
+            {/* Feature 1: Interactive Location Map */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="map-card relative p-4 sm:p-5 rounded-xl glass border border-[var(--glass-border)] overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,245,255,0.15)] hover:border-[var(--neon-cyan)]/30"
+            >
+              <h3 className="font-display text-xs sm:text-sm font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-[var(--neon-cyan)]" />
+                {t('contact.mapTitle')}
+              </h3>
+              <div className="rounded-lg overflow-hidden" style={{ height: '200px' }}>
+                <iframe
+                  title="Banyuwangi Location"
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=114.2871%2C-8.2586%2C114.4471%2C-8.1786&layer=mapnik&marker=-8.2186%2C114.3671"
+                  style={{ width: '100%', height: '100%', border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

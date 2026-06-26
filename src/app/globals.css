@@ -2572,3 +2572,12 @@ html {
     animation: none !important;
   }
 }
+
+/* ===== MAP CARD ===== */
+.map-card iframe {
+  border: 0;
+  filter: saturate(0.8) brightness(0.85) contrast(1.1);
+}
+.light .map-card iframe {
+  filter: saturate(1) brightness(1) contrast(1);
+}

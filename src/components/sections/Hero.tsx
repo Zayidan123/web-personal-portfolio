@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { Download, MapPin } from 'lucide-react'
 import { ParticleBackground } from '@/components/ui/ParticleBackground'
 import { NeonButton } from '@/components/ui/NeonButton'
@@ -16,6 +16,24 @@ export function Hero() {
   const [typingDone, setTypingDone] = useState(false)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const isDark = theme === 'dark'
+  const parallaxRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] })
+  const y = useTransform(scrollYProgress, [0, 1], [-15, 15])
+
+  // Multi-line typing effect refs
+  const lineIndexRef = useRef(0)
+  const charIndexRef = useRef(0)
+  const isDeletingRef = useRef(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const taglinesRef = useRef<string[]>([])
+  const startedRef = useRef(false)
+
+  const clearTypingTimeout = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+  }, [])
 
   useEffect(() => {
     const handleMouse = (e: MouseEvent) => {
@@ -27,36 +45,79 @@ export function Hero() {
     return () => window.removeEventListener('mousemove', handleMouse)
   }, [])
 
-  const tagline = t('hero.tagline')
-
-  const typeTagline = useCallback(() => {
-    setDisplayedTagline('')
-    setTypingDone(false)
-    let i = 0
-    const interval = setInterval(() => {
-      if (i < tagline.length) {
-        setDisplayedTagline(tagline.slice(0, i + 1))
-        i++
-      } else {
-        setTypingDone(true)
-        clearInterval(interval)
-      }
-    }, 25)
-    return () => clearInterval(interval)
-  }, [tagline])
-
+  // Glitch timer
   useEffect(() => {
     const glitchTimer = setTimeout(() => setGlitchDone(true), 1000)
-    const typingTimer = setTimeout(() => typeTagline(), 1200)
-    return () => {
-      clearTimeout(glitchTimer)
-      clearTimeout(typingTimer)
-    }
-  }, [typeTagline])
+    return () => clearTimeout(glitchTimer)
+  }, [])
+
+  // Main typing loop
+  useEffect(() => {
+    // Update taglines when lang changes
+    taglinesRef.current = [
+      t('hero.tagline'),
+      t('hero.tagline2'),
+      t('hero.tagline3'),
+    ]
+  }, [lang, t])
 
   useEffect(() => {
-    typeTagline()
-  }, [lang, typeTagline])
+    const startDelay = setTimeout(() => {
+      startedRef.current = true
+      lineIndexRef.current = 0
+      charIndexRef.current = 0
+      isDeletingRef.current = false
+      setDisplayedTagline('')
+      setTypingDone(false)
+
+      const tick = () => {
+        const taglines = taglinesRef.current
+        if (!taglines.length) { timeoutRef.current = setTimeout(tick, 100); return }
+
+        const currentLine = taglines[lineIndexRef.current % taglines.length]
+
+        if (!isDeletingRef.current) {
+          // Typing forward
+          charIndexRef.current++
+          setDisplayedTagline(currentLine.slice(0, charIndexRef.current))
+
+          if (charIndexRef.current >= currentLine.length) {
+            setTypingDone(true)
+            // Pause 2s at full text
+            timeoutRef.current = setTimeout(() => {
+              isDeletingRef.current = true
+              tick()
+            }, 2000)
+            return
+          }
+          // Continue typing at 60ms
+          timeoutRef.current = setTimeout(tick, 60)
+        } else {
+          // Deleting
+          charIndexRef.current--
+          setDisplayedTagline(currentLine.slice(0, charIndexRef.current))
+          setTypingDone(false)
+
+          if (charIndexRef.current <= 0) {
+            isDeletingRef.current = false
+            lineIndexRef.current = (lineIndexRef.current + 1) % taglines.length
+            // Pause 500ms before next line
+            timeoutRef.current = setTimeout(tick, 500)
+            return
+          }
+          // Continue deleting at 30ms
+          timeoutRef.current = setTimeout(tick, 30)
+        }
+      }
+
+      tick()
+    }, 1200)
+
+    return () => {
+      clearTimeout(startDelay)
+      clearTypingTimeout()
+    }
+  }, [lang, clearTypingTimeout])
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -66,6 +127,7 @@ export function Hero() {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      ref={parallaxRef}
     >
       {/* Particle Background */}
       <ParticleBackground />
@@ -153,7 +215,7 @@ export function Hero() {
       <div className="absolute bottom-8 right-8 w-8 h-8 border-b-2 border-r-2 border-[var(--neon-magenta)] opacity-30 hidden sm:block" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto transition-transform duration-300 ease-out" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)` }}>
+      <motion.div className="relative z-10 text-center px-4 max-w-4xl mx-auto transition-transform duration-300 ease-out" style={{ transform: `translate(${mousePos.x * -8}px, ${mousePos.y * -8}px)`, y }}>
         {/* Greeting */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -204,7 +266,7 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Tagline with typing effect */}
+        {/* Tagline with multi-line typing effect */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -247,7 +309,7 @@ export function Hero() {
             {t('hero.downloadCV')}
           </NeonButton>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div

@@ -68,6 +68,21 @@ export function ThemeCustomizer() {
   }, [])
 
   const applyPreset = useCallback((preset: Preset) => {
+    // Theme transition overlay
+    const overlay = document.createElement('div')
+    overlay.id = 'theme-transition-overlay'
+    const overlayBg = (preset.themeMode === 'liquid-glass' || preset.themeMode === 'light') ? '#ffffff' : '#050510'
+    Object.assign(overlay.style, {
+      position: 'fixed', inset: '0', zIndex: '9999',
+      background: overlayBg, pointerEvents: 'none', opacity: '0',
+    })
+    document.body.appendChild(overlay)
+    const anim = overlay.animate(
+      [{ opacity: 0 }, { opacity: 0.3 }, { opacity: 0 }],
+      { duration: 400, easing: 'ease-in-out' },
+    )
+    anim.onfinish = () => overlay.remove()
+
     applyPresetColors(preset)
     const colors = { cyan: preset.cyan, magenta: preset.magenta, purple: preset.purple }
     setActiveColors(colors)
