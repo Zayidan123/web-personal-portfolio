@@ -100,3 +100,49 @@ Stage Summary:
 - Zero console errors
 - Lint passes (0 errors, 1 pre-existing warning)
 - Pushed to GitHub: commit bdbb8f6
+
+---
+Task ID: 3
+Agent: Main Agent
+Task: 3D dynamic lighting, neon glow borders, new hard skills, 3D tech stack orbit
+
+Work Log:
+- Created `use3DLightSource` hook (src/hooks/use3DLightSource.ts):
+  - Tracks mouse position globally with requestAnimationFrame loop
+  - Sets CSS custom properties on `<html>`: `--light-x` (-1 to 1), `--light-y` (-1 to 1), `--light-px`, `--light-py`
+  - Only active when theme === 'theme-3d'; cleans up vars when switching away
+  - Wired into Theme3DBackground component
+
+- Added ~170 lines of dynamic 3D lighting CSS to globals.css:
+  - Vibrant neon glow border on `.glass:hover` and `.glass-card-advanced:hover` using `calc()` with `--light-x`/`--light-y` for intensity
+  - Dynamic ambient occlusion: shadow offsets shift opposite to light source direction
+  - Neon glow follows light: positive offset toward light, negative offset away
+  - Secondary magenta glow on shadow-side edge
+  - Inset highlight on light-facing edge, inset shadow on opposite edge
+  - Applied to ALL card types: glass, glass-hover-glow, experience, FAQ, contact, achievement, stats
+  - Added tech stack 3D orbital CSS classes (orbit-outer-3d, orbit-inner-3d, tech-float-3d, tech-pulse-glow)
+  - Updated reduced motion to cover all new animations
+
+- Added 2 new Hard Skills to About.tsx:
+  - Software Development Dasar Fundamental (Code2 icon, 60% proficiency)
+  - Python Dasar Fundamental (Terminal icon, 55% proficiency)
+  - Updated stats count: 5 → 7 hard skills (both ID and EN)
+
+- Rewrote TechStack.tsx with 3D orbital animation:
+  - Normal mode: unchanged flat layout
+  - 3D mode (TechStack3D component): full 3D orbital layout
+  - Outer ring (7 skills): positioned on 480×200 ellipse, rotates via orbit-outer-3d (40s)
+  - Inner ring (4 skills): positioned on 300×130 ellipse, counter-rotates via orbit-inner-3d (35s)
+  - Center core: pulsing triple rings (cyan/magenta/purple) with "ZM" initials
+  - 2 visible orbit ring lines (elliptical with rotateX(25deg) for 3D perspective)
+  - Each item floats independently via tech-float-3d animation
+  - Hover pauses float animation, applies dynamic light-based shadows
+  - Each item positioned with translateZ for depth variation
+
+Stage Summary:
+- All 6 changes implemented and browser-verified
+- Mouse-following light source confirmed: --light-x changes from 0.000 to 0.250 on mouse move
+- 3D Tech Stack verified: orbitOuter ✅, orbitInner ✅, center ✅, 2 ringLines ✅, 11 items ✅
+- 7 hard skills confirmed in DOM (was 5)
+- Zero console errors, zero lint errors
+- Pushed to GitHub: commit f2ca0d6
