@@ -124,12 +124,12 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
   // Position outer skills in an ellipse (7 items)
   const outerPositions = outerSkills.map((_, i) => {
     const angle = (i / outerSkills.length) * Math.PI * 2 - Math.PI / 2
-    const rx = 220
-    const ry = 75
+    const rx = 300
+    const ry = 105
     return {
       x: Math.cos(angle) * rx,
       y: Math.sin(angle) * ry,
-      z: Math.sin(angle) * 50,
+      z: Math.sin(angle) * 60,
       delay: i * (40 / outerSkills.length),
     }
   })
@@ -137,19 +137,19 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
   // Position inner skills in a smaller ellipse (4 items)
   const innerPositions = innerSkills.map((_, i) => {
     const angle = (i / innerSkills.length) * Math.PI * 2 - Math.PI / 2
-    const rx = 130
-    const ry = 45
+    const rx = 200
+    const ry = 75
     return {
       x: Math.cos(angle) * rx,
       y: Math.sin(angle) * ry,
-      z: Math.sin(angle) * 35,
+      z: Math.sin(angle) * 45,
       delay: i * (35 / innerSkills.length),
     }
   })
 
   return (
     <section id="techstack" className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto" ref={ref}>
+      <div className="max-w-6xl mx-auto" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -170,15 +170,15 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
           initial={{ opacity: 0, scale: 0.8 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.2 }}
-          className="relative flex items-center justify-center"
-          style={{ minHeight: '420px', perspective: '900px' }}
+          className="relative flex items-center justify-center tech-3d-orbit-scaler"
+          style={{ minHeight: '540px', perspective: '900px', transition: 'transform 0.3s ease' }}
         >
           {/* Outer orbit ring visual */}
           <div
-            className="absolute tech-3d-ring-line"
+            className="absolute tech-3d-ring-line tech-3d-orbit-scaler-ring"
             style={{
-              width: 480,
-              height: 180,
+              width: 640,
+              height: 240,
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%) rotateX(25deg)',
@@ -187,10 +187,10 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
 
           {/* Inner orbit ring visual */}
           <div
-            className="absolute tech-3d-ring-line"
+            className="absolute tech-3d-ring-line tech-3d-orbit-scaler-ring"
             style={{
-              width: 300,
-              height: 120,
+              width: 420,
+              height: 160,
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%) rotateX(25deg)',
@@ -203,12 +203,12 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
           <div
             className="absolute tech-3d-orbit-outer"
             style={{
-              width: 480,
-              height: 180,
+              width: 640,
+              height: 240,
               top: '50%',
               left: '50%',
-              marginTop: -90,
-              marginLeft: -240,
+              marginTop: -120,
+              marginLeft: -320,
               transformStyle: 'preserve-3d',
             }}
           >
@@ -244,12 +244,12 @@ function TechStack3D({ t, inView, ref }: { t: (k: string) => string; inView: boo
           <div
             className="absolute tech-3d-orbit-inner"
             style={{
-              width: 300,
-              height: 120,
+              width: 420,
+              height: 160,
               top: '50%',
               left: '50%',
-              marginTop: -60,
-              marginLeft: -150,
+              marginTop: -80,
+              marginLeft: -210,
               transformStyle: 'preserve-3d',
             }}
           >

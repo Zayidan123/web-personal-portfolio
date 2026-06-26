@@ -2495,6 +2495,24 @@ html {
   box-shadow: 0 0 15px rgba(0, 245, 255, 0.04);
 }
 
+/* Responsive orbit scaling for smaller screens */
+@media (max-width: 768px) {
+  .theme-3d .tech-3d-orbit-scaler {
+    transform: scale(0.6);
+  }
+  .theme-3d .tech-3d-orbit-scaler-ring {
+    transform: scale(0.6) !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .theme-3d .tech-3d-orbit-scaler {
+    transform: scale(0.82);
+  }
+  .theme-3d .tech-3d-orbit-scaler-ring {
+    transform: scale(0.82) !important;
+  }
+}
+
 /* ===== 3D THEME: REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
   .theme-3d-cube,
